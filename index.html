@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bara+ — Livraison à domicile Ali Sabieh</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C62828;
+    --red-dark: #8B0000;
+    --red-light: #EF5350;
+    --orange: #E65100;
+    --orange-light: #FF8F00;
+    --yellow: #FFB300;
+    --yellow-light: #FFD54F;
+    --white: #FFFFFF;
+    --gray-light: #FFF8F0;
+    --gray: #F5F0EB;
+    --text-dark: #1A0000;
+    --text-mid: #4A1010;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: var(--red-dark);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+  .logo-img { height: 52px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+  nav { display: flex; gap: 32px; align-items: center; }
+  nav a {
+    color: var(--yellow-light); text-decoration: none;
+    font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 14px;
+    letter-spacing: 0.5px; transition: color 0.2s;
+  }
+  nav a:hover { color: var(--white); }
+  .btn-nav {
+    background: var(--yellow); color: var(--red-dark) !important;
+    padding: 10px 22px; border-radius: 50px;
+    font-weight: 700 !important; font-size: 14px !important;
+    transition: all 0.2s !important; box-shadow: 0 3px 12px rgba(255,179,0,0.4);
+  }
+  .btn-nav:hover { background: var(--yellow-light) !important; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh; padding-top: 70px;
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, var(--orange) 100%);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content { width: 55%; padding: 0 5% 0 8%; position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-block; background: var(--yellow);
+    color: var(--red-dark); padding: 6px 18px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(255,179,0,0.5);
+    animation: pulse-badge 2s infinite;
+  }
+  @keyframes pulse-badge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: clamp(36px, 5vw, 62px); line-height: 1.1;
+    color: var(--white); margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .hero h1 span { color: var(--yellow); }
+  .hero p {
+    font-size: 18px; color: rgba(255,255,255,0.88);
+    line-height: 1.7; margin-bottom: 36px; max-width: 480px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--yellow); color: var(--red-dark);
+    padding: 16px 32px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 16px;
+    text-decoration: none; transition: all 0.25s;
+    box-shadow: 0 6px 25px rgba(255,179,0,0.5);
+    animation: bounce-btn 3s infinite;
+  }
+  @keyframes bounce-btn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+  .btn-primary:hover { background: var(--white); transform: translateY(-3px) !important; box-shadow: 0 10px 30px rgba(255,179,0,0.6); animation: none; }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--white);
+    padding: 16px 32px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.5);
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 16px;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.15); border-color: var(--white); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 48px;
+    padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 28px; color: var(--yellow); }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+  .hero-visual {
+    width: 45%; display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .hero-circle {
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,179,0,0.2) 0%, rgba(255,255,255,0.05) 70%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+  .hero-circle::before {
+    content: '🛵'; font-size: 140px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+  }
+  .badge-float {
+    position: absolute; background: var(--white); border-radius: 16px;
+    padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    font-family: 'Poppins', sans-serif; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge-float.b1 { top: 60px; left: -20px; color: var(--red); font-size: 13px; animation: float-b 3s ease-in-out infinite 0.5s; }
+  .badge-float.b2 { bottom: 80px; right: -20px; color: var(--orange); font-size: 13px; animation: float-b 3s ease-in-out infinite 1s; }
+  @keyframes float-b { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { padding: 100px 8%; background: var(--white); }
+  .section-tag {
+    display: inline-block; background: rgba(198,40,40,0.1);
+    color: var(--red); padding: 6px 18px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif; font-weight: 800;
+    font-size: clamp(28px, 4vw, 42px); line-height: 1.2;
+    color: var(--text-dark); margin-bottom: 12px;
+  }
+  .section-title span { color: var(--red); }
+  .section-sub { font-size: 17px; color: #666; line-height: 1.7; max-width: 520px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
+  .step {
+    background: var(--gray-light); border-radius: 24px; padding: 40px 32px;
+    text-align: center; position: relative; transition: all 0.3s;
+    border: 2px solid transparent;
+  }
+  .step:hover { transform: translateY(-8px); border-color: var(--yellow); box-shadow: 0 20px 50px rgba(198,40,40,0.12); }
+  .step-num {
+    position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+    width: 36px; height: 36px; background: var(--red); color: var(--white);
+    border-radius: 50%; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(198,40,40,0.4);
+  }
+  .step-icon { font-size: 56px; margin-bottom: 20px; }
+  .step h3 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 12px; color: var(--text-dark); }
+  .step p { font-size: 15px; color: #666; line-height: 1.6; }
+
+  /* ─── SERVICES ─── */
+  .services {
+    padding: 100px 8%;
+    background: linear-gradient(180deg, var(--gray) 0%, var(--gray-light) 100%);
+  }
+  .services-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 60px; }
+  .service-card {
+    background: var(--white); border-radius: 28px;
+    overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 420px; transition: all 0.3s;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(198,40,40,0.15); }
+  .service-info {
+    padding: 56px 48px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .service-tag {
+    display: inline-block; background: rgba(198,40,40,0.1);
+    color: var(--red); padding: 5px 14px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; width: fit-content;
+  }
+  .service-info h2 {
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 36px;
+    color: var(--text-dark); margin-bottom: 16px; line-height: 1.2;
+  }
+  .service-info h2 span { color: var(--red); }
+  .service-info p { font-size: 16px; color: #666; line-height: 1.7; margin-bottom: 28px; }
+  .service-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .service-features li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; color: var(--text-mid); font-weight: 500;
+  }
+  .service-features li::before {
+    content: '✓'; width: 22px; height: 22px; background: var(--red);
+    color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0;
+  }
+  .service-price {
+    display: flex; align-items: baseline; gap: 6px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .price-from { font-size: 14px; color: #999; }
+  .price-amount { font-size: 32px; font-weight: 800; color: var(--red); }
+  .price-unit { font-size: 14px; color: #999; }
+  .service-visual {
+    background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 120px; position: relative; overflow: hidden;
+  }
+  .service-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .emoji-big { position: relative; z-index: 1; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3)); animation: float 4s ease-in-out infinite; }
+
+  /* ─── PASS ─── */
+  .pass-section { padding: 100px 8%; background: var(--white); }
+  .pass-header { text-align: center; margin-bottom: 60px; }
+  .pass-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .pass-card {
+    border-radius: 24px; padding: 36px 28px; text-align: center;
+    transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+    background: var(--gray-light); border: 2px solid transparent;
+  }
+  .pass-card:hover { transform: translateY(-10px); }
+  .pass-card.featured {
+    background: linear-gradient(135deg, var(--red-dark), var(--orange));
+    color: white; border-color: var(--yellow);
+    box-shadow: 0 15px 50px rgba(198,40,40,0.35);
+  }
+  .pass-card.featured::before {
+    content: '⭐ POPULAIRE'; position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--yellow); color: var(--red-dark);
+    padding: 4px 14px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 10px;
+    letter-spacing: 1px; white-space: nowrap;
+  }
+  .pass-icon { font-size: 42px; margin-bottom: 16px; margin-top: 24px; }
+  .pass-name {
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .pass-card:not(.featured) .pass-name { color: var(--red-dark); }
+  .pass-card.featured .pass-name { color: var(--yellow); }
+  .pass-price-box { margin: 20px 0; }
+  .pass-price {
+    font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 38px; line-height: 1;
+  }
+  .pass-card:not(.featured) .pass-price { color: var(--red); }
+  .pass-card.featured .pass-price { color: var(--white); }
+  .pass-period { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .pass-divider { height: 1px; background: rgba(0,0,0,0.08); margin: 20px 0; }
+  .pass-card.featured .pass-divider { background: rgba(255,255,255,0.2); }
+  .pass-perks { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .pass-perks li { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.4; }
+  .pass-card:not(.featured) .pass-perks li { color: var(--text-mid); }
+  .pass-card.featured .pass-perks li { color: rgba(255,255,255,0.9); }
+  .perk-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; margin-top: 1px; }
+  .pass-card:not(.featured) .perk-check { background: var(--red); color: white; }
+  .pass-card.featured .perk-check { background: var(--yellow); color: var(--red-dark); }
+  .pass-btn {
+    width: 100%; padding: 14px; border-radius: 50px; border: none; cursor: pointer;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+    transition: all 0.25s;
+  }
+  .pass-card:not(.featured) .pass-btn { background: var(--red); color: white; }
+  .pass-card:not(.featured) .pass-btn:hover { background: var(--red-dark); transform: scale(1.02); }
+  .pass-card.featured .pass-btn { background: var(--yellow); color: var(--red-dark); box-shadow: 0 6px 20px rgba(255,179,0,0.5); }
+  .pass-card.featured .pass-btn:hover { background: var(--yellow-light); transform: scale(1.02); }
+
+  /* ─── ZONES ─── */
+  .zones { padding: 100px 8%; background: var(--gray); }
+  .zones-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .zone-map {
+    background: linear-gradient(135deg, var(--red-dark), var(--red), var(--orange));
+    border-radius: 28px; padding: 40px; min-height: 360px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(198,40,40,0.3);
+  }
+  .zone-map-text { text-align: center; position: relative; z-index: 1; }
+  .zone-map-icon { font-size: 80px; margin-bottom: 16px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3)); }
+  .zone-map h3 { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 24px; color: var(--white); margin-bottom: 8px; }
+  .zone-map p { color: rgba(255,255,255,0.8); font-size: 15px; }
+  .zone-list { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+  .zone-item {
+    background: var(--white); border-radius: 16px; padding: 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: all 0.3s;
+    border-left: 4px solid transparent;
+  }
+  .zone-item:hover { transform: translateX(6px); border-left-color: var(--red); }
+  .zone-item-left { display: flex; align-items: center; gap: 16px; }
+  .zone-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .zone-dot.normal { background: var(--red); }
+  .zone-dot.far { background: var(--orange); }
+  .zone-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 16px; color: var(--text-dark); }
+  .zone-desc { font-size: 13px; color: #999; margin-top: 2px; }
+  .zone-price { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 20px; color: var(--red); }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { padding: 100px 8%; background: var(--white); }
+  .testimonials-header { text-align: center; margin-bottom: 60px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .review-card {
+    background: var(--gray-light); border-radius: 24px; padding: 36px 32px;
+    transition: all 0.3s; position: relative;
+  }
+  .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+  .review-card::before {
+    content: '"'; position: absolute; top: 20px; right: 24px;
+    font-size: 80px; color: rgba(198,40,40,0.1); font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .stars { font-size: 20px; margin-bottom: 20px; }
+  .review-text { font-size: 16px; color: #555; line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 14px; }
+  .reviewer-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 18px; color: white;
+  }
+  .reviewer-name { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; color: var(--text-dark); }
+  .reviewer-loc { font-size: 13px; color: #999; margin-top: 2px; }
+
+  /* ─── CTA ─── */
+  .cta {
+    padding: 100px 8%;
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 40%, var(--orange) 100%);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .cta-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .cta h2 {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: clamp(32px, 5vw, 52px); color: var(--white); margin-bottom: 16px;
+  }
+  .cta h2 span { color: var(--yellow); }
+  .cta p { font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 48px; line-height: 1.6; }
+  .cta-number {
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 28px;
+    color: var(--yellow); margin-bottom: 36px; letter-spacing: 1px;
+  }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25D366; color: white;
+    padding: 18px 38px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px;
+    text-decoration: none; transition: all 0.25s;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+  }
+  .btn-whatsapp:hover { background: #128C7E; transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,0.6); }
+  .cta-info { display: flex; gap: 40px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+  .cta-info-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.85); font-size: 15px; }
+  .cta-info-item strong { color: var(--yellow); font-family: 'Poppins', sans-serif; font-weight: 700; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text-dark); padding: 60px 8% 32px;
+    color: rgba(255,255,255,0.7);
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand img { height: 52px; margin-bottom: 20px; filter: brightness(0) invert(1) opacity(0.9); }
+  .footer-brand p { font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+    text-decoration: none; transition: all 0.25s;
+  }
+  .social-btn:hover { background: var(--red); transform: translateY(-3px); }
+  .footer-col h4 {
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 14px;
+    color: var(--white); letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.65); text-decoration: none; font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--yellow); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom span { color: var(--yellow); font-weight: 600; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .hero { flex-direction: column; padding: 100px 6% 60px; text-align: center; }
+    .hero-content { width: 100%; padding: 0; }
+    .hero-visual { width: 100%; margin-top: 40px; }
+    .hero-circle { width: 300px; height: 300px; }
+    .hero-circle::before { font-size: 100px; }
+    .hero-stats { justify-content: center; }
+    .hero-btns { justify-content: center; }
+    .steps { grid-template-columns: 1fr; }
+    .service-card { grid-template-columns: 1fr; }
+    .service-visual { min-height: 200px; font-size: 80px; }
+    .pass-grid { grid-template-columns: repeat(2, 1fr); }
+    .zones-inner { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .badge-float { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="header">
+  <img src="data:image/png;base64,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" alt="Logo Bara+" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+  <div style="display:none; font-family:'Poppins',sans-serif; font-weight:900; font-size:24px; color:#FFB300; letter-spacing:1px;">BARA<span style="color:#fff">+</span></div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#pass">Nos Pass</a>
+    <a href="#zones">Zones</a>
+    <a href="#avis">Avis</a>
+    <a href="#commander" class="btn-nav">📱 Commander</a>
+  </nav>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="accueil">
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Nouveau à Ali Sabieh</div>
+    <h1>Vos repas<br>livrés en <span>30 min</span><br>à domicile</h1>
+    <p>Bara+ révolutionne la livraison à Ali Sabieh. Commandez depuis chez vous, on s'occupe du reste. Rapide, fiable, abordable.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/253XXXXXXXX?text=Bonjour%20Bara%2B%20je%20veux%20commander" class="btn-primary" target="_blank">
+        💬 Commander sur WhatsApp
+      </a>
+      <a href="#pass" class="btn-secondary">
+        🎟️ Voir les Pass
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">30<span style="font-size:18px">min</span></div>
+        <div class="stat-label">Livraison garantie</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">150<span style="font-size:18px">FDJ</span></div>
+        <div class="stat-label">À partir de</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7<span style="font-size:18px">j/7</span></div>
+        <div class="stat-label">Disponible</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-circle">
+      <div class="badge-float b1">⏱️ 30 min chrono !</div>
+      <div class="badge-float b2">💰 Dès 150 FDJ</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how" id="comment">
+  <div class="section-tag">Simple et rapide</div>
+  <h2 class="section-title">Comment ça <span>marche</span> ?</h2>
+  <p class="section-sub">En 3 étapes simples, votre repas arrive à votre porte. Pas besoin de se déplacer, pas besoin d'attendre.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">💬</div>
+      <h3>Vous commandez</h3>
+      <p>Envoyez "Bonjour" sur notre WhatsApp. Notre coordinateur vous répond en moins de 2 minutes avec le menu et les prix.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">🏪</div>
+      <h3>On prépare</h3>
+      <p>Nous allons chercher votre commande au restaurant de votre choix. Tout est géré par notre équipe dédiée.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">🛵</div>
+      <h3>Livré chez vous</h3>
+      <p>Notre livreur vous livre directement à votre porte en moins de 30 minutes. Vous payez cash ou D-Money.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section class="services" id="services">
+  <div style="text-align:center; margin-bottom:60px;">
+    <div class="section-tag">Ce qu'on fait</div>
+    <h2 class="section-title">Bara+ <span>Food</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Le meilleur des restaurants d'Ali Sabieh, livré directement à votre porte.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-info">
+        <div class="service-tag">🍔 Service principal</div>
+        <h2><span>Bara+</span> Food</h2>
+        <p>Commandez depuis vos restaurants préférés à Ali Sabieh. Shawarma, riz, jus, tout ce que vous voulez — livré chaud et rapide.</p>
+        <ul class="service-features">
+          <li>Tous les restaurants de la ville</li>
+          <li>Livraison en 25-30 minutes</li>
+          <li>Paiement Cash, D-Money ou Waffi</li>
+          <li>Disponible 7j/7 de 11h à 22h</li>
+          <li>Livreurs vérifiés et fiables</li>
+        </ul>
+        <div class="service-price">
+          <span class="price-from">À partir de</span>
+          <span class="price-amount">150 FDJ</span>
+          <span class="price-unit">/ livraison</span>
+        </div>
+      </div>
+      <div class="service-visual">
+        <div class="emoji-big">🍔</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PASS ─── -->
+<section class="pass-section" id="pass">
+  <div class="pass-header">
+    <div class="section-tag">Économisez plus</div>
+    <h2 class="section-title">Nos <span>Pass</span> Mensuels</h2>
+    <p class="section-sub" style="margin:0 auto; text-align:center;">Abonnez-vous et économisez chaque mois. Plus vous commandez, plus vous économisez.</p>
+  </div>
+  <div class="pass-grid">
+
+    <!-- Pass Relais -->
+    <div class="pass-card">
+      <div class="pass-icon">📍</div>
+      <div class="pass-name">Pass Relais</div>
+      <div class="pass-price-box">
+        <div class="pass-price">1 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 15 livraisons au point relais</li>
+        <li><span class="perk-check">✓</span> Notification WhatsApp</li>
+        <li><span class="perk-check">✓</span> Commandes prioritaires</li>
+        <li><span class="perk-check">✓</span> Prix bloqué à vie</li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/253XXXXXXXX?text=Je%20veux%20le%20Pass%20Relais%201000FDJ','_blank')">
+        S'abonner maintenant →
+      </button>
+    </div>
+
+    <!-- Pass Standard -->
+    <div class="pass-card">
+      <div class="pass-icon">🏠</div>
+      <div class="pass-name">Pass Standard</div>
+      <div class="pass-price-box">
+        <div class="pass-price">2 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 10 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> 5 livraisons point relais</li>
+        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
+        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/253XXXXXXXX?text=Je%20veux%20le%20Pass%20Standard%202000FDJ','_blank')">
+        S'abonner maintenant →
+      </button>
+    </div>
+
+    <!-- Pass Confort — FEATURED -->
+    <div class="pass-card featured">
+      <div class="pass-icon">⭐</div>
+      <div class="pass-name">Pass Confort</div>
+      <div class="pass-price-box">
+        <div class="pass-price">3 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 15 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> 10 livraisons point relais</li>
+        <li><span class="perk-check">✓</span> 4 courses Bajaj / mois</li>
+        <li><span class="perk-check">✓</span> Priorité HAUTE dispatch</li>
+        <li><span class="perk-check">✓</span> Prix bloqué à vie</li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/253XXXXXXXX?text=Je%20veux%20le%20Pass%20Confort%203000FDJ','_blank')">
+        Choisir ce pass →
+      </button>
+    </div>
+
+    <!-- Pass Premium -->
+    <div class="pass-card">
+      <div class="pass-icon">💎</div>
+      <div class="pass-name">Pass Premium</div>
+      <div class="pass-price-box">
+        <div class="pass-price">5 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 20 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> Bajaj dispatché en 2 min</li>
+        <li><span class="perk-check">✓</span> 10 courses Bajaj incluses</li>
+        <li><span class="perk-check">✓</span> 1 service domicile / mois</li>
+        <li><span class="perk-check">✓</span> Priorité ABSOLUE</li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/253XXXXXXXX?text=Je%20veux%20le%20Pass%20Premium%205000FDJ','_blank')">
+        S'abonner maintenant →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── ZONES ─── -->
+<section class="zones" id="zones">
+  <div class="zones-inner">
+    <div>
+      <div class="section-tag">Là où on livre</div>
+      <h2 class="section-title">Nos <span>zones</span><br>de livraison</h2>
+      <p class="section-sub">Nous couvrons toute Ali Sabieh. Le prix dépend de votre quartier — toujours transparent, jamais de surprise.</p>
+      <div class="zone-list">
+        <div class="zone-item">
+          <div class="zone-item-left">
+            <div class="zone-dot normal"></div>
+            <div>
+              <div class="zone-name">Zone Normale</div>
+              <div class="zone-desc">Centre, Soubane, Hayableh et quartiers proches</div>
+            </div>
+          </div>
+          <div class="zone-price">150 FDJ</div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-item-left">
+            <div class="zone-dot far"></div>
+            <div>
+              <div class="zone-name">Zone Éloignée / Piste</div>
+              <div class="zone-desc">Quartiers périphériques et routes non asphaltées</div>
+            </div>
+          </div>
+          <div class="zone-price">250 FDJ</div>
+        </div>
+        <div class="zone-item" style="background: linear-gradient(135deg, rgba(198,40,40,0.05), rgba(230,81,0,0.05));">
+          <div class="zone-item-left">
+            <div class="zone-dot" style="background: var(--yellow);"></div>
+            <div>
+              <div class="zone-name">Commande +1 000 FDJ</div>
+              <div class="zone-desc">Zone normale uniquement</div>
+            </div>
+          </div>
+          <div class="zone-price" style="color: var(--orange);">GRATUIT</div>
+        </div>
+      </div>
+    </div>
+    <div class="zone-map">
+      <div class="zone-map-text">
+        <div class="zone-map-icon">🗺️</div>
+        <h3>Ali Sabieh</h3>
+        <p>Djibouti</p>
+        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 20px; color: white; font-size: 14px; font-weight: 600;">
+            📍 Vous êtes dans une autre zone ?
+          </div>
+          <a href="https://wa.me/253XXXXXXXX?text=Bonjour%20je%20veux%20vérifier%20si%20vous%20livrez%20dans%20mon%20quartier" 
+             target="_blank"
+             style="background: var(--yellow); color: var(--red-dark); border-radius: 12px; padding: 12px 20px; font-size: 14px; font-weight: 700; text-decoration: none; font-family: 'Poppins', sans-serif;">
+            💬 Vérifier sur WhatsApp →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="testimonials" id="avis">
+  <div class="testimonials-header">
+    <div class="section-tag">Ils nous font confiance</div>
+    <h2 class="section-title">Ce que disent nos <span>clients</span></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Bara+ m'a sauvé la vie ! Plus besoin de sortir sous la chaleur pour aller chercher mon déjeuner. La livraison était parfaite et rapide."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">F</div>
+        <div>
+          <div class="reviewer-name">Fatima Omar</div>
+          <div class="reviewer-loc">📍 Soubane</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card" style="background: linear-gradient(135deg, var(--red-dark), var(--orange)); color: white;">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Le pass mensuel vaut vraiment le prix. Je commande plusieurs fois par semaine et je fais des économies. Je recommande à tout le monde !"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background: var(--yellow); color: var(--red-dark);">A</div>
+        <div>
+          <div class="reviewer-name" style="color: var(--yellow);">Ahmed Ali</div>
+          <div class="reviewer-loc" style="color: rgba(255,255,255,0.7);">📍 Centre ville</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Le livreur était très professionnel. La commande était correcte et la nourriture encore chaude. Bara+ c'est vraiment pratique pour toute la famille."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">H</div>
+        <div>
+          <div class="reviewer-name">Hodan Ismail</div>
+          <div class="reviewer-loc">📍 Hayableh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA COMMANDER ─── -->
+<section class="cta" id="commander">
+  <div class="cta-content">
+    <h2>Prêt à commander<br>avec <span>Bara+</span> ?</h2>
+    <p>Envoyez simplement "Bonjour" sur notre WhatsApp et notre équipe s'occupe de tout. Votre repas arrive en 30 minutes.</p>
+    <div class="cta-number">📱 +253 XX XX XX XX</div>
+    <div class="cta-btns">
+      <a href="https://wa.me/253XXXXXXXX?text=Bonjour%20Bara%2B%20je%20veux%20commander" 
+         class="btn-whatsapp" target="_blank">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Commander sur WhatsApp
+      </a>
+    </div>
+    <div class="cta-info">
+      <div class="cta-info-item">🕐 <strong>11h – 22h</strong> · 7 jours sur 7</div>
+      <div class="cta-info-item">💳 <strong>Cash</strong> · D-Money · Waffi</div>
+      <div class="cta-info-item">⚡ Réponse en <strong>moins de 2 min</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="font-family:'Poppins',sans-serif; font-weight:900; font-size:28px; color:#FFB300; margin-bottom:16px;">BARA<span style="color:#fff">+</span></div>
+      <p>Le premier service de livraison à domicile d'Ali Sabieh. Rapide, fiable, abordable. Votre satisfaction est notre priorité.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Bara+ Food</a></li>
+        <li><a href="#pass">Nos Pass</a></li>
+        <li><a href="#zones">Zones de livraison</a></li>
+        <li><a href="#commander">Commander</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Pass</h4>
+      <ul>
+        <li><a href="#pass">Pass Relais — 1 000 FDJ</a></li>
+        <li><a href="#pass">Pass Standard — 2 000 FDJ</a></li>
+        <li><a href="#pass">Pass Confort — 3 000 FDJ</a></li>
+        <li><a href="#pass">Pass Premium — 5 000 FDJ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://wa.me/253XXXXXXXX">💬 WhatsApp</a></li>
+        <li><a href="#">📍 Ali Sabieh, Djibouti</a></li>
+        <li><a href="#">🕐 11h – 22h · 7j/7</a></li>
+        <li><a href="#">📧 bara.plus@email.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Bara+</span>
+    <span>Livraison à domicile · Ali Sabieh, Djibouti</span>
+    <span>Fait avec ❤️ pour Ali Sabieh</span>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll + active nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const h = document.getElementById('header');
+    if (window.scrollY > 50) {
+      h.style.background = 'rgba(139,0,0,0.97)';
+      h.style.backdropFilter = 'blur(10px)';
+    } else {
+      h.style.background = 'var(--red-dark)';
+      h.style.backdropFilter = 'none';
+    }
+  });
+
+  // Animate on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
