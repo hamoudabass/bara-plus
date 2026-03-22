@@ -24,7 +24,7 @@
       🛒 Panier
       <span id="cartBadge" class="cart-badge">0</span>
     </button>
-    <a href="https://wa.me/253XXXXXXXX" target="_blank" class="nav-cta">Commander →</a>
+    <a href="https://wa.me/25377784312" target="_blank" class="nav-cta">Commander →</a>
   </div>
 </nav>
 
@@ -152,14 +152,15 @@
 
   <!-- ← AJOUTER : poignée visuelle pour indiquer qu'on peut scroll -->
   <div style="
-    width:40px;height:4px;background:#E5E7EB;
-    border-radius:2px;margin:12px auto 4px;
-    flex-shrink:0;
-  "></div>
-    <div class="cart-header">
+    width:44px;height:5px;background:#E5E7EB;
+    border-radius:3px;margin:12px auto 4px;
+    "></div>
+    <div style="padding-bottom:40px"> 
+      <div class="cart-header">
       <div class="cart-title">🛒 Mon Panier <span id="cartCount" style="font-size:13px;color:var(--text2);font-weight:600"></span></div>
       <span class="cart-clear" onclick="clearCart()">Vider</span>
     </div>
+   </div>
 
     <div class="cart-resto-info" id="cartRestoInfo">
       <div class="cart-resto-emoji" id="cartRestoEmoji"></div>
@@ -220,15 +221,21 @@
           <select id="zoneSelect" onchange="updateDelivery()">
             <optgroup label="🟢 Zone Normale — 150 FDJ">
               <option value="150">Château d'eau — 150 FDJ</option>
+              <option value="150">Shell — 150 FDJ</option>
+              <option value="150">Arabta — 150 FDJ</option>
               <option value="150">Q.Ali — 150 FDJ</option>
+              <option value="150">Place — 150 FDJ</option>
               <option value="150">Feraad — 150 FDJ</option>
-              <option value="150">Sept Frères — 150 FDJ</option>
+              <option value="150">Sept Frères/Plateau Garanoucou — 150 FDJ</option>
             </optgroup>
             <optgroup label="🟡 Zone Éloignée — 250 FDJ">
+              <option value="250">Gohara — 250 FDJ</option>
+              <option value="250">Arta — 250 FDJ</option>
               <option value="250">Cité — 250 FDJ</option>
               <option value="250">Barwaqo — 250 FDJ</option>
               <option value="250">Main de lion — 250 FDJ</option>
               <option value="250">Iljano — 250 FDJ</option>
+              <option value="250">Jena — 250 FDJ</option>
             </optgroup>
           </select>
         </div>
@@ -372,8 +379,49 @@ function resetLocation() {
 // Déterminer la zone selon le quartier détecté
 function determinerZone(quartier) {
   const q = quartier.toLowerCase();
-  const normale = ['soubane', 'centre', 'medina', 'médina', 'hayableh', 'mairie', 'ali sabieh'];
-  const eloignee = ['piste', 'périphérie', 'peripherie', 'extension', 'gare', 'industrielle'];
+  const normale = [
+    // Vrais quartiers Ali Sabieh
+    'chateau',       // Château d'eau
+    'eau',           // Château d'eau
+    'shell',         // Shell
+    'arabta',        // Arabta
+    'q.ali',         // Q.Ali
+    'qali',          // Q.Ali sans point
+    'quartier ali',  // variante
+    'place',         // Place
+    'feraad',        // Feraad
+    'ferad',         // variante orthographe
+    'sept frere',    // Sept Frères
+    'plateau',       // Plateau Garanoucou
+    'garanoucou',    // Plateau Garanoucou
+    'garanouco',     // variante
+    // Noms généraux
+    'centre',
+    'ali sabieh',
+    'mairie',
+    'hopital',
+  ];
+
+  // ── ZONE ÉLOIGNÉE — 250 FDJ ──
+  const eloignee = [
+    'gohara',        // Gohara
+    'arta',          // Arta
+    'cite',          // Cité
+    'barwaqo',       // Barwaqo
+    'main de lion',  // Main de lion
+    'main lion',     // variante
+    'iljano',        // Iljano
+    'jena',          // Jena
+    // Zones générales éloignées
+    'industrielle',
+    'piste',
+    'route nationale',
+    'peripherie',
+    'extension',
+    'aeroport',
+    'holhol',
+    'ali adde',
+  ];
 
   if (normale.some(z => q.includes(z))) {
     return { nom: '🟢 Zone Normale', prix: 150 };
@@ -388,7 +436,7 @@ function determinerZone(quartier) {
 function determinerZone(quartier) {
   const q = quartier.toLowerCase();
 
-  const zoneNormale = ['soubane', 'centre', 'medina', 'hayableh', 'mairie'];
+  const zoneNormale = ["Chateau-d'Eau", 'centre', 'medina', 'hayableh', 'mairie'];
   const zoneEloignee = ['piste', 'périphérie', 'extension', 'gare'];
 
   if (zoneNormale.some(z => q.includes(z))) {

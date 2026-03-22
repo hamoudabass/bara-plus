@@ -273,7 +273,7 @@ display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);
 .cart-sidebar {
     position: fixed;
     bottom: 0; left: 0; right: 0; top: auto;
-    max-height: 75vh;          /* ← augmenté de 60% à 75% */
+    max-height: 90vh;          /* ← augmenté de 60% à 75% */
     border-radius: 24px 24px 0 0;
     z-index: 800;
     transform: translateY(100%);
@@ -281,6 +281,8 @@ display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);
     box-shadow: 0 -8px 40px rgba(0,0,0,0.15);/* ← LA CLÉ : scroll sur tout le sidebar */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; /* smooth scroll sur iPhone */
+    /* ← SUPPRIMER display:flex qui bloque le scroll */
+    display: block;
   }
 .cart-items {
     max-height: none;   /* ← enlever la limite fixe */
@@ -290,7 +292,7 @@ display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);
 /* Footer ne doit pas être sticky sur mobile */
 .cart-footer {
     position: static;  /* ← pas de position fixe */
-    flex-shrink: 0;
+    padding-bottom: 32px;  /* espace en bas pour le scroll */
   }
 .cart-sidebar.mobile-open{transform:translateY(0)}
 .cart-mobile-toggle{
