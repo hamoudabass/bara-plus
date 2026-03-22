@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurants — Bara+ Ali Sabieh</title>
+<link rel="shortcut icon" href="images/3.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/2.png" alt="">
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Accueil</a>
+    <a href="restaurants.html" class="nav-link active">Restaurants</a>
+    <a href="pass.html" class="nav-link">Pass</a>
+    <a href="zones.html" class="nav-link">Zones</a>
+    <button class="cart-nav-btn" onclick="toggleCartMobile()" id="cartNavBtn">
+      🛒 Panier
+      <span id="cartBadge" class="cart-badge">0</span>
+    </button>
+    <a href="https://wa.me/253XXXXXXXX" target="_blank" class="nav-cta">Commander →</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a> › <span>Restaurants</span>
+  </div>
+  <h1>Choisissez votre <span>restaurant</span></h1>
+  <p>Ajoutez des plats au panier et commandez via WhatsApp en 1 clic.</p>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-box">
+    <span style="color:var(--text2)">🔍</span>
+    <input type="text" id="searchInput" placeholder="Rechercher restaurant ou plat...">
+  </div>
+  <div class="filter-pills">
+    <div class="fp on" onclick="filter(this,'all')">🍽️ Tous</div>
+    <div class="fp" onclick="filter(this,'shawarma')">🥙 Shawarma</div>
+    <div class="fp" onclick="filter(this,'riz')">🍚 Riz</div>
+    <div class="fp" onclick="filter(this,'grillades')">🍗 Grillades</div>
+    <div class="fp" onclick="filter(this,'boissons')">🥤 Boissons</div>
+    <div class="fp" onclick="filter(this,'fastfood')">🍔 Fast Food</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: RESTAURANT CARDS -->
+  <div>
+    <div class="resto-count"><strong id="restoCount">6</strong> restaurants disponibles</div>
+    <div class="resto-grid" id="restoGrid">
+
+      <div class="rc fi" data-cat="shawarma" data-name="el amal" data-note="4.8" data-id="el-amal">
+        <div class="rc-img c1">🥙<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">El Amal</div><span class="rc-zone">Centre</span></div>
+          <div class="rc-meta"><span>⭐ 4.8</span><span>⏱️ 20-25 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Shawarma</span><span class="rc-tag">Grillades</span><span class="rc-tag">Jus</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('el-amal')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc fi" data-cat="riz" data-name="chez fatima" data-note="4.6" data-id="fatima">
+        <div class="rc-img c2">🍗<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">Chez Fatima</div><span class="rc-zone">Soubane</span></div>
+          <div class="rc-meta"><span>⭐ 4.6</span><span>⏱️ 25-30 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Poulet</span><span class="rc-tag">Riz</span><span class="rc-tag">Plats locaux</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('fatima')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc fi" data-cat="riz" data-name="al baraka" data-note="4.7" data-id="baraka">
+        <div class="rc-img c3">🍚<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">Al Baraka</div><span class="rc-zone">Centre</span></div>
+          <div class="rc-meta"><span>⭐ 4.7</span><span>⏱️ 20-28 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Riz Viande</span><span class="rc-tag">Grillades</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('baraka')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc fi" data-cat="grillades" data-name="grill palace" data-note="4.5" data-id="grill">
+        <div class="rc-img c4">🔥<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">Grill Palace</div><span class="rc-zone">Hayableh</span></div>
+          <div class="rc-meta"><span>⭐ 4.5</span><span>⏱️ 25-35 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Grillades</span><span class="rc-tag">Viande</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('grill')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc fi" data-cat="fastfood" data-name="snack soubane" data-note="4.4" data-id="snack">
+        <div class="rc-img c5">🍔<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">Snack Soubane</div><span class="rc-zone">Soubane</span></div>
+          <div class="rc-meta"><span>⭐ 4.4</span><span>⏱️ 15-20 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Sandwichs</span><span class="rc-tag">Frites</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('snack')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc fi" data-cat="boissons" data-name="jus co" data-note="4.9" data-id="jus">
+        <div class="rc-img c6">🥤<div class="rc-open">🟢 Ouvert</div><div class="rc-fav">🤍</div></div>
+        <div class="rc-body">
+          <div class="rc-head"><div class="rc-name">Jus & Co</div><span class="rc-zone">Centre</span></div>
+          <div class="rc-meta"><span>⭐ 4.9</span><span>⏱️ 15-20 min</span></div>
+          <div class="rc-tags"><span class="rc-tag">Jus frais</span><span class="rc-tag">Smoothies</span></div>
+          <div class="rc-footer">
+            <div class="rc-price">Livraison <strong>150 FDJ</strong></div>
+            <button class="rc-btn" onclick="openModal('jus')">Voir le menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty" id="emptyState">
+        <div class="empty-icon">🔍</div>
+        <h3>Aucun résultat</h3>
+        <p>Essayez un autre mot-clé.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: CART SIDEBAR -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <div class="cart-title">🛒 Mon Panier <span id="cartCount" style="font-size:13px;color:var(--text2);font-weight:600"></span></div>
+      <span class="cart-clear" onclick="clearCart()">Vider</span>
+    </div>
+
+    <div class="cart-resto-info" id="cartRestoInfo">
+      <div class="cart-resto-emoji" id="cartRestoEmoji"></div>
+      <div>
+        <div class="cart-resto-name" id="cartRestoName"></div>
+        <!-- ✅ Ce texte change automatiquement selon la zone détectée -->
+        <div class="cart-resto-sub" id="cartRestoSub">Livraison 150 FDJ</div>
+      </div>
+    </div>
+
+    <div class="cart-empty" id="cartEmptyState">
+      <div class="cart-empty-icon">🛒</div>
+      <h3>Votre panier est vide</h3>
+      <p>Ouvrez un restaurant et ajoutez des plats en cliquant sur <b>+</b></p>
+    </div>
+
+    <div class="cart-items" id="cartItems" style="display:none"></div>
+
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal"><span>Sous-total</span><span id="cartSubtotal">0 FDJ</span></div>
+      <div class="cart-delivery"><span>Livraison</span><span id="cartDeliveryAmount" style="color:var(--green);font-weight:600">150 FDJ</span></div>
+      <div class="cart-total"><span>Total</span><span id="cartTotal">0 FDJ</span></div>
+
+      <div class="cart-address">
+        <label>📍 Votre zone de livraison</label>
+
+        <!-- ── ÉTAPE 1 : Bouton GPS ── -->
+        <button onclick="getLocation()" id="locBtn" style="
+          width:100%;padding:11px;border:2px dashed var(--red);
+          border-radius:10px;background:rgba(198,40,40,0.04);
+          color:var(--red);font-family:'Poppins',sans-serif;
+          font-weight:700;font-size:13px;cursor:pointer;
+          transition:all .2s;margin-bottom:10px;
+          display:flex;align-items:center;justify-content:center;gap:8px;
+        ">
+          📍 Trouver ma position automatiquement
+        </button>
+
+        <!-- ── Résultat GPS (caché par défaut) ── -->
+        <div id="locResult" style="display:none;margin-bottom:10px;
+          background:#f0fdf4;border:2px solid var(--green);
+          border-radius:10px;padding:12px;font-size:13px;">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-weight:700;color:#15803D" id="locQuartier"></div>
+              <div style="font-size:12px;color:#555;margin-top:2px" id="locZoneLabel"></div>
+            </div>
+            <button onclick="resetLocation()" style="
+              background:none;border:none;cursor:pointer;
+              font-size:11px;color:#999;text-decoration:underline;
+            ">Changer</button>
+          </div>
+        </div>
+
+        <!-- ── ÉTAPE 2 : Sélection manuelle (visible par défaut) ── -->
+         
+        <div id="manualZone">
+          <select id="zoneSelect" onchange="updateDelivery()">
+            <optgroup label="🟢 Zone Normale — 150 FDJ">
+              <option value="150">Château d'eau — 150 FDJ</option>
+              <option value="150">Q.Ali — 150 FDJ</option>
+              <option value="150">Feraad — 150 FDJ</option>
+              <option value="150">Cité — 150 FDJ</option>
+              <option value="150">Barwaqo — 150 FDJ</option>
+              <option value="150">Main de lion — 150 FDJ</option>
+              <option value="150">Iljano — 150 FDJ</option>
+              <option value="150">Sept Frères — 150 FDJ</option>
+            </optgroup>
+            <optgroup label="🟡 Zone Éloignée — 250 FDJ">
+              <option value="250">Zone Industrielle — 250 FDJ</option>
+              <option value="250">Piste / Route Nationale — 250 FDJ</option>
+              <option value="250">Aska / Doulmadow — 250 FDJ</option>
+              <option value="250">Environs Aéroport — 250 FDJ</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <textarea id="addressNote" placeholder="Adresse précise... Ex: Derrière école Ahmed, portail vert"></textarea>
+      </div>
+
+      <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">💳 Mode de paiement</div>
+      <div class="payment-opts">
+        <div class="pay-opt on" onclick="selectPay(this,'Cash')"><span class="po-icon">💵</span>Cash</div>
+        <div class="pay-opt" onclick="selectPay(this,'D-Money')"><span class="po-icon">📱</span>D-Money</div>
+        <div class="pay-opt" onclick="selectPay(this,'Waffi')"><span class="po-icon">💳</span>Waffi</div>
+      </div>
+
+      <button class="order-btn" id="orderBtn" onclick="sendOrder()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Envoyer la commande
+      </button>
+    </div>
+</div>
+</div>
+
+<!-- MOBILE CART TOGGLE -->
+<button class="cart-mobile-toggle" id="cartMobileToggle" onclick="toggleCartMobile()" style="display:none">
+  🛒 Panier <span class="cart-mobile-badge" id="cartMobileBadge">0 article</span>
+</button>
+
+<!-- ═══════ MODALS ═══════ -->
+
+<!-- DATA: restaurant menus -->
+<script>
+
+// ─── GÉOLOCALISATION ───
+function getLocation() {
+  const btn = document.getElementById('locBtn');
+
+  if (!navigator.geolocation) {
+    showToast('❌ GPS non disponible sur cet appareil');
+    return;
+  }
+
+  btn.innerHTML = '⏳ Localisation en cours...';
+  btn.disabled = true;
+
+  navigator.geolocation.getCurrentPosition(
+    // ✅ Succès GPS
+    async function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      try {
+        // Convertir coordonnées → adresse
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fr`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Extraire le quartier
+        const quartier = data.address.quarter 
+                      || data.address.suburb
+                      || data.address.neighbourhood
+                      || data.address.hamlet
+                      || data.address.village
+                      || data.address.town
+                      || data.address.city
+                      || 'Quartier détecté';
+
+        // Déterminer la zone
+        const zone = determinerZone(quartier);
+
+        // ── Mettre à jour l'affichage ──
+
+        // 1. Afficher le résultat GPS
+        document.getElementById('locQuartier').textContent = '📍 ' + quartier;
+        document.getElementById('locZoneLabel').textContent = zone.nom + ' — Livraison ' + zone.prix + ' FDJ';
+        document.getElementById('locResult').style.display = 'block';
+
+        // 2. Cacher la sélection manuelle
+        document.getElementById('manualZone').style.display = 'none';
+
+        // 3. Mettre à jour le prix livraison EN HAUT du panier
+        document.getElementById('cartRestoSub').textContent = 'Livraison ' + zone.prix + ' FDJ';
+        document.getElementById('cartRestoSub').style.color = zone.prix > 150 ? 'var(--orange)' : 'var(--green)';
+
+        // 4. Mettre à jour le prix dans le footer
+        deliveryFee = zone.prix;
+        document.getElementById('cartDeliveryAmount').textContent = zone.prix + ' FDJ';
+
+        // 5. Pré-remplir l'adresse
+        document.getElementById('addressNote').value = quartier + ', Ali Sabieh';
+
+        // 6. Recalculer le total
+        updateCart();
+
+        // 7. Cacher le bouton GPS
+        btn.style.display = 'none';
+
+        showToast('✅ Position trouvée : ' + quartier, 'green');
+
+      } catch(e) {
+        afficherErreurGPS('Erreur de réseau. Sélectionnez manuellement.');
+      }
+    },
+
+    // ❌ Erreur GPS
+    function(error) {
+      let msg = '';
+      switch(error.code) {
+        case 1: msg = '🚫 Permission refusée'; break;
+        case 2: msg = '📡 GPS indisponible'; break;
+        case 3: msg = '⏱️ Délai dépassé'; break;
+        default: msg = '❌ Erreur GPS';
+      }
+      afficherErreurGPS(msg + ' — Sélectionnez votre zone manuellement');
+    },
+
+    { timeout: 10000, maximumAge: 60000, enableHighAccuracy: true }
+  );
+}
+
+// Afficher erreur et remettre bouton
+function afficherErreurGPS(message) {
+  const btn = document.getElementById('locBtn');
+  btn.innerHTML = '📍 Trouver ma position automatiquement';
+  btn.disabled = false;
+  showToast(message);
+}
+
+// Réinitialiser → revenir à la sélection manuelle
+function resetLocation() {
+  document.getElementById('locResult').style.display = 'none';
+  document.getElementById('manualZone').style.display = 'block';
+  document.getElementById('locBtn').style.display = 'flex';
+  document.getElementById('locBtn').innerHTML = '📍 Trouver ma position automatiquement';
+  document.getElementById('locBtn').disabled = false;
+  document.getElementById('cartRestoSub').textContent = 'Livraison 150 FDJ';
+  document.getElementById('cartRestoSub').style.color = '';
+  deliveryFee = 150;
+  updateCart();
+}
+
+// Déterminer la zone selon le quartier détecté
+function determinerZone(quartier) {
+  const q = quartier.toLowerCase();
+  const normale = ['soubane', 'centre', 'medina', 'médina', 'hayableh', 'mairie', 'ali sabieh'];
+  const eloignee = ['piste', 'périphérie', 'peripherie', 'extension', 'gare', 'industrielle'];
+
+  if (normale.some(z => q.includes(z))) {
+    return { nom: '🟢 Zone Normale', prix: 150 };
+  } else if (eloignee.some(z => q.includes(z))) {
+    return { nom: '🟡 Zone Éloignée', prix: 250 };
+  } else {
+    return { nom: '⚪ Zone à confirmer', prix: 150 };
+  }
+}
+
+// Détermine la zone selon le quartier
+function determinerZone(quartier) {
+  const q = quartier.toLowerCase();
+
+  const zoneNormale = ['soubane', 'centre', 'medina', 'hayableh', 'mairie'];
+  const zoneEloignee = ['piste', 'périphérie', 'extension', 'gare'];
+
+  if (zoneNormale.some(z => q.includes(z))) {
+    return { nom: '🟢 Zone Normale', prix: 150 };
+  } else if (zoneEloignee.some(z => q.includes(z))) {
+    return { nom: '🟡 Zone Éloignée', prix: 250 };
+  } else {
+    return { nom: '⚪ Zone à confirmer', prix: 150 };
+  }
+}
+
+const RESTAURANTS = {
+  'el-amal': {
+    name:'El Amal', emoji:'🥙', color:'c1',
+    note:'4.8', temps:'20-25 min', zone:'Centre ville',
+    desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais, cuisine maison.",
+    menu:[
+      {cat:'🥙 Shawarma', items:[
+        {id:'ea1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:500},
+        {id:'ea2',emoji:'🥩',name:'Shawarma Viande',desc:'Pain pita, viande marinée',price:600},
+        {id:'ea3',emoji:'🌯',name:'Shawarma Mixte',desc:'Poulet + viande, double portion',price:700},
+        {id:'ea4',emoji:'🫓',name:'Shawarma Assiette',desc:'Avec frites et salade',price:800},
+      ]},
+      {cat:'🔥 Grillades', items:[
+        {id:'ea5',emoji:'🍗',name:'Poulet Grillé ½',desc:'Avec pain et sauce',price:900},
+        {id:'ea6',emoji:'🥩',name:'Brochettes Viande',desc:'3 brochettes + accompagnement',price:750},
+      ]},
+      {cat:'🥤 Boissons', items:[
+        {id:'ea7',emoji:'🥭',name:'Jus Mangue',desc:'Frais, pressé minute',price:150},
+        {id:'ea8',emoji:'🍋',name:'Jus Citron',desc:'Pressé minute',price:150},
+        {id:'ea9',emoji:'🧃',name:'Soda',desc:'Coca, Fanta, Sprite',price:150},
+      ]}
+    ]
+  },
+  'fatima': {
+    name:'Chez Fatima', emoji:'🍗', color:'c2',
+    note:'4.6', temps:'25-30 min', zone:'Soubane',
+    desc:"Cuisine maison traditionnelle. Fatima cuisine avec passion depuis 15 ans. Plats généreux et saveurs authentiques.",
+    menu:[
+      {cat:'🍗 Plats Principaux', items:[
+        {id:'fa1',emoji:'🍗',name:'Poulet Rôti',desc:'½ poulet avec riz et salade',price:1000},
+        {id:'fa2',emoji:'🍚',name:'Riz au Poulet',desc:'Riz basmati, poulet mijoté',price:700},
+        {id:'fa3',emoji:'🥘',name:'Riz à la Viande',desc:'Riz basmati, bœuf épicé',price:800},
+        {id:'fa4',emoji:'🫕',name:'Ragoût Légumes',desc:'Avec riz blanc',price:600},
+      ]},
+      {cat:'🥗 Accompagnements', items:[
+        {id:'fa5',emoji:'🥗',name:'Salade Fraîche',desc:'Tomates, concombre, herbes',price:200},
+        {id:'fa6',emoji:'🍞',name:'Pain Maison',desc:'Pain artisanal frais',price:100},
+      ]}
+    ]
+  },
+  'baraka': {
+    name:'Al Baraka', emoji:'🍚', color:'c3',
+    note:'4.7', temps:'20-28 min', zone:'Centre',
+    desc:"Spécialiste du riz et des plats mijotés. Recettes transmises de génération en génération.",
+    menu:[
+      {cat:'🍚 Plats de Riz', items:[
+        {id:'ba1',emoji:'🍚',name:'Riz Viande',desc:'Grand bol, viande tendre',price:800},
+        {id:'ba2',emoji:'🥘',name:'Riz Poisson',desc:'Poisson grillé sur riz épicé',price:900},
+        {id:'ba3',emoji:'🍛',name:'Riz Mixte',desc:'Viande + légumes + épices',price:1000},
+        {id:'ba4',emoji:'🫕',name:'Soupe de Viande',desc:'Soupe épaisse traditionnelle',price:500},
+      ]}
+    ]
+  },
+  'grill': {
+    name:'Grill Palace', emoji:'🔥', color:'c4',
+    note:'4.5', temps:'25-35 min', zone:'Hayableh',
+    desc:"Le temple des grillades à Ali Sabieh. Viandes sélectionnées, marinades maison, cuisson au feu de bois.",
+    menu:[
+      {cat:'🔥 Grillades', items:[
+        {id:'gr1',emoji:'🥩',name:'Côtelettes Grillées',desc:'3 pièces + pain + salade',price:1200},
+        {id:'gr2',emoji:'🍗',name:'Poulet Entier BBQ',desc:'Mariné aux herbes, frites',price:1500},
+        {id:'gr3',emoji:'🫙',name:'Brochettes Mix',desc:'5 brochettes viande + poulet',price:900},
+        {id:'gr4',emoji:'🥓',name:'Assiette BBQ',desc:'Assortiment, riz ou frites',price:1300},
+      ]}
+    ]
+  },
+  'snack': {
+    name:'Snack Soubane', emoji:'🍔', color:'c5',
+    note:'4.4', temps:'15-20 min', zone:'Soubane',
+    desc:"Le snack du quartier Soubane. Rapide, savoureux, accessible. Idéal pour un repas express.",
+    menu:[
+      {cat:'🍔 Sandwichs & Burgers', items:[
+        {id:'sn1',emoji:'🍔',name:'Burger Poulet',desc:'Pain brioche, poulet croustillant',price:450},
+        {id:'sn2',emoji:'🌭',name:'Hot-Dog',desc:'Pain, saucisse, moutarde',price:350},
+        {id:'sn3',emoji:'🥪',name:'Sandwich Thon',desc:'Pain toast, thon, légumes',price:300},
+      ]},
+      {cat:'🍟 Accompagnements', items:[
+        {id:'sn4',emoji:'🍟',name:'Frites Maison',desc:'Croustillantes, sel',price:200},
+        {id:'sn5',emoji:'🥤',name:'Soda',desc:'Coca, Fanta, Sprite',price:150},
+      ]}
+    ]
+  },
+  'jus': {
+    name:'Jus & Co', emoji:'🥤', color:'c6',
+    note:'4.9', temps:'15-20 min', zone:'Centre',
+    desc:"Spécialiste des jus frais pressés. Fruits de saison, sans conservateurs, 100% naturel.",
+    menu:[
+      {cat:'🥭 Jus Frais', items:[
+        {id:'ju1',emoji:'🥭',name:'Jus Mangue',desc:'Mangue fraîche pressée',price:200},
+        {id:'ju2',emoji:'🍋',name:'Citronnade',desc:'Citron, menthe, sucre canne',price:200},
+        {id:'ju3',emoji:'🍊',name:'Jus Orange',desc:'Oranges fraîches pressées',price:200},
+        {id:'ju4',emoji:'🍉',name:'Jus Pastèque',desc:'Pastèque fraîche, menthe',price:200},
+      ]},
+      {cat:'🥤 Smoothies', items:[
+        {id:'ju5',emoji:'🫧',name:'Smoothie Tropical',desc:'Mangue + banane + lait coco',price:350},
+        {id:'ju6',emoji:'🥛',name:'Lait de Coco',desc:'Noix de coco fraîche',price:250},
+        {id:'ju7',emoji:'☕',name:'Café Djiboutien',desc:'Café épicé traditionnel',price:150},
+      ]}
+    ]
+  }
+};
+</script>
+
+<!-- MODAL CONTAINER -->
+<div class="overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-hero" id="modalHero">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── CART STATE ───
+let cart = [];
+let currentResto = null;
+let deliveryFee = 150;
+let paymentMode = 'Cash';
+
+// ─── FILTER ───
+let currentCat = 'all';
+function filter(el, cat) {
+  document.querySelectorAll('.fp').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  currentCat = cat;
+  applyFilters();
+}
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let v = 0;
+  document.querySelectorAll('.rc').forEach(card => {
+    const ok = (currentCat === 'all' || card.dataset.cat === currentCat) &&
+               (card.dataset.name.includes(q) || card.querySelector('.rc-tags').textContent.toLowerCase().includes(q));
+    card.style.display = ok ? 'block' : 'none';
+    if(ok) v++;
+  });
+  document.getElementById('restoCount').textContent = v;
+  document.getElementById('emptyState').classList.toggle('show', v === 0);
+}
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+// ─── MODAL ───
+function openModal(id) {
+  const r = RESTAURANTS[id];
+  if(!r) return;
+  currentResto = id;
+
+  // Hero
+  const hero = document.getElementById('modalHero');
+  hero.className = 'modal-hero ' + r.color;
+  hero.innerHTML = r.emoji + '<button class="modal-close" onclick="closeModal()">✕</button>';
+
+  // Body
+  let html = `
+    <div class="modal-name">${r.name}</div>
+    <div class="modal-meta">
+      <span>⭐ ${r.note}</span>
+      <span>⏱️ ${r.temps}</span>
+      <span>📍 ${r.zone}</span>
+      <span>🛵 150 FDJ livraison</span>
+    </div>
+    <p class="modal-desc">${r.desc}</p>`;
+
+  r.menu.forEach(section => {
+    html += `<div class="menu-section"><div class="menu-section-title">${section.cat}</div><div class="menu-items">`;
+    section.items.forEach(item => {
+      const inCart = cart.find(c => c.id === item.id);
+      const qty = inCart ? inCart.qty : 0;
+      html += `
+        <div class="mi" id="mi-${item.id}">
+          <div class="mi-emoji">${item.emoji}</div>
+          <div class="mi-info">
+            <div class="mi-name">${item.name}</div>
+            <div class="mi-desc">${item.desc}</div>
+          </div>
+          <div class="mi-right">
+            <div class="mi-price">${item.price} FDJ</div>
+            ${qty > 0
+              ? `<div class="mi-qty-ctrl">
+                   <button class="qty-btn" onclick="changeQtyModal('${item.id}','${r.name}','${item.emoji}','${item.name}',${item.price},-1)">−</button>
+                   <span class="qty-num" id="mqty-${item.id}">${qty}</span>
+                   <button class="qty-btn" onclick="changeQtyModal('${item.id}','${r.name}','${item.emoji}','${item.name}',${item.price},1)">+</button>
+                 </div>`
+              : `<button class="add-btn" id="add-${item.id}" onclick="addToCartFromModal('${item.id}','${r.name}','${item.emoji}','${item.name}',${item.price})">+</button>`
+            }
+          </div>
+        </div>`;
+    });
+    html += '</div></div>';
+  });
+
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if(e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+// ─── ADD TO CART ───
+function addToCartFromModal(id, restoName, emoji, name, price) {
+  // Check if different restaurant
+  if(cart.length > 0 && currentResto !== cart[0].restoId) {
+    showToast('⚠️ Videz le panier avant de commander dans un autre restaurant');
+    return;
+  }
+
+  const existing = cart.find(c => c.id === id);
+  if(existing) {
+    existing.qty++;
+  } else {
+    cart.push({id, restoId: currentResto, restoName, emoji, name, price, qty: 1});
+  }
+
+  // Update modal UI
+  const mi = document.getElementById('mi-' + id);
+  if(mi) {
+    const qty = cart.find(c => c.id === id).qty;
+    mi.querySelector('.mi-right').innerHTML = `
+      <div class="mi-price">${price} FDJ</div>
+      <div class="mi-qty-ctrl">
+        <button class="qty-btn" onclick="changeQtyModal('${id}','${restoName}','${emoji}','${name}',${price},-1)">−</button>
+        <span class="qty-num" id="mqty-${id}">${qty}</span>
+        <button class="qty-btn" onclick="changeQtyModal('${id}','${restoName}','${emoji}','${name}',${price},1)">+</button>
+      </div>`;
+  }
+
+  updateCart();
+  showToast('✅ ' + name + ' ajouté au panier', 'green');
+}
+
+function changeQtyModal(id, restoName, emoji, name, price, delta) {
+  const item = cart.find(c => c.id === id);
+  if(!item) {
+    if(delta > 0) addToCartFromModal(id, restoName, emoji, name, price);
+    return;
+  }
+  item.qty += delta;
+  if(item.qty <= 0) {
+    cart = cart.filter(c => c.id !== id);
+    // Restore add button
+    const mi = document.getElementById('mi-' + id);
+    if(mi) mi.querySelector('.mi-right').innerHTML =
+      `<div class="mi-price">${price} FDJ</div>
+       <button class="add-btn" id="add-${id}" onclick="addToCartFromModal('${id}','${restoName}','${emoji}','${name}',${price})">+</button>`;
+  } else {
+    const qtyEl = document.getElementById('mqty-' + id);
+    if(qtyEl) qtyEl.textContent = item.qty;
+  }
+  updateCart();
+}
+
+// ─── UPDATE CART UI ───
+function updateCart() {
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const grand = total + deliveryFee;
+
+  // Badge
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.classList.toggle('show', count > 0);
+  document.getElementById('cartNavBtn').classList.toggle('has-items', count > 0);
+
+  // Mobile toggle
+  const mob = document.getElementById('cartMobileToggle');
+  if(count > 0) {
+    mob.style.display = 'flex';
+    document.getElementById('cartMobileBadge').textContent = count + ' article' + (count > 1 ? 's' : '');
+  } else {
+    mob.style.display = 'none';
+    document.getElementById('cartSidebar').classList.remove('mobile-open');
+  }
+
+  // Count label
+  document.getElementById('cartCount').textContent = count > 0 ? '(' + count + ')' : '';
+
+  // Cart states
+  const isEmpty = cart.length === 0;
+  document.getElementById('cartEmptyState').style.display = isEmpty ? 'flex' : 'none';
+  document.getElementById('cartItems').style.display = isEmpty ? 'none' : 'block';
+  document.getElementById('cartFooter').style.display = isEmpty ? 'none' : 'block';
+
+  // Resto info
+  const restoInfo = document.getElementById('cartRestoInfo');
+  if(!isEmpty && cart[0]) {
+    restoInfo.classList.add('show');
+    document.getElementById('cartRestoEmoji').textContent = cart[0].emoji;
+    document.getElementById('cartRestoName').textContent = cart[0].restoName;
+  } else {
+    restoInfo.classList.remove('show');
+  }
+
+  // Items list
+  let html = '';
+  cart.forEach(item => {
+    html += `
+      <div class="cart-item">
+        <div class="ci-emoji">${item.emoji}</div>
+        <div class="ci-info">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-price">${(item.price * item.qty).toLocaleString()} FDJ</div>
+        </div>
+        <div class="ci-qty">
+          <button class="qty-btn" onclick="changeCartQty('${item.id}',-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeCartQty('${item.id}',1)">+</button>
+        </div>
+      </div>`;
+  });
+  document.getElementById('cartItems').innerHTML = html;
+
+  // Totals
+  document.getElementById('cartSubtotal').textContent = total.toLocaleString() + ' FDJ';
+  document.getElementById('cartTotal').textContent = grand.toLocaleString() + ' FDJ';
+}
+
+function changeCartQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(c => c.id !== id);
+  // Sync modal if open
+  const mQty = document.getElementById('mqty-' + id);
+  if(mQty) {
+    if(item.qty <= 0 || !cart.find(c=>c.id===id)) {
+      // restore add btn in modal
+    } else {
+      mQty.textContent = item.qty;
+    }
+  }
+  updateCart();
+}
+
+function clearCart() {
+  cart = [];
+  currentResto = null;
+  updateCart();
+  showToast('🗑️ Panier vidé');
+}
+
+function updateDelivery() {
+  deliveryFee = parseInt(document.getElementById('zoneSelect').value);
+  updateCart();
+}
+
+function selectPay(el, mode) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('on'));
+  el.classList.add('on');
+  paymentMode = mode;
+}
+
+// ─── SEND ORDER ───
+function sendOrder() {
+  if(cart.length === 0) return;
+  const zone = document.getElementById('zoneSelect').options[document.getElementById('zoneSelect').selectedIndex].text;
+  const address = document.getElementById('addressNote').value;
+  const total = cart.reduce((s,i) => s+i.price*i.qty, 0);
+  const grand = total + deliveryFee;
+
+  let msg = `🛵 *NOUVELLE COMMANDE BARA+*\n\n`;
+  msg += `🏪 *Restaurant :* ${cart[0].restoName}\n\n`;
+  msg += `📋 *Ma commande :*\n`;
+  cart.forEach(i => {
+    msg += `• ${i.qty}x ${i.name} — ${(i.price*i.qty).toLocaleString()} FDJ\n`;
+  });
+  msg += `\n💰 Sous-total : ${total.toLocaleString()} FDJ`;
+  msg += `\n🛵 Livraison : ${deliveryFee} FDJ`;
+  msg += `\n✅ *TOTAL : ${grand.toLocaleString()} FDJ*`;
+  msg += `\n\n📍 *Zone :* ${zone}`;
+  if(address) msg += `\n📌 *Adresse :* ${address}`;
+  msg += `\n💳 *Paiement :* ${paymentMode}`;
+
+  const url = 'https://wa.me/253XXXXXXXX?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+}
+
+// ─── TOAST ───
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ' '+type : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── MOBILE CART TOGGLE ───
+function toggleCartMobile() {
+  document.getElementById('cartSidebar').classList.toggle('mobile-open');
+}
+
+// ─── FAVORITES ───
+document.querySelectorAll('.rc-fav').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+  });
+});
+
+// ─── SCROLL ANIMATIONS ───
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e,i) => {
+    if(e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i*80);
+  });
+}, {threshold:0.1});
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+// Init
+updateCart();
+</script>
+</body>
+</html>
