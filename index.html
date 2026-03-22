@@ -24,6 +24,41 @@
   </nav>
 </header>
 
+<!-- Bouton hamburger — visible uniquement sur mobile -->
+  <button id="menuBtn" onclick="toggleMenu()" style="
+    display:none;
+    background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px;
+  ">
+    <span id="bar1" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+    <span id="bar2" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+    <span id="bar3" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+  </button>
+
+</header>
+
+<!-- Menu mobile — caché par défaut -->
+<div id="mobileMenu" style="
+  display:none;
+  position:fixed;top:70px;left:0;right:0;z-index:999;
+  background:#8B0000;
+  padding:20px 5%;
+  flex-direction:column;gap:4px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.3);
+  border-top:1px solid rgba(255,255,255,0.1);
+">
+  <a href="#services"  onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Services</a>
+  <a href="#pass"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Nos Pass</a>
+  <a href="#zones"     onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Zones</a>
+  <a href="#avis"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Avis</a>
+  <a href="#commander" onclick="closeMenu()" style="
+    margin-top:10px;background:#FFB300;color:#8B0000;
+    padding:14px;border-radius:50px;text-align:center;
+    font-weight:800;font-size:16px;text-decoration:none;
+  ">📱 Commander</a>
+</div>
+
+
 <!-- ─── HERO ─── -->
 <section class="hero" id="accueil">
   <div class="hero-content">
@@ -369,6 +404,49 @@
 </footer>
 
 <script>
+
+  // ── MENU HAMBURGER ──
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.getElementById('menuBtn');
+  const b1   = document.getElementById('bar1');
+  const b2   = document.getElementById('bar2');
+  const b3   = document.getElementById('bar3');
+
+  const isOpen = menu.style.display === 'flex';
+
+  if (isOpen) {
+    // Fermer
+    menu.style.display = 'none';
+    b1.style.transform = 'none';
+    b2.style.opacity   = '1';
+    b3.style.transform = 'none';
+  } else {
+    // Ouvrir
+    menu.style.display = 'flex';
+    // Animer les barres → croix ✕
+    b1.style.transform = 'translateY(7px) rotate(45deg)';
+    b2.style.opacity   = '0';
+    b3.style.transform = 'translateY(-7px) rotate(-45deg)';
+  }
+}
+
+function closeMenu() {
+  document.getElementById('mobileMenu').style.display = 'none';
+  document.getElementById('bar1').style.transform = 'none';
+  document.getElementById('bar2').style.opacity   = '1';
+  document.getElementById('bar3').style.transform = 'none';
+}
+
+// Fermer le menu si on clique en dehors
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.getElementById('menuBtn');
+  if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+    closeMenu();
+  }
+});
+
   // Smooth scroll + active nav
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {

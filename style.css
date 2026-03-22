@@ -403,6 +403,7 @@ font-size: 13px; flex-wrap: wrap; gap: 12px;
 .footer-bottom span { color: var(--yellow); font-weight: 600; }
 
 /* ─── RESPONSIVE ─── */
+/*
 @media (max-width: 900px) {
 nav { display: none; }
 .hero { flex-direction: column; padding: 100px 6% 60px; text-align: center; }
@@ -421,4 +422,36 @@ nav { display: none; }
 .footer-grid { grid-template-columns: 1fr 1fr; }
 .footer-bottom { flex-direction: column; text-align: center; }
 .badge-float { display: none; }
+}
+*/
+/* ── REMPLACE l'ancien media query ── */
+@media (max-width: 900px) {
+
+  /* Cacher la nav desktop */
+  nav {
+    display: none !important;
+  }
+
+  /* Afficher le bouton hamburger */
+  #menuBtn {
+    display: flex !important;
+  }
+
+  /* Reste du responsive déjà existant */
+  .hero { flex-direction: column; padding: 100px 6% 60px; text-align: center; }
+  .hero-content { width: 100%; padding: 0; }
+  .hero-visual { width: 100%; margin-top: 40px; }
+  .hero-circle { width: 300px; height: 300px; }
+  .hero-circle::before { font-size: 100px; }
+  .hero-stats { justify-content: center; }
+  .hero-btns { justify-content: center; }
+  .steps { grid-template-columns: 1fr; }
+  .service-card { grid-template-columns: 1fr; }
+  .service-visual { min-height: 200px; font-size: 80px; }
+  .pass-grid { grid-template-columns: repeat(2, 1fr); }
+  .zones-inner { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .badge-float { display: none; }
 }
