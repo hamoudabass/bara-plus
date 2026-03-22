@@ -17,18 +17,22 @@ const RESTAURANTS = {
     desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais, cuisine maison.",
     menu:[
       {cat:'🥙 Shawarma', items:[
-        {id:'ea1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:500},
-        {id:'ea2',emoji:'🥩',name:'Shawarma Viande',desc:'Pain pita, viande marinée',price:600},
-        {id:'ea3',emoji:'🌯',name:'Shawarma Mixte',desc:'Poulet + viande, double portion',price:700},
-        {id:'ea4',emoji:'🫓',name:'Shawarma Assiette',desc:'Avec frites et salade',price:800},
+        {id:'ld1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:500},
       ]},
-      {cat:'🔥 Grillades', items:[
-        {id:'ea5',emoji:'🍗',name:'Poulet Grillé ½',desc:'Avec pain et sauce',price:900},
+      {cat:'🌮 Tacos', items:[
+        {id:'ld2',emoji:'🌮',name:'Tacos Poulet',desc:'Pain pita, poulet grillé, légumes',price:800},
+      ]},
+      {cat:'🍝 Fadira', items:[
+        {id:'ld3',emoji:'🍝',name:'Fadira Normal',desc:'farine, sauce mayo, légumes',price:300},
+      ]},
+      {cat:'🍔 Hamburger', items:[
+        {id:'ld4',emoji:'🍔',name:'Hamburger Poulet',desc:'Avec pain et sauce',price:600},
       ]},
       {cat:'🥤 Boissons', items:[
-        {id:'ea7',emoji:'🥭',name:'Jus Mangue',desc:'Frais, pressé minute',price:150},
-        {id:'ea8',emoji:'🍋',name:'Jus Citron',desc:'Pressé minute',price:150},
-        {id:'ea9',emoji:'🧃',name:'Soda',desc:'Coca, Fanta, Sprite',price:150},
+        {id:'ld5',emoji:'🥑',name:'Jus Avocado',desc:'Frais, pressé minute',price:200},
+        {id:'ld6',emoji:'🍸',name:'Jus Cocktail',desc:'Pressé minute',price:300},
+        {id:'ld7',emoji:'🥤',name:'Soda',desc:'Coca, Fanta, Sprite',price:100},
+        {id:'ld8',emoji:'💧',name:'Eau',desc:'Bio, Okar, Crystal',price:100},
       ]}
     ]
   },
