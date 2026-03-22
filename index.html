@@ -14,6 +14,12 @@
 <header id="header">
   <img src="images/2.png" class="logo-img">
   <div style="display:none; font-family:'Poppins',sans-serif; font-weight:900; font-size:24px; color:#FFB300; letter-spacing:1px;">BARA<span style="color:#fff">+</span></div>
+  <div id="statusBadge" style="
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 14px; border-radius:50px;
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:12px;
+    letter-spacing:0.5px;
+  "></div>
   <nav>
     <a href="restaurants.html">Restaurants</a>
     <a href="#services">Services</a>
@@ -88,9 +94,9 @@
     </div>
   </div>
   <div class="hero-visual">
-    <div class="hero-circle">
-      <div class="badge-float b1">⏱️ 30 min chrono !</div>
-      <div class="badge-float b2">💰 Dès 150 FDJ</div>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" alt="Plats livrés par Bara+" class="hero-food-img">
+      
     </div>
   </div>
 </section>
@@ -111,14 +117,13 @@
       <div class="step-num">2</div>
       <div class="step-icon">🏪</div>
       <h3>On prépare</h3>
-      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre porte.</p>
+      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre maison.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-icon">🛵</div>
       <h3>Livré chez vous</h3>
-      <p>Votre commande arrive chaude et en parfait état directement à votre porte.
-         Notre livreur Bajaj vous livre en moins de 30 minutes —</p>
+      <p>Votre commande arrive chaude et en parfait état directement à votre porte. Notre livreur vous livre en moins de 30 minutes.</p>
     </div>
   </div>
 </section>
@@ -180,7 +185,7 @@
         <li><span class="perk-check">✓</span> 15 livraisons à domicile</li>
         <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
         <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
-        <li><span class="perk-check">✓</span> 1 profile Netflix</li>
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 1 profil streaming offert</span></li>
       </ul>
       <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Standard%202000FDJ','_blank')">
         S'abonner maintenant →
@@ -200,7 +205,7 @@
         <li><span class="perk-check">✓</span> 20 livraisons à domicile</li>
         <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
         <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
-        <li><span class="perk-check">✓</span> 2 profile Netflix</li>
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 2 profils streaming offerts</span></li>
       </ul>
       <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Confort%203000FDJ','_blank')">
         Choisir ce pass →
@@ -221,7 +226,7 @@
         <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
         <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
         <li><span class="perk-check">✓</span> 1 service domicile / mois</li>
-        <li><span class="perk-check">✓</span> 3 profile Netflix</li>
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 3 profils streaming offerts</span></li>
         <li><span class="perk-check">✓</span> Priorité ABSOLUE</li>
       </ul>
       <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Premium%205000FDJ','_blank')">
@@ -411,7 +416,7 @@
         <li><a href="https://wa.me/25377784312">💬 WhatsApp</a></li>
         <li>📍 Ali Sabieh, Djibouti</a></li>
         <li>🕐 09h – 22h · 7j/7</a></li>
-        <li>📧 bara.plus@gmail.com</a></li>
+        <li>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="385a594a591648544d4b785f55595154165b5755">[email&#160;protected]</a></a></li>
       </ul>
     </div>
   </div>
@@ -422,9 +427,26 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-  // ── MENU HAMBURGER ──
+  // ── BADGE OUVERT / FERMÉ ──
+  (function() {
+    var badge = document.getElementById('statusBadge');
+    var now = new Date();
+    var h = now.getHours();
+    var isOpen = h >= 9 && h < 22;
+    if (isOpen) {
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Ouvert · Livraison disponible';
+      badge.style.background = 'rgba(76,175,80,0.18)';
+      badge.style.color = '#A5D6A7';
+      badge.style.border = '1px solid rgba(76,175,80,0.4)';
+    } else {
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Fermé · Rouvre à 09h';
+      badge.style.background = 'rgba(239,83,80,0.18)';
+      badge.style.color = '#EF9A9A';
+      badge.style.border = '1px solid rgba(239,83,80,0.35)';
+    }
+  })();
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   const btn  = document.getElementById('menuBtn');
@@ -496,12 +518,4 @@ document.addEventListener('click', function(e) {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+  document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-c

@@ -105,17 +105,20 @@ padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2);
 width: 45%; display: flex; align-items: center; justify-content: center;
 position: relative; z-index: 2;
 }
-.hero-circle {
-width: 420px; height: 420px; border-radius: 50%;
-background: radial-gradient(circle, rgba(255,179,0,0.2) 0%, rgba(255,255,255,0.05) 70%);
-display: flex; align-items: center; justify-content: center;
-position: relative;
+.hero-img-wrap {
+width: 480px; height: 480px; border-radius: 50%;
+position: relative; overflow: hidden;
+box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+border: 6px solid rgba(255,179,0,0.4);
 animation: float 4s ease-in-out infinite;
 }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
-.hero-circle::before {
-content: '🛵'; font-size: 140px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+.hero-food-img {
+width: 100%; height: 100%; object-fit: cover;
+transition: transform 0.5s ease;
 }
+.hero-img-wrap:hover .hero-food-img { transform: scale(1.06); }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 .badge-float {
 position: absolute; background: var(--white); border-radius: 16px;
 padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2);
@@ -266,6 +269,7 @@ font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 38px; line-heig
 .pass-card:not(.featured) .pass-perks li { color: var(--text-mid); }
 .pass-card.featured .pass-perks li { color: rgba(255,255,255,0.9); }
 .perk-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; margin-top: 1px; }
+.perk-bonus { background: transparent !important; font-size: 16px !important; width: auto !important; height: auto !important; }
 .pass-card:not(.featured) .perk-check { background: var(--red); color: white; }
 .pass-card.featured .perk-check { background: var(--yellow); color: var(--red-dark); }
 .pass-btn {
@@ -402,28 +406,6 @@ font-size: 13px; flex-wrap: wrap; gap: 12px;
 }
 .footer-bottom span { color: var(--yellow); font-weight: 600; }
 
-/* ─── RESPONSIVE ─── */
-/*
-@media (max-width: 900px) {
-nav { display: none; }
-.hero { flex-direction: column; padding: 100px 6% 60px; text-align: center; }
-.hero-content { width: 100%; padding: 0; }
-.hero-visual { width: 100%; margin-top: 40px; }
-.hero-circle { width: 300px; height: 300px; }
-.hero-circle::before { font-size: 100px; }
-.hero-stats { justify-content: center; }
-.hero-btns { justify-content: center; }
-.steps { grid-template-columns: 1fr; }
-.service-card { grid-template-columns: 1fr; }
-.service-visual { min-height: 200px; font-size: 80px; }
-.pass-grid { grid-template-columns: repeat(2, 1fr); }
-.zones-inner { grid-template-columns: 1fr; }
-.reviews-grid { grid-template-columns: 1fr; }
-.footer-grid { grid-template-columns: 1fr 1fr; }
-.footer-bottom { flex-direction: column; text-align: center; }
-.badge-float { display: none; }
-}
-*/
 /* ── REMPLACE l'ancien media query ── */
 @media (max-width: 900px) {
 
@@ -437,20 +419,47 @@ nav { display: none; }
     display: flex !important;
   }
 
-  /* Reste du responsive déjà existant */
+  /* Hero */
   .hero { flex-direction: column; padding: 100px 6% 60px; text-align: center; }
   .hero-content { width: 100%; padding: 0; }
-  .hero-visual { width: 100%; margin-top: 40px; }
-  .hero-circle { width: 300px; height: 300px; }
-  .hero-circle::before { font-size: 100px; }
+  .hero-visual { width: 100%; margin-top: 40px; display: flex; justify-content: center; }
+  .hero-img-wrap { width: 280px; height: 280px; }
   .hero-stats { justify-content: center; }
   .hero-btns { justify-content: center; }
+
+  /* Steps */
   .steps { grid-template-columns: 1fr; }
+
+  /* Services */
   .service-card { grid-template-columns: 1fr; }
   .service-visual { min-height: 200px; font-size: 80px; }
-  .pass-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* ─ PASS : 1 par ligne comme les steps ─ */
+  .pass-section { padding: 80px 5%; }
+  .pass-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+    gap: 28px;
+  }
+  .pass-card {
+    padding: 36px 32px;
+  }
+  /* Le featured ne se scale plus — ça évite qu'il déborde */
+  .pass-card.featured {
+    transform: none;
+  }
+  .pass-card.featured:hover {
+    transform: translateY(-10px);
+  }
+
+  /* Zones */
   .zones-inner { grid-template-columns: 1fr; }
+
+  /* Reviews */
   .reviews-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .badge-float { display: none; }
