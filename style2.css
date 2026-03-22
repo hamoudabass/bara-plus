@@ -270,7 +270,28 @@ display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.2);
 /* RESPONSIVE */
 @media(max-width:960px){
 .main{grid-template-columns:1fr}
-.cart-sidebar{position:fixed;bottom:0;left:0;right:0;top:auto;max-height:60vh;border-radius:24px 24px 0 0;z-index:800;transform:translateY(100%);transition:transform .35s ease;box-shadow:0 -8px 40px rgba(0,0,0,0.15)}
+.cart-sidebar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0; top: auto;
+    max-height: 75vh;          /* ← augmenté de 60% à 75% */
+    border-radius: 24px 24px 0 0;
+    z-index: 800;
+    transform: translateY(100%);
+    transition: transform .35s ease;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.15);/* ← LA CLÉ : scroll sur tout le sidebar */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* smooth scroll sur iPhone */
+  }
+.cart-items {
+    max-height: none;   /* ← enlever la limite fixe */
+    overflow-y: visible; /* ← laisser le parent gérer */
+    flex: none;
+  }
+/* Footer ne doit pas être sticky sur mobile */
+.cart-footer {
+    position: static;  /* ← pas de position fixe */
+    flex-shrink: 0;
+  }
 .cart-sidebar.mobile-open{transform:translateY(0)}
 .cart-mobile-toggle{
 position:fixed;bottom:20px;right:20px;z-index:850;

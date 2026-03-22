@@ -149,6 +149,13 @@
 
   <!-- RIGHT: CART SIDEBAR -->
   <div class="cart-sidebar" id="cartSidebar">
+
+  <!-- ← AJOUTER : poignée visuelle pour indiquer qu'on peut scroll -->
+  <div style="
+    width:40px;height:4px;background:#E5E7EB;
+    border-radius:2px;margin:12px auto 4px;
+    flex-shrink:0;
+  "></div>
     <div class="cart-header">
       <div class="cart-title">🛒 Mon Panier <span id="cartCount" style="font-size:13px;color:var(--text2);font-weight:600"></span></div>
       <span class="cart-clear" onclick="clearCart()">Vider</span>
@@ -215,17 +222,13 @@
               <option value="150">Château d'eau — 150 FDJ</option>
               <option value="150">Q.Ali — 150 FDJ</option>
               <option value="150">Feraad — 150 FDJ</option>
-              <option value="150">Cité — 150 FDJ</option>
-              <option value="150">Barwaqo — 150 FDJ</option>
-              <option value="150">Main de lion — 150 FDJ</option>
-              <option value="150">Iljano — 150 FDJ</option>
               <option value="150">Sept Frères — 150 FDJ</option>
             </optgroup>
             <optgroup label="🟡 Zone Éloignée — 250 FDJ">
-              <option value="250">Zone Industrielle — 250 FDJ</option>
-              <option value="250">Piste / Route Nationale — 250 FDJ</option>
-              <option value="250">Aska / Doulmadow — 250 FDJ</option>
-              <option value="250">Environs Aéroport — 250 FDJ</option>
+              <option value="250">Cité — 250 FDJ</option>
+              <option value="250">Barwaqo — 250 FDJ</option>
+              <option value="250">Main de lion — 250 FDJ</option>
+              <option value="250">Iljano — 250 FDJ</option>
             </optgroup>
           </select>
         </div>
@@ -235,9 +238,9 @@
 
       <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">💳 Mode de paiement</div>
       <div class="payment-opts">
-        <div class="pay-opt on" onclick="selectPay(this,'Cash')"><span class="po-icon">💵</span>Cash</div>
+        <div class="pay-opt on" onclick="selectPay(this,'Waffi')"><span class="po-icon">💵</span>Waffi</div>
         <div class="pay-opt" onclick="selectPay(this,'D-Money')"><span class="po-icon">📱</span>D-Money</div>
-        <div class="pay-opt" onclick="selectPay(this,'Waffi')"><span class="po-icon">💳</span>Waffi</div>
+        <div class="pay-opt" onclick="selectPay(this,'CacPay')"><span class="po-icon">💳</span>CacPay</div>
       </div>
 
       <button class="order-btn" id="orderBtn" onclick="sendOrder()">
@@ -780,7 +783,7 @@ function sendOrder() {
   msg += `\n💳 *Paiement :* ${paymentMode}`;
 
   const url = 'https://wa.me/25377784312?text=' + encodeURIComponent(msg);
-  window.open(url);
+  window.open(url, '_blank');
 }
 
 // ─── TOAST ───
