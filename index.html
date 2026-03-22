@@ -71,7 +71,7 @@
     <h1>Vos repas<br>livrés en <span>30 min</span><br>à domicile</h1>
     <p>Bara+ révolutionne la livraison à Ali Sabieh. Commandez depuis chez vous, on s'occupe du reste. Rapide, fiable, abordable.</p>
     <div class="hero-btns">
-      <a href="restaurants.html" class="btn-primary">
+      <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B%20je%20veux%20commander" target="_blank" class="btn-primary">
         🛒 Commander 
       </a>
       <a href="#pass" class="btn-secondary">
@@ -96,7 +96,8 @@
   <div class="hero-visual">
     <div class="hero-img-wrap">
       <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" alt="Plats livrés par Bara+" class="hero-food-img">
-      
+      <div class="badge-float b1">⏱️ 30 min chrono !</div>
+      <div class="badge-float b2">💰 Dès 150 FDJ</div>
     </div>
   </div>
 </section>
@@ -117,13 +118,13 @@
       <div class="step-num">2</div>
       <div class="step-icon">🏪</div>
       <h3>On prépare</h3>
-      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre maison.</p>
+      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre porte.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-icon">🛵</div>
       <h3>Livré chez vous</h3>
-      <p>Votre commande arrive chaude et en parfait état directement à votre porte. Notre livreur vous livre en moins de 30 minutes.</p>
+      <p>Votre commande arrive chaude et en parfait état directement à votre porte. Notre livreur Bajaj vous livre en moins de 30 minutes, garanti. Vous n'avez qu'à ouvrir la porte.</p>
     </div>
   </div>
 </section>
@@ -447,46 +448,39 @@
       badge.style.border = '1px solid rgba(239,83,80,0.35)';
     }
   })();
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const btn  = document.getElementById('menuBtn');
-  const b1   = document.getElementById('bar1');
-  const b2   = document.getElementById('bar2');
-  const b3   = document.getElementById('bar3');
 
-  const isOpen = menu.style.display === 'flex';
+  // ── MENU HAMBURGER ──
+  var _menuOpen = true;
 
-  if (isOpen) {
-    // Fermer
-    menu.style.display = 'none';
-    b1.style.transform = 'none';
-    b2.style.opacity   = '1';
-    b3.style.transform = 'none';
-  } else {
-    // Ouvrir
-    menu.style.display = 'flex';
-    // Animer les barres → croix ✕
-    b1.style.transform = 'translateY(7px) rotate(45deg)';
-    b2.style.opacity   = '0';
-    b3.style.transform = 'translateY(-7px) rotate(-45deg)';
+  function toggleMenu() {
+    _menuOpen ? closeMenu() : openMenu();
   }
-}
 
-function closeMenu() {
-  document.getElementById('mobileMenu').style.display = 'none';
-  document.getElementById('bar1').style.transform = 'none';
-  document.getElementById('bar2').style.opacity   = '1';
-  document.getElementById('bar3').style.transform = 'none';
-}
-
-// Fermer le menu si on clique en dehors
-document.addEventListener('click', function(e) {
-  const menu = document.getElementById('mobileMenu');
-  const btn  = document.getElementById('menuBtn');
-  if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
-    closeMenu();
+  function openMenu() {
+    _menuOpen = true;
+    document.getElementById('mobileMenu').style.display = 'flex';
+    document.getElementById('bar1').style.transform = 'translateY(7px) rotate(45deg)';
+    document.getElementById('bar2').style.opacity = '0';
+    document.getElementById('bar3').style.transform = 'translateY(-7px) rotate(-45deg)';
   }
-});
+
+  function closeMenu() {
+    _menuOpen = false;
+    document.getElementById('mobileMenu').style.display = 'none';
+    document.getElementById('bar1').style.transform = 'none';
+    document.getElementById('bar2').style.opacity = '1';
+    document.getElementById('bar3').style.transform = 'none';
+  }
+
+  // Fermer si clic en dehors du menu
+  document.addEventListener('click', function(e) {
+    if (!_menuOpen) return;
+    var menu = document.getElementById('mobileMenu');
+    var btn  = document.getElementById('menuBtn');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      closeMenu();
+    }
+  });
 
   // Smooth scroll + active nav
   document.querySelectorAll('a[href^="#"]').forEach(a => {
