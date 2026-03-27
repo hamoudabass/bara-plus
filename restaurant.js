@@ -268,7 +268,7 @@ function openModal(id) {
     });
     html += '</div></div>';
   });
-  html += '<a href="#cartSidebar" onclick="closeModal(),toggleCartMobile()">Voir Panier !</a>`'
+  html += '<div style="text-align:center;"><a href="#cartSidebar" onclick="closeModal(),toggleCartMobile()" style="display: inline-block; background:red; color: white; border:none; border-radius:50px; padding:8px 18px; font-family:Nunito,sans-serif; font-weight:700; font-size:13px; cursor:pointer; transition:all .2s; text-decoration: none;">Voir Panier !</a></div>'
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -366,6 +366,11 @@ function updateCart() {
     mob.style.display = 'flex';
     document.getElementById('cartMobileBadge').textContent =
       count + ' article' + (count > 1 ? 's' : '');
+    // Ajouter le clic pour masquer le bouton lui-même
+    mob.onclick = () => {;
+      toggleCartMobile();
+      mob.style.display = 'none';
+    };
   } else {
     mob.style.display = 'none';
     document.getElementById('cartSidebar').classList.remove('mobile-open');
