@@ -6,7 +6,7 @@
 let cart        = [];
 let currentResto = null;
 let deliveryFee  = 150;
-let paymentMode  = 'Cash';
+let paymentMode  = 'Waffi';
 let currentCat   = 'all';
 
 // ─── DONNÉES RESTAURANTS ───
@@ -16,24 +16,79 @@ const RESTAURANTS = {
     note:'4.8', temps:'20-25 min', zone:'Centre ville',
     desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais, cuisine maison.",
     menu:[
-      {cat:'🥙 Shawarma', items:[
-        {id:'ld1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:500},
+      {cat:'Shawarma', items:[
+        {id:'ld1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:700},
+        {id:'ld2',emoji:'🥙',name:'Shawarma ½ Poulet',desc:'Pain pita, poulet grillé, légumes',price:400},
+        {id:'ld3',emoji:'🥙',name:'Shawarma Poisson',desc:'Pain pita, poisson grillé, légumes',price:700},
+        {id:'ld4',emoji:'🥙',name:'Shawarma Viande',desc:'Pain pita, viande grillée, légumes',price:400},
+        {id:'ld5',emoji:'🥙',name:'Shawarma Viande hachée',desc:'Pain pita, viande hachée, légumes',price:400},
       ]},
-      {cat:'🌮 Tacos', items:[
-        {id:'ld2',emoji:'🌮',name:'Tacos Poulet',desc:'Pain pita, poulet grillé, légumes',price:800},
+      {cat:'Tacos', items:[
+        {id:'ld6',emoji:'🌮',name:'Tacos Poulet',desc:'Galette, poulet grillé, légumes, sauce',price:800},
       ]},
-      {cat:'🍝 Fadira', items:[
-        {id:'ld3',emoji:'🍝',name:'Fadira Normal',desc:'farine, sauce mayo, légumes',price:300},
+      {cat:'Fadira', items:[
+        {id:'ld7',emoji:'🍝',name:'Fadira Normal',desc:'Farine hachée, sauce mayo, légumes',price:300},
+        {id:'ld8',emoji:'🍝',name:'Fadira Poulet',desc:'Farine hachée, poulet, sauce mayo, légumes',price:300},
+        {id:'ld9',emoji:'🍝',name:'Fadira Special',desc:'Farine hachée, viande, sauce mayo, légumes',price:300},
+        {id:'ld10',emoji:'🍝',name:'Fadira Pakistanais',desc:'Farine hachée, épices, sauce mayo, légumes',price:300},
       ]},
-      {cat:'🍔 Hamburger', items:[
-        {id:'ld4',emoji:'🍔',name:'Hamburger Poulet',desc:'Avec pain et sauce',price:600},
+      {cat:'Burger', items:[
+        {id:'ld11',emoji:'🍔',name:'Burger Poulet',desc:'Pain burger, poulet, sauce',price:600},
+      ]},
+      {cat:'EECH', items:[
+        {id:'ld12',emoji:'🌯',name:'EECH Poulet',desc:'Galette, poulet, légumes, sauce',price:700},
+        {id:'ld13',emoji:'🌯',name:'EECH Viande',desc:'Galette, viande, légumes, sauce',price:700},
+      ]},
+      {cat:'Lados Spécialités', items:[
+        {id:'ld14',emoji:'🍗',name:'Lados Poulet',desc:'Poulet frit, frites, sauce',price:800},
+        {id:'ld15',emoji:'🍗',name:'Lados Poulet fromage',desc:'Poulet, fromage, frites, sauce',price:1000},
+        {id:'ld16',emoji:'🥩',name:'Lados Viande',desc:'Viande, frites, sauce',price:800},
+        {id:'ld17',emoji:'🥩',name:'Lados Viande Hachée',desc:'Viande hachée, frites, sauce',price:800},
+        {id:'ld18',emoji:'🍗',name:'Lados Nugget',desc:'Nuggets, frites, sauce',price:900},
+        {id:'ld19',emoji:'🐟',name:'Lados Poisson',desc:'Poisson frit, frites, sauce',price:800},
+      ]},
+      {cat:'Nugget', items:[
+        {id:'ld20',emoji:'🍔',name:'Nugget',desc:'Nuggets, sauce',price:500},
+      ]},
+      {cat:'Brochette', items:[
+        {id:'ld21',emoji:'🍖',name:'Brochette boeuf',desc:'Boeuf grillé en brochette',price:200},
+        {id:'ld22',emoji:'🍗',name:'Brochette poulet',desc:'Poulet grillé en brochette',price:250},
+      ]},
+      {cat:'Hafteen', items:[
+        {id:'ld23',emoji:'🍛',name:'Hafteen viande',desc:'Spaghetti, viande, sauce',price:600},
+        {id:'ld24',emoji:'🍛',name:'Hafteen viande hachée',desc:'Spaghetti, viande hachée, sauce',price:600},
+        {id:'ld25',emoji:'🍛',name:'Hafteen Poulet',desc:'Spaghetti, poulet, sauce',price:800},
+        {id:'ld26',emoji:'🍛',name:'Hafteen Poisson',desc:'Spaghetti, poisson, sauce',price:800},
+      ]},
+      {cat:'Iskoulab', items:[
+        {id:'ld27',emoji:'🥟',name:'Iskoulab viande hachée',desc:'Pâte farcie, viande hachée',price:500},
+        {id:'ld28',emoji:'🥟',name:'Iskoulab viande',desc:'Pâte farcie, viande',price:600},
+        {id:'ld29',emoji:'🥟',name:'Iskoulab viande poulet',desc:'Pâte farcie, viande et poulet',price:700},
+      ]},
+      {cat:'Frites', items:[
+        {id:'ld30',emoji:'🍟',name:'Frites',desc:'Pommes de terre frites',price:200},
+      ]},
+      {cat:'🥃 Jus', items:[
+        {id:'ld31',emoji:'🍊',name:'Jus Orange',desc:'Frais, pressé minute',price:200},
+        {id:'ld32',emoji:'🍌',name:'Jus Banane',desc:'Frais, pressé minute',price:200},
+        {id:'ld33',emoji:'🥭',name:'Jus Mangue',desc:'Frais, pressé minute',price:200},
+        {id:'ld34',emoji:'🍈',name:'Jus Melon',desc:'Frais, pressé minute',price:200},
+        {id:'ld35',emoji:'🥑',name:'Jus Avocado',desc:'Frais, pressé minute',price:200},
+        {id:'ld36',emoji:'🏉',name:'Jus Papaye',desc:'Frais, pressé minute',price:200},
+        {id:'ld37',emoji:'🍉',name:'Jus Pastèque',desc:'Frais, pressé minute',price:300},
+        {id:'ld38',emoji:'🍋',name:'Jus Goyave',desc:'Frais, pressé minute',price:300},
+        {id:'ld39',emoji:'🍸',name:'Jus Cocktail',desc:'Mélange de fruits frais',price:350},
       ]},
       {cat:'🥤 Boissons', items:[
-        {id:'ld5',emoji:'🥑',name:'Jus Avocado',desc:'Frais, pressé minute',price:200},
-        {id:'ld6',emoji:'🍸',name:'Jus Cocktail',desc:'Pressé minute',price:300},
-        {id:'ld7',emoji:'🥤',name:'Soda',desc:'Coca, Fanta, Sprite',price:100},
-        {id:'ld8',emoji:'💧',name:'Eau',desc:'Bio, Okar, Crystal',price:100},
-      ]}
+        {id:'ld40',emoji:'☕',name:'Expresso',desc:'Café serré',price:250},
+        {id:'ld41',emoji:'☕',name:'Buna',desc:'Café traditionnel',price:100},
+        {id:'ld42',emoji:'🍵',name:'Thé',desc:'Thé chaud',price:50},
+        {id:'ld43',emoji:'🍵',name:'Lipton',desc:'Thé en sachet',price:150},
+        {id:'ld44',emoji:'🍵',name:'Thé vert',desc:'Thé vert chaud',price:100},
+        {id:'ld45',emoji:'💧',name:'Eau 0.5l',desc:'Eau minérale',price:50},
+        {id:'ld46',emoji:'💧',name:'Eau 1.5l',desc:'Eau minérale',price:100},
+        {id:'ld47',emoji:'🥤',name:'Coca 400ml',desc:'Boisson gazeuse',price:100},
+      ]}  
     ]
   },
   'soho': {
@@ -114,6 +169,32 @@ const RESTAURANTS = {
     ]
   }
 };
+// ─── STATUT OUVERT/FERMÉ ───
+document.addEventListener("DOMContentLoaded", function () {
+
+    var badges = document.querySelectorAll('.rc-open');
+
+    badges.forEach(function(badge) {
+
+        var now = new Date();
+        var h = now.getHours();
+        var isOpen = h >= 9 && h < 22;
+
+        if (isOpen) {
+            badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Ouvert';
+            badge.style.background = 'rgba(76,175,80,0.18)';
+            badge.style.color      = '#A5D6A7';
+            badge.style.border     = '1px solid rgba(76,175,80,0.4)';
+        } else {
+            badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Fermé';
+            badge.style.background = 'rgba(239,83,80,0.18)';
+            badge.style.color      = '#EF9A9A';
+            badge.style.border     = '1px solid rgba(239,83,80,0.35)';
+        }
+
+    });
+
+});
 
 // ─── FILTRES ───
 function filter(el, cat) {
@@ -187,7 +268,7 @@ function openModal(id) {
     });
     html += '</div></div>';
   });
-
+  html += '<a href="#cartSidebar" onclick="closeModal(),toggleCartMobile()">Voir Panier !</a>`'
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
