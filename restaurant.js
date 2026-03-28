@@ -597,7 +597,7 @@ function sendOrder() {
 
   let msg = `🛵 *NOUVELLE COMMANDE BARA+*\n\n`;
   msg += `👤 *Client :* ${userName}\n`;
-  msg += `\n📍 *Zone :* ${zone}`;
+  msg += `\n📍 *Zone :* ${zone}\n\n`;
 
   //msg += `🏪 *Restaurant :* ${cart[0].restoName}\n`;
 
