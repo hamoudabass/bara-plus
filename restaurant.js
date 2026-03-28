@@ -11,14 +11,24 @@ let deliveryFee  = 150;
 let paymentMode  = 'Waffi';
 let currentCat   = 'all';
 
-// 🔁 Charger panier (pro level)
-const savedCart = localStorage.getItem('cart');
-if (savedCart) {
-  cart = JSON.parse(savedCart);
-  // On restaure aussi l'ID du restaurant en cours si le panier n'est pas vide !
-  if (cart.length > 0) {
-    currentResto = cart[0].restoId;
-  }
+// 🔁 Charger la session au démarrage
+const savedSession = localStorage.getItem('baraPlus_session');
+
+if (savedSession) {
+  const data = JSON.parse(savedSession);
+  cart = data.cart || [];
+  deliveryFee = data.deliveryFee || 150;
+
+  // On attend que le DOM soit chargé pour remplir les inputs
+  document.addEventListener('DOMContentLoaded', () => {
+    if (data.customerName) {
+      document.getElementById('customerName').value = data.customerName;
+    }
+    if (data.selectedZoneValue) {
+      document.getElementById('zoneSelect').value = data.selectedZoneValue;
+    }
+    updateCart(); // On lance un premier calcul
+  });
 }
 
 // ─── POSITION UTILISATEUR ───
@@ -323,29 +333,52 @@ function handleOverlayClick(e) {
 
 // ─── PANIER — AJOUTER ───
 function addToCartFromModal(id, restoName, emoji, name, price) {
-  if (cart.length > 0 && currentResto !== cart[0].restoId) {
-    showToast('⚠️ Videz le panier avant de commander dans un autre restaurant');
-    return;
-  }
+  // 1. ON SUPPRIME LE VERROU (on ne bloque plus si le resto est différent)
+  
   const existing = cart.find(c => c.id === id);
   if (existing) {
     existing.qty++;
   } else {
-    cart.push({ id, restoId: currentResto, restoName, emoji, name, price, qty: 1 });
+    // On ajoute l'item. Note: on utilise restoName pour identifier la provenance
+    cart.push({ 
+      id, 
+      restoId: currentResto, // ID du resto actuel
+      restoName,             // Nom du resto
+      emoji, 
+      name, 
+      price, 
+      qty: 1 
+    });
   }
-  const mi  = document.getElementById('mi-' + id);
+
+  // 2. RECALCULER LA LIVRAISON (Multi-Restos)
+  const uniqueRestos = [...new Set(cart.map(item => item.restoName))];
+  const nbRestos = uniqueRestos.length;
+  const zonePrice = parseInt(document.getElementById('zoneSelect').value) || 150;
+  
+  deliveryFee = zonePrice * nbRestos;
+
+  // 3. MISE À JOUR VISUELLE (ton code existant)
+  const mi = document.getElementById('mi-' + id);
   const qty = cart.find(c => c.id === id).qty;
   if (mi) {
     mi.querySelector('.mi-right').innerHTML = `
-      <div class="mi-price">${price} FDJ</div>
+      <div class="mi-price">${(price * qty).toLocaleString()} FDJ</div>
       <div class="mi-qty-ctrl">
         <button class="qty-btn" onclick="changeQtyModal('${id}','${restoName}','${emoji}','${name}',${price},-1)">−</button>
         <span class="qty-num" id="mqty-${id}">${qty}</span>
         <button class="qty-btn" onclick="changeQtyModal('${id}','${restoName}','${emoji}','${name}',${price},1)">+</button>
       </div>`;
   }
+
   updateCart();
-  showToast('✅ ' + name + ' ajouté au panier', 'green');
+  
+  // Petit message personnalisé si c'est un nouveau resto
+  if (nbRestos > 1 && !existing) {
+    showToast(`🛍️ Ajouté ! (Total: ${nbRestos} restaurants)`, 'orange');
+  } else {
+    showToast('✅ ' + name + ' ajouté', 'green');
+  }
 }
 
 function changeQtyModal(id, restoName, emoji, name, price, delta) {
@@ -430,12 +463,20 @@ function updateCart() {
 
   // Info restaurant
   const restoInfo = document.getElementById('cartRestoInfo');
-  if (!isEmpty && cart[0]) {
+  if (!isEmpty) {
+    const restos = [...new Set(cart.map(item => item.restoName))];
     restoInfo.classList.add('show');
-    document.getElementById('cartRestoEmoji').textContent = cart[0].emoji;
-    document.getElementById('cartRestoName').textContent  = cart[0].restoName;
-  } else {
-    restoInfo.classList.remove('show');
+    
+    if (restos.length > 1) {
+      document.getElementById('cartRestoEmoji').textContent = "🛍️";
+      document.getElementById('cartRestoName').textContent = "Commande Multi-Restos";
+      // On affiche le détail sous le nom
+      const sub = document.getElementById('cartRestoSub');
+      if (sub) sub.textContent = restos.join(' + ');
+    } else {
+      document.getElementById('cartRestoEmoji').textContent = cart[0].restoEmoji || '🍴';
+      document.getElementById('cartRestoName').textContent = cart[0].restoName;
+    }
   }
 
   // Liste des items
@@ -463,8 +504,15 @@ function updateCart() {
   }  
   document.getElementById('cartTotal').textContent    = grand.toLocaleString() + ' FDJ';
 
-  // 🔥 Sauvegarde panier (pro level)
-localStorage.setItem('cart', JSON.stringify(cart));
+ 
+// 🔥 Sauvegarde complète (Panier + Zone + Nom)
+  const saveData = {
+    cart: cart,
+    deliveryFee: deliveryFee,
+    customerName: document.getElementById('customerName')?.value || '',
+    selectedZoneValue: document.getElementById('zoneSelect')?.value || '150'
+  };
+  localStorage.setItem('baraPlus_session', JSON.stringify(saveData));
 }
 
 function updateDelivery() {
@@ -490,9 +538,27 @@ function updateDelivery() {
     // Optionnel : on met en orange si c'est cher, vert si c'est normal
     // cartRestoSub.style.color = deliveryFee > 150 ? 'var(--orange)' : 'var(--green)';
   }
-
+  calculateMultiRestoDelivery(); // Recalcule selon le nombre de restos
+ 
   // 4. On recalcule tout le panier
   updateCart();
+}
+
+function calculateMultiRestoDelivery() {
+  if (cart.length === 0) {
+    deliveryFee = 0;
+    return;
+  }
+
+  // 1. On identifie les restaurants uniques présents dans le panier
+  const uniqueRestos = [...new Set(cart.map(item => item.restoName))];
+  const nbRestos = uniqueRestos.length;
+
+  // 2. On récupère le prix de la zone (150 ou 250) depuis le select
+  const zonePrice = parseInt(document.getElementById('zoneSelect').value) || 150;
+
+  // 3. Frais total = Prix de la zone x Nombre de restos
+  deliveryFee = zonePrice * nbRestos;
 }
 
 function selectPay(el, mode) {
@@ -524,18 +590,32 @@ function sendOrder() {
     return;
   }
 
+  // --- LOGIQUE DE GROUPEMENT PAR RESTO ---
+  const restosDansPanier = [...new Set(cart.map(i => i.restoName))];
+  const totalArticles = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+  const grandTotal = totalArticles + deliveryFee;
 
   let msg = `🛵 *NOUVELLE COMMANDE BARA+*\n\n`;
   msg += `👤 *Client :* ${userName}\n`;
-  msg += `🏪 *Restaurant :* ${cart[0].restoName}\n`;
-  msg += `📋 *Ma commande :*\n`;
-  cart.forEach(i => {
-    msg += `• ${i.qty}x ${i.name} — ${(i.price * i.qty).toLocaleString()} FDJ\n`;
+  msg += `\n📍 *Zone :* ${zone}`;
+
+  //msg += `🏪 *Restaurant :* ${cart[0].restoName}\n`;
+
+  // Boucle sur chaque restaurant pour lister ses articles
+  restosDansPanier.forEach(resto => {
+    msg += `🏠 *${resto.toUpperCase()}*\n`; // Titre du resto
+    const itemsDuResto = cart.filter(i => i.restoName === resto);
+    
+    itemsDuResto.forEach(item => {
+      msg += `  • ${item.qty}x ${item.name}\n`;
+    });
+    msg += `\n`;
   });
-  msg += `\n💰 Sous-total : ${total.toLocaleString()} FDJ`;
+
+
+  msg += `💰 Sous-total : ${totalArticles.toLocaleString()} FDJ\n`;
   msg += `\n🛵 Livraison : ${deliveryFee} FDJ`;
   msg += `\n✅ *TOTAL : ${grand.toLocaleString()} FDJ*`;
-  msg += `\n\n📍 *Zone :* ${zone}`;
   msg += `\n💳 *Paiement :* ${paymentMode}`;
   if (lat && lng) {
   msg += `\n\n📌 Position du client :\n`;
