@@ -11,6 +11,10 @@ let deliveryFee  = 150;
 let paymentMode  = 'Waffi';
 let currentCat   = 'all';
 
+// Heure de travail service BARA+
+const BARA_SERVICE = { open: 0, close: 23.9 }; // Bara+ travaille de 07h à 23h
+
+
 // 🔁 Charger la session au démarrage
 const savedSession = localStorage.getItem('baraPlus_session');
 
@@ -61,6 +65,7 @@ function autoDetectLocation() {
 const RESTAURANTS = {
   'lados': {
     name:'Lados', emoji:'🍴', color:'c1',
+    hours: { open: 7, close: 23.9 },
     note:'4.8', temps:'20-25 min', zone:'Centre ville',
     desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais, cuisine maison.",
     menu:[
@@ -141,6 +146,7 @@ const RESTAURANTS = {
   },
   'soho': {
     name:'SOHO CAFÉ', emoji:'🍗', color:'c2',
+    hours: { open: 9, close: 23.9 },
     note:'4.6', temps:'25-30 min', zone:'Soubane',
     desc:"Cuisine maison traditionnelle. Fatima cuisine avec passion depuis 15 ans. Plats généreux et saveurs authentiques.",
     menu:[
@@ -158,6 +164,7 @@ const RESTAURANTS = {
   },
   'kulmiye': {
     name:'Restaurant Kulmiye', emoji:'🍴', color:'c3',
+    hours: { open: 17, close: 22.5 },
     note:'4.7', temps:'20-28 min', zone:'Centre',
     desc:"Spécialiste du riz et des plats mijotés. Recettes transmises de génération en génération.",
     menu:[
@@ -171,6 +178,7 @@ const RESTAURANTS = {
   },
   'iftin': {
     name:'Restaurant Iftin', emoji:'🍴', color:'c4',
+    hours: { open: 8, close: 23 },
     note:'4.5', temps:'25-35 min', zone:'Hayableh',
     desc:"Le temple des grillades à Ali Sabieh. Viandes sélectionnées, marinades maison, cuisson au feu de bois.",
     menu:[
@@ -184,6 +192,7 @@ const RESTAURANTS = {
   },
   'royale': {
     name:'Royale Café', emoji:'🍔', color:'c5',
+    hours: { open: 9, close: 23 },
     note:'4.4', temps:'15-20 min', zone:'Soubane',
     desc:"Le snack du quartier Soubane. Rapide, savoureux, accessible. Idéal pour un repas express.",
     menu:[
@@ -200,6 +209,7 @@ const RESTAURANTS = {
   },
   'aska-tacos': {
     name:'Aska Tacos', emoji:'🍴', color:'c6',
+    hours: { open: 9, close: 23 },
     note:'4.9', temps:'15-20 min', zone:'Centre',
     desc:"Spécialiste des jus frais pressés. Fruits de saison, sans conservateurs, 100% naturel.",
     menu:[
@@ -217,30 +227,113 @@ const RESTAURANTS = {
     ]
   }
 };
+
+// Vérifier si le service global tourne, ET si le resto spécifique est ouvert.
+
+function getStatus(restoKey) {
+  const now = new Date().getHours();
+  const resto = RESTAURANTS[restoKey];
+
+  // 1. Vérifier si BARA+ est en service
+  if (now < BARA_SERVICE.open || now >= BARA_SERVICE.close) {
+    return { status: 'service_off', msg: 'Service Bara+ fermé' };
+  }
+
+  // 2. Vérifier si le resto est ouvert
+  if (now < resto.hours.open || now >= resto.hours.close) {
+    return { status: 'resto_closed', msg: 'Restaurant fermé' };
+  }
+
+  return { status: 'open', msg: 'Ouvert' };
+}
+
+function displayRestos() {
+  const container = document.getElementById('restosGrid');
+  if (!container) return;
+
+  container.innerHTML = Object.keys(RESTAURANTS).map(key => {
+    const r = RESTAURANTS[key];
+    const s = getStatus(key);
+    const isClosed = s.status !== 'open';
+    
+    // Détermination des couleurs selon le statut
+    let badgeStyle = "";
+    let dotColor = "";
+    
+    if (s.status === 'open') {
+      badgeStyle = "background:rgba(76,175,80,0.18); color:#A5D6A7; border:1px solid rgba(76,175,80,0.4);";
+      dotColor = "#4CAF50; animation:blink 1.5s infinite;";
+    } else {
+      badgeStyle = "background:rgba(239,83,80,0.18); color:#EF9A9A; border:1px solid rgba(239,83,80,0.35);";
+      dotColor = "#EF5350;";
+    }
+
+    return `
+      <div class="resto-card ${isClosed ? 'closed-grayscale' : ''}" onclick="${isClosed ? '' : `openResto('${key}')`}">
+        <div class="rc-top">
+          <img src="${r.img || 'images/resto-placeholder.jpg'}" class="rc-img">
+          <div class="rc-open" style="${badgeStyle}">
+            <span style="width:8px;height:8px;border-radius:50%;background:${dotColor}display:inline-block;"></span> 
+            ${s.msg}
+          </div>
+          ${isClosed ? '<div class="closed-overlay">Bientôt de retour</div>' : ''}
+        </div>
+        <div class="rc-body">
+          <div class="rc-title">
+            <span class="rc-name">${r.name}</span>
+            <span class="rc-emoji">${r.emoji}</span>
+          </div>
+          <div class="rc-meta">⭐ ${r.note} • 🕒 ${r.temps}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateAllRestoStatuses() {
+  const restoCards = document.querySelectorAll('.rc.fi');
+
+  restoCards.forEach(card => {
+    const restoId = card.getAttribute('data-id');
+    // On cherche l'élément qui doit recevoir le statut (ton rc-open ou rc-status-badge)
+    const badge = card.querySelector('.rc-open') || card.querySelector('.rc-status-badge');
+    
+    if (restoId && badge && RESTAURANTS[restoId]) {
+      const s = getStatus(restoId);
+      const isClosed = s.status !== 'open';
+
+      if (s.status === 'open') {
+        // Ajout d'une div "dot" explicite
+        badge.innerHTML = '<span class="dot green-dot"></span> OUVERT';
+        // On applique la classe du fond vert
+        badge.className = 'rc-open status-open'; 
+        card.classList.remove('closed-grayscale');
+      } else {
+        // Pour les restos fermés
+        badge.innerHTML = `<span class="dot white-dot"></span> ${s.msg.toUpperCase()}`;
+        
+        // On applique la classe du fond rouge ou gris
+        badge.className = `rc-open ${s.status}`;
+        card.classList.add('closed-grayscale');
+      }
+    }
+  });
+}
+
+// Lancer au chargement
+document.addEventListener("DOMContentLoaded", updateAllRestoStatuses);
+
+
 // ─── STATUT OUVERT/FERMÉ ───
 document.addEventListener("DOMContentLoaded", function () {
 
     var badges = document.querySelectorAll('.rc-open');
 
-    badges.forEach(function(badge) {
-
-        var now = new Date();
-        var h = now.getHours();
-        var isOpen = h >= 9 && h < 22;
-
-        if (isOpen) {
-            badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Ouvert';
-            badge.style.background = 'rgba(76,175,80,0.18)';
-            badge.style.color      = '#A5D6A7';
-            badge.style.border     = '1px solid rgba(76,175,80,0.4)';
-        } else {
-            badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Fermé';
-            badge.style.background = 'rgba(239,83,80,0.18)';
-            badge.style.color      = '#EF9A9A';
-            badge.style.border     = '1px solid rgba(239,83,80,0.35)';
-        }
-
-    });
+    // On lance l'affichage dynamique basé sur les horaires de chaque resto
+    displayRestos();
+    
+    // Optionnel : On rafraîchit toutes les minutes pour les changements d'heure
+    setInterval(displayRestos, 60000);
 
 });
 
@@ -476,6 +569,16 @@ function updateCart() {
     } else {
       document.getElementById('cartRestoEmoji').textContent = cart[0].restoEmoji || '🍴';
       document.getElementById('cartRestoName').textContent = cart[0].restoName;
+    } 
+    
+  } else {
+    // 🔥 C'EST ICI QUE ÇA SE PASSE : On nettoie tout quand le panier est VIDE
+    if (restoInfo) restoInfo.classList.remove('show');
+    if (restoNameEl) restoNameEl.textContent = "";
+    if (restoEmojiEl) restoEmojiEl.textContent = "";
+    if (restoSubEl) {
+      restoSubEl.textContent = "";
+      restoSubEl.style.display = 'none';
     }
   }
 
