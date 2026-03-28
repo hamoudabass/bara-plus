@@ -526,11 +526,9 @@ function sendOrder() {
 
 
   let msg = `🛵 *NOUVELLE COMMANDE BARA+*\n\n`;
-  msg += `━━━━━━━━━━━━━━━━━━\n`;
-  msg += `👤 *Client :* ${userName}\n\n`;
-  msg += `🏪 *Restaurant :* ${cart[0].restoName}\n\n`;
-  msg += `━━━━━━━━━━━━━━━━━━\n\n`;
-  msg += `📋 *DÉTAILS COMMANDE :*\n`;
+  msg += `👤 *Client :* ${userName}\n`;
+  msg += `🏪 *Restaurant :* ${cart[0].restoName}\n`;
+  msg += `📋 *Ma commande :*\n`;
   cart.forEach(i => {
     msg += `• ${i.qty}x ${i.name} — ${(i.price * i.qty).toLocaleString()} FDJ\n`;
   });
@@ -538,6 +536,7 @@ function sendOrder() {
   msg += `\n🛵 Livraison : ${deliveryFee} FDJ`;
   msg += `\n✅ *TOTAL : ${grand.toLocaleString()} FDJ*`;
   msg += `\n\n📍 *Zone :* ${zone}`;
+  msg += `\n💳 *Paiement :* ${paymentMode}`;
   if (lat && lng) {
   msg += `\n\n📌 Position du client :\n`;
   msg += `https://www.google.com/maps?q=${lat},${lng}`;
