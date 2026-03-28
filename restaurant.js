@@ -2,12 +2,50 @@
 // BARA+ — restaurants.js
 // ═══════════════════════════════════════════
 
+
+
 // ─── ÉTAT DU PANIER ───
 let cart        = [];
 let currentResto = null;
 let deliveryFee  = 150;
 let paymentMode  = 'Waffi';
 let currentCat   = 'all';
+
+// 🔁 Charger panier (pro level)
+const savedCart = localStorage.getItem('cart');
+if (savedCart) {
+  cart = JSON.parse(savedCart);
+  // On restaure aussi l'ID du restaurant en cours si le panier n'est pas vide !
+  if (cart.length > 0) {
+    currentResto = cart[0].restoId;
+  }
+}
+
+// ─── POSITION UTILISATEUR ───
+let userPosition = {
+  lat: null,
+  lng: null
+};
+
+function autoDetectLocation() {
+  try {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        localStorage.setItem('userLat', position.coords.latitude);
+        localStorage.setItem('userLng', position.coords.longitude);
+      },
+      function() {
+        console.log("GPS refusé");
+      }
+    );
+  } catch (e) {
+    console.log("Erreur GPS ignorée", e);
+  }
+}
+
+
 
 // ─── DONNÉES RESTAURANTS ───
 const RESTAURANTS = {
@@ -360,20 +398,25 @@ function updateCart() {
   badge.classList.toggle('show', count > 0);
   document.getElementById('cartNavBtn').classList.toggle('has-items', count > 0);
 
-  // Bouton mobile
+  // --- Gestion du Bouton Mobile ---
   const mob = document.getElementById('cartMobileToggle');
-  if (count > 0) {
+  const sidebar = document.getElementById('cartSidebar');
+  
+  // VARIABLE CRITIQUE : On vérifie si le panier est déjà ouvert
+  const isPanierOuvert = sidebar.classList.contains('mobile-open');
+
+  if (count > 0 && !isPanierOuvert) {
+    // On ne l'affiche QUE s'il y a des articles ET que le panier est fermé
     mob.style.display = 'flex';
-    document.getElementById('cartMobileBadge').textContent =
+    document.getElementById('cartMobileBadge').textContent = 
       count + ' article' + (count > 1 ? 's' : '');
-    // Ajouter le clic pour masquer le bouton lui-même
-    mob.onclick = () => {;
+    
+    mob.onclick = () => {
       toggleCartMobile();
-      mob.style.display = 'none';
     };
   } else {
+    // Si le panier est vide OU s'il est déjà ouvert, on cache le bouton
     mob.style.display = 'none';
-    document.getElementById('cartSidebar').classList.remove('mobile-open');
   }
 
   // Compteur
@@ -412,11 +455,43 @@ function updateCart() {
 
   // Totaux
   document.getElementById('cartSubtotal').textContent = total.toLocaleString() + ' FDJ';
+  // NOUVEAU : Met à jour la ligne "Livraison" visuellement
+  const deliveryAmountEl = document.getElementById('cartDeliveryAmount');
+  if (deliveryAmountEl) {
+    deliveryAmountEl.textContent = deliveryFee + ' FDJ';
+    deliveryAmountEl.style.color = deliveryFee > 150 ? 'var(--accent)' : 'var(--green)';
+  }  
   document.getElementById('cartTotal').textContent    = grand.toLocaleString() + ' FDJ';
+
+  // 🔥 Sauvegarde panier (pro level)
+localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function updateDelivery() {
+  // 1. On cible les bons éléments HTML (et pas le tableau 'cart')
+  const sidebar = document.getElementById('cartSidebar');
+  const mobBtn = document.getElementById('cartMobileToggle');
+
+  // 🔥 cacher bouton quand ouvert
+  if (sidebar && sidebar.classList.contains('mobile-open')) {
+    if (mobBtn) mobBtn.style.display = 'none';
+  }
+    else {
+    if (cart.length > 0) btn.style.display = 'flex';
+  }
+
+  // 2. On met à jour la variable globale du prix de livraison
   deliveryFee = parseInt(document.getElementById('zoneSelect').value);
+  
+  // 3. On met à jour le texte du sous-titre du restaurant (en haut du panier)
+  const cartRestoSub = document.getElementById('cartRestoSub');
+  if (cartRestoSub) {
+    cartRestoSub.textContent = 'Livraison ' + deliveryFee + ' FDJ';
+    // Optionnel : on met en orange si c'est cher, vert si c'est normal
+    // cartRestoSub.style.color = deliveryFee > 150 ? 'var(--orange)' : 'var(--green)';
+  }
+
+  // 4. On recalcule tout le panier
   updateCart();
 }
 
@@ -430,15 +505,32 @@ function selectPay(el, mode) {
 function sendOrder() {
   if (cart.length === 0) return;
 
+  const userName = document.getElementById('customerName').value.trim();
   const zoneEl  = document.getElementById('zoneSelect');
   const zone    = zoneEl.options[zoneEl.selectedIndex].text;
-  const address = document.getElementById('addressNote').value;
+  //const address = document.getElementById('addressNote').value;
   const total   = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const grand   = total + deliveryFee;
+ 
+  // 📍 Ajouter position GPS
+  const lat = localStorage.getItem('userLat');
+  const lng = localStorage.getItem('userLng');
+
+
+  // Vérification de sécurité : le nom est-il rempli ?
+  if (!userName) {
+    showToast('⚠️ Veuillez entrer votre nom pour la livraison', 'orange');
+    document.getElementById('customerName').focus();
+    return;
+  }
+
 
   let msg = `🛵 *NOUVELLE COMMANDE BARA+*\n\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n`;
+  msg += `👤 *Client :* ${userName}\n\n`;
   msg += `🏪 *Restaurant :* ${cart[0].restoName}\n\n`;
-  msg += `📋 *Ma commande :*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `📋 *DÉTAILS COMMANDE :*\n`;
   cart.forEach(i => {
     msg += `• ${i.qty}x ${i.name} — ${(i.price * i.qty).toLocaleString()} FDJ\n`;
   });
@@ -446,8 +538,10 @@ function sendOrder() {
   msg += `\n🛵 Livraison : ${deliveryFee} FDJ`;
   msg += `\n✅ *TOTAL : ${grand.toLocaleString()} FDJ*`;
   msg += `\n\n📍 *Zone :* ${zone}`;
-  if (address) msg += `\n📌 *Adresse :* ${address}`;
-  msg += `\n💳 *Paiement :* ${paymentMode}`;
+  if (lat && lng) {
+  msg += `\n\n📌 Position du client :\n`;
+  msg += `https://www.google.com/maps?q=${lat},${lng}`;
+}
 
   window.open('https://wa.me/25377784312?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -582,7 +676,18 @@ function showToast(msg, type = '') {
 
 // ─── MOBILE CART TOGGLE ───
 function toggleCartMobile() {
-  document.getElementById('cartSidebar').classList.toggle('mobile-open');
+  const cart = document.getElementById('cartSidebar');
+  const btn  = document.getElementById('cartMobileToggle');
+
+  cart.classList.toggle('mobile-open');
+  
+  // 🔥 cacher bouton quand ouvert
+  if (cart.classList.contains('mobile-open')) {
+    btn.style.display = 'none';
+  } else {
+    if (cart.length > 0) btn.style.display = 'flex';
+  }
+  updateCart();
 }
 
 // ─── INITIALISATION ───
@@ -590,6 +695,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Recherche
   document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+  // AUTO GPS au chargement
+  autoDetectLocation();
 
   // Favoris
   document.querySelectorAll('.rc-fav').forEach(btn => {
