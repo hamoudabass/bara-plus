@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<!-- 
+  ═══════════════════════════════════════════════════════
+  BARA+ — Page d'accueil (index.html)
+  Site de livraison à domicile — Ali Sabieh, Djibouti
+  ═══════════════════════════════════════════════════════
+  STRUCTURE DE LA PAGE :
+  1. <head>     → métadonnées, polices, CSS
+  2. <header>   → barre de navigation fixe
+  3. #mobileMenu → menu hamburger (mobile)
+  4. .hero      → section principale avec image
+  5. .how       → "Comment ça marche" (3 étapes)
+  6. .services  → présentation Bara+ Food
+  7. .pass-section → les 3 abonnements mensuels
+  8. .zones     → zones de livraison + tarifs
+  9. .testimonials → avis clients
+  10. .cta      → appel à l'action WhatsApp
+  11. <footer>  → liens, réseaux sociaux, contact
+  12. <script>  → JavaScript : badge, menu, animations
+-->
+<html lang="fr">
+<head>
+
+  <!-- Encodage UTF-8 : permet d'afficher les caractères français (é, à, ç...) -->
+  <meta charset="UTF-8">
+
+  <!-- Responsive : dit au téléphone d'utiliser sa vraie largeur d'écran -->
+  <!-- Sans ça, le site s'affiche zoomé à 80% sur mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titre qui apparaît dans l'onglet du navigateur -->
+  <title>Bara+ — Livraison à domicile Ali Sabieh</title>
+
+  <!-- Polices Google Fonts :
+       Poppins → titres, boutons, nombres (gras et impact)
+       Inter   → texte courant (lisible et propre) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Feuille de style principale → tout le design vient de là -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Icône dans l'onglet du navigateur (favicon) -->
+  <link rel="shortcut icon" href="images/3.png" type="image/x-icon">
+
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER — Barre de navigation fixe en haut
+     position:fixed dans CSS → reste visible en scrollant
+     z-index:1000 → passe au-dessus de tout le contenu
+     ═══════════════════════════════════════════ -->
+<header id="header">
+
+  <!-- Logo Bara+ (image PNG) — hauteur 90px dans le CSS -->
+  <img src="images/2.png" class="logo-img">
+
+  <!-- Fallback texte si l'image logo ne charge pas -->
+  <div style="display:none; font-family:'Poppins',sans-serif; font-weight:900; font-size:24px; color:#FFB300; letter-spacing:1px;">BARA<span style="color:#fff">+</span></div>
+
+  <!-- Badge Ouvert/Fermé — rempli dynamiquement par JavaScript
+       selon l'heure actuelle (09h-22h = ouvert) -->
+  <div id="statusBadge" style="
+    display:inline-flex; align-items:center; gap:7px;
+    padding:6px 14px; border-radius:50px;
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:12px;
+    letter-spacing:0.5px;
+  "></div>
+
+  <!-- Navigation desktop — cachée sur mobile via CSS (display:none à 900px) -->
+  <nav>
+    <a href="restaurants.html">Restaurants</a>
+    <a href="#services">Services</a>    <!-- #services → ancre vers la section -->
+    <a href="#pass">Nos Pass</a>
+    <a href="#zones">Zones</a>
+    <a href="#avis">Avis</a>
+    <!-- btn-nav → bouton jaune arrondi, style différent des autres liens -->
+    <a href="#commander" class="btn-nav">📱 Commander</a>
+  </nav>
+
+  <!-- Bouton hamburger ☰ — visible UNIQUEMENT sur mobile
+       display:none par défaut → CSS le montre à max-width:900px
+       Les 3 <span> forment les 3 barres du ☰
+       JavaScript les anime en ✕ à l'ouverture -->
+  <button id="menuBtn" onclick="toggleMenu()" style="
+    display:none;
+    background:none;border:none;cursor:pointer;
+    flex-direction:column;gap:5px;padding:8px;
+  ">
+    <span id="bar1" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+    <span id="bar2" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+    <span id="bar3" style="display:block;width:24px;height:2px;background:#FFB300;border-radius:2px;transition:all .3s"></span>
+  </button>
+
+</header>
+
+<!-- ═══════════════════════════════════════════
+     MENU MOBILE — Panneau qui se déplie sur mobile
+     display:none par défaut → JavaScript le montre/cache
+     position:fixed → reste en place même en scrollant
+     top:70px → juste sous le header (hauteur 70px)
+     z-index:999 → au-dessus du contenu, sous le header
+     ═══════════════════════════════════════════ -->
+<div id="mobileMenu" style="
+  display:none;
+  position:fixed;top:70px;left:0;right:0;z-index:999;
+  background:#8B0000;
+  padding:20px 5%;
+  flex-direction:column;gap:4px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.3);
+  border-top:1px solid rgba(255,255,255,0.1);
+">
+  <!-- onclick="closeMenu()" → ferme le menu quand on clique un lien -->
+  <a href="restaurants.html" onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Restaurants</a>
+  <a href="#services"  onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Services</a>
+  <a href="#pass"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Nos Pass</a>
+  <a href="#zones"     onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Zones</a>
+  <a href="#avis"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Avis</a>
+  <!-- Bouton Commander — style différent, fond jaune -->
+  <a href="#commander" onclick="closeMenu()" style="
+    margin-top:10px;background:#FFB300;color:#8B0000;
+    padding:14px;border-radius:50px;text-align:center;
+    font-weight:800;font-size:16px;text-decoration:none;
+  ">📱 Commander</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION HERO — Première section visible
+     min-height:100vh → occupe tout l'écran au chargement
+     Dégradé rouge → orange en arrière-plan
+     Divisée en 2 colonnes : texte (55%) + image (45%)
+     ═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════
+     HERO — version super app avec image et badges
+     ═══════════════════════════════════════════ -->
+<section class="hero" id="accueil">
+
+  <!-- Colonne gauche : texte + statistiques + boutons -->
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Nouveau à Ali Sabieh</div>
+    <h1>Tout Ali Sabieh<br>dans votre <span>poche</span></h1>
+    <p>Commandez médicaments, repas, produits et services — livraison rapide, paiement sécurisé, 100% via WhatsApp.</p>
+
+    <!-- Statistiques revisitées pour la super app -->
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">15<span style="font-size:18px">min</span></div>
+        <div class="stat-label">Livraison express</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">150<span style="font-size:18px">FDJ</span></div>
+        <div class="stat-label">Livraison zone normale</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span style="font-size:18px">+</span></div>
+        <div class="stat-label">Services disponibles</div>
+      </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">🛍️ Explorer les services →</a>
+      <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B%20je%20veux%20commander" target="_blank" class="btn-secondary">📱 Commander sur WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Colonne droite : image animée + badges flottants -->
+  <div class="hero-visual">
+    <div class="hero-img-wrap">
+      <!-- Image plus moderne : mix de plats et de produits (Unsplash) -->
+      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=600&q=80" alt="Bara+ Super App" class="hero-food-img">
+      <div class="badge-float b1">💊 Pharmacie dispo</div>
+      <div class="badge-float b2">🍔 Restaurants bientôt</div>
+      <div class="badge-float b3">✨ + de services à venir</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION HOW IT WORKS — "Comment ça marche"
+     3 cartes en grille (grid-template-columns: repeat(3,1fr))
+     Chaque carte a un numéro absolu en haut (position:absolute)
+     ═══════════════════════════════════════════ -->
+<section class="how" id="comment">
+  <!-- section-tag → petit badge rouge arrondi -->
+  <div class="section-tag">Simple et rapide</div>
+  <!-- section-title → grand titre, <span> en rouge -->
+  <h2 class="section-title">Comment ça <span>marche</span> ?</h2>
+  <p class="section-sub">En 3 étapes simples, votre repas arrive à votre porte. Pas besoin de se déplacer, pas besoin d'attendre.</p>
+
+  <!-- Grille de 3 cartes étapes -->
+  <div class="steps">
+
+    <!-- Étape 1 — step-num en position absolue au-dessus de la carte -->
+    <div class="step">
+      <div class="step-num">1</div>  <!-- Cercle rouge avec le chiffre -->
+      <div class="step-icon">📱</div>
+      <h3>Vous commandez</h3>
+      <p>Parcourez nos restaurants, choisissez vos plats et ajoutez-les au panier. Votre commande est envoyée directement sur WhatsApp en 1 clic et vous payez en Waffi, Dmoney ou CacPay</p>
+    </div>
+
+    <!-- Étape 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">🏪</div>
+      <h3>On prépare</h3>
+      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre porte.</p>
+    </div>
+
+    <!-- Étape 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">🛵</div>
+      <h3>Livré chez vous</h3>
+      <p>Votre commande arrive chaude et en parfait état directement à votre porte. Notre livreur Bajaj vous livre en moins de 30 minutes, garanti. Vous n'avez qu'à ouvrir la porte.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION SERVICES — Présentation Bara+ Food
+     service-card → grille 2 colonnes (info + visuel)
+     Sur mobile → 1 colonne (CSS media query)
+     ═══════════════════════════════════════════ -->
+
+     <div class="section">
+  <div class="section-header">
+    <div class="pill">🏪 Nos Services</div>
+    <h2>Que voulez-vous <span>recevoir</span> ?</h2>
+    <p>Choisissez votre service et commandez en quelques secondes.</p>
+  </div>
+
+  <div class="services-grid">
+
+    <!-- ✅ CARTE 1 : PHARMACIE (ACTIVE) -->
+    <div class="sc active fi" onclick="window.location.href='pharmacies.html'">
+      <div class="sc-img bg-pharmacy">
+        <div class="sc-icon-wrap">💊</div>
+        <div class="sc-badge-active">✅ Disponible</div>
+        <div class="sc-badge-new">NOUVEAU</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Pharmacie</div>
+        <div class="sc-desc">Médicaments, hygiène, parapharmacie — Pharmacie Al Shifa à votre service.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">💊 Médicaments</span>
+          <span class="sc-tag">🧴 Hygiène</span>
+          <span class="sc-tag">👶 Bébé</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>150 FDJ</strong></div>
+          <a href="pharmacies.html" class="sc-btn">Commander →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 2 : RESTAURANTS -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-restaurant">
+        <div class="sc-icon-wrap">🍔</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Restaurants</div>
+        <div class="sc-desc">Shawarma, grillades, jus frais — Lados, Soho Café, Iftin et plus.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">🥙 Shawarma</span>
+          <span class="sc-tag">🍗 Grillades</span>
+          <span class="sc-tag">🥤 Jus</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison à partir de <strong>150 FDJ</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 3 : QUINCAILLERIE -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-hardware">
+        <div class="sc-icon-wrap">🔧</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Quincaillerie</div>
+        <div class="sc-desc">Outils, visserie, matériaux de construction livrés sur chantier ou à domicile.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">🔨 Outils</span>
+          <span class="sc-tag">🏗️ Matériaux</span>
+          <span class="sc-tag">💡 Électricité</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 4 : BOUTIQUES MODE -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-fashion">
+        <div class="sc-icon-wrap">👗</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Boutiques & Mode</div>
+        <div class="sc-desc">Vêtements, accessoires, chaussures — les boutiques d'Ali Sabieh à portée de main.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">👔 Vêtements</span>
+          <span class="sc-tag">👟 Chaussures</span>
+          <span class="sc-tag">💍 Accessoires</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 5 : TRANSPORT BAJAJ -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-transport">
+        <div class="sc-icon-wrap">🛺</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Transport Bajaj</div>
+        <div class="sc-desc">Réservez un Bajaj en 1 clic — courses rapides partout dans Ali Sabieh.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">📍 Sur place</span>
+          <span class="sc-tag">⚡ Rapide</span>
+          <span class="sc-tag">💵 Cash</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Tarifs <strong>négociés</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 6 : CAFÉTÉRIA -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-cafe">
+        <div class="sc-icon-wrap">☕</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Cafétéria & Thé</div>
+        <div class="sc-desc">Café djiboutien, thé à la menthe, goûters — une pause bien méritée livrée chez vous.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">☕ Café</span>
+          <span class="sc-tag">🍵 Thé</span>
+          <span class="sc-tag">🥐 Pâtisserie</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>150 FDJ</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+     <!--<section class="services" id="services">
+   En-tête centré 
+  
+  <div class="section-header" style="text-align: center; margin-bottom: 40px; padding: 0 5%;">
+    <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; color: var(--red-dark);">Nos Services à Ali Sabieh</h2>
+    <p style="color: #666; max-width: 600px; margin: 10px auto;">Tout ce dont vous avez besoin, livré chez vous en un clic.</p>
+  </div>
+
+  <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 0 5%; max-width: 1200px; margin: 0 auto;">
+    
+    <a href="restaurants.html" class="service-card" style="text-decoration: none; color: inherit;">
+      <div class="service-icon" style="background: #FFF1F2; color: #E63946;">🍔</div>
+      <h3>Bara+ Food</h3>
+      <p>Vos restaurants préférés (Lados, Iftin, Soho...) livrés chaud.</p>
+      <span class="service-btn">Commander →</span>
+    </a>
+
+    <a href="pharmacies.html" class="service-card" style="text-decoration: none; color: inherit;">
+      <div class="service-icon" style="background: #F0F9FF; color: #0EA5E9;">💊</div>
+      <h3>Pharmacie</h3>
+      <p>Ordonnances et parapharmacie livrées en toute discrétion.</p>
+      <span class="service-btn" style="color: #0EA5E9;">Commander →</span>
+    </a>
+
+    <a href="#" class="service-card" style="text-decoration: none; color: inherit;">
+      <div class="service-icon" style="background: #FEFCE8; color: #CA8A04;">🛺</div>
+      <h3>Bara+ Bajaj</h3>
+      <p>Commandez un Bajaj pour vos déplacements à Ali Sabieh.</p>
+      <span class="service-status">Bientôt disponible</span>
+    </a>
+
+  </div>
+</section> -->
+
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION PASS — Les 3 abonnements mensuels
+     pass-grid → auto-fit minmax(260px,1fr)
+                 = s'adapte automatiquement au nombre de cartes
+     La carte .featured est mise en avant (fond dégradé rouge)
+     ═══════════════════════════════════════════ -->
+<section class="pass-section" id="pass">
+  <div class="pass-header">
+    <div class="section-tag">Économisez plus</div>
+    <h2 class="section-title">Nos <span>Pass</span> Mensuels</h2>
+    <p class="section-sub" style="margin:0 auto; text-align:center;">Abonnez-vous et économisez chaque mois. Plus vous commandez, plus vous économisez.</p>
+  </div>
+
+  <div class="pass-grid">
+
+    <!-- ── PASS STANDARD ── -->
+    <div class="pass-card">
+      <div class="pass-icon">🏠</div>
+      <div class="pass-name">Pass Standard</div>
+      <!-- Bloc prix : grand chiffre + sous-titre -->
+      <div class="pass-price-box">
+        <div class="pass-price">2 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <!-- Séparateur horizontal (1px, légèrement transparent) -->
+      <div class="pass-divider"></div>
+      <!-- Liste des avantages — perk-check = cercle rouge ✓ -->
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 15 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
+        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
+        <!-- perk-bonus → style différent, emoji cadeau -->
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 1 profil streaming offert</span></li>
+      </ul>
+      <!-- window.open() → ouvre WhatsApp dans nouvel onglet -->
+      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Standard%202000FDJ','_blank')">
+        S'abonner maintenant →
+      </button>
+    </div>
+
+    <!-- ── PASS CONFORT — FEATURED (mis en avant) ──
+         .featured → dégradé rouge, texte blanc
+         .featured::before → badge "⭐ POPULAIRE" auto-généré par CSS -->
+    <div class="pass-card featured">
+      <div class="pass-icon">⭐</div>
+      <div class="pass-name">Pass Confort</div>
+      <div class="pass-price-box">
+        <div class="pass-price">3 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 20 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
+        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 2 profils streaming offerts</span></li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Confort%203000FDJ','_blank')">
+        Choisir ce pass →
+      </button>
+    </div>
+
+    <!-- ── PASS PREMIUM ── -->
+    <div class="pass-card">
+      <div class="pass-icon">💎</div>
+      <div class="pass-name">Pass Premium</div>
+      <div class="pass-price-box">
+        <div class="pass-price">5 000</div>
+        <div class="pass-period">FDJ / mois</div>
+      </div>
+      <div class="pass-divider"></div>
+      <ul class="pass-perks">
+        <li><span class="perk-check">✓</span> 30 livraisons à domicile</li>
+        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
+        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
+        <li><span class="perk-check">✓</span> 1 service domicile / mois</li>
+        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 3 profils streaming offerts</span></li>
+        <li><span class="perk-check">✓</span> Priorité ABSOLUE</li>
+      </ul>
+      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Premium%205000FDJ','_blank')">
+        S'abonner maintenant →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION ZONES — Zones de livraison + tarifs
+     zones-inner → grille 2 colonnes :
+       gauche : liste des zones avec prix
+       droite : encart carte visuelle
+     ═══════════════════════════════════════════ -->
+<section class="zones" id="zones">
+  <div class="zones-inner">
+
+    <!-- Colonne gauche : texte + liste des zones -->
+    <div>
+      <div class="section-tag">Là où on livre</div>
+      <h2 class="section-title">Nos <span>zones</span><br>de livraison</h2>
+      <p class="section-sub">Nous couvrons toute Ali Sabieh. Le prix dépend de votre quartier — toujours transparent, jamais de surprise.</p>
+
+      <!-- Liste des zones — chaque zone-item est une ligne avec :
+           - zone-dot (point de couleur)
+           - nom + description
+           - prix à droite -->
+      <div class="zone-list">
+
+        <!-- Zone Normale — point rouge, 150 FDJ -->
+        <div class="zone-item">
+          <div class="zone-item-left">
+            <!-- zone-dot.normal → fond rouge (CSS) -->
+            <div class="zone-dot normal"></div>
+            <div>
+              <div class="zone-name">Zone Normale</div>
+              <div class="zone-desc">Château d'eau, Shell, Q.Ali, Place...</div>
+            </div>
+          </div>
+          <div class="zone-price">150 FDJ</div>
+        </div>
+
+        <!-- Zone Éloignée — point orange, 250 FDJ -->
+        <div class="zone-item">
+          <div class="zone-item-left">
+            <!-- zone-dot.far → fond orange (CSS) -->
+            <div class="zone-dot far"></div>
+            <div>
+              <div class="zone-name">Zone Éloignée / Piste</div>
+              <div class="zone-desc">Gohara, Arta, Cité, Barwaqo...</div>
+            </div>
+          </div>
+          <div class="zone-price">250 FDJ</div>
+        </div>
+
+        <!-- Livraison gratuite — point jaune, condition : +5000 FDJ -->
+        <div class="zone-item" style="background: linear-gradient(135deg, rgba(198,40,40,0.05), rgba(230,81,0,0.05));">
+          <div class="zone-item-left">
+            <div class="zone-dot" style="background: var(--yellow);"></div>
+            <div>
+              <div class="zone-name">Commande +5 000 FDJ</div>
+              <div class="zone-desc">Zone normale uniquement</div>
+            </div>
+          </div>
+          <!-- Couleur orange pour "GRATUIT" -->
+          <div class="zone-price" style="color: var(--orange);">GRATUIT</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Colonne droite : encart visuel carte avec CTA WhatsApp -->
+    <div class="zone-map">
+      <div class="zone-map-text">
+        <div class="zone-map-icon">🗺️</div>
+        <h3>Ali Sabieh</h3>
+        <p>Djibouti</p>
+        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
+          <!-- Info -->
+          <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 20px; color: white; font-size: 14px; font-weight: 600;">
+            📍 Vous êtes dans une autre zone ?
+          </div>
+          <!-- Bouton WhatsApp pour vérifier la zone -->
+          <a href="https://wa.me/25377784312?text=Bonjour%20je%20veux%20vérifier%20si%20vous%20livrez%20dans%20mon%20quartier" 
+             target="_blank"
+             style="background: var(--yellow); color: var(--red-dark); border-radius: 12px; padding: 12px 20px; font-size: 14px; font-weight: 700; text-decoration: none; font-family: 'Poppins', sans-serif;">
+            💬 Vérifier sur WhatsApp →
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION TESTIMONIALS — Avis clients
+     3 cartes en grille (repeat(3,1fr))
+     La carte du milieu a un style inversé (fond rouge)
+     review-card::before → grande guillemet décorative en CSS
+     ═══════════════════════════════════════════ -->
+<section class="testimonials" id="avis">
+  <div class="testimonials-header">
+    <div class="section-tag">Ils nous font confiance</div>
+    <h2 class="section-title">Ce que disent nos <span>clients</span></h2>
+  </div>
+
+  <div class="reviews-grid">
+
+    <!-- Avis 1 — style normal (fond gris clair) -->
+    <div class="review-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Bara+ m'a sauvé la vie ! Plus besoin de sortir sous la chaleur pour aller chercher mon déjeuner. La livraison était parfaite et rapide."</p>
+      <div class="reviewer">
+        <!-- Avatar : cercle avec initiale (pas de photo) -->
+        <div class="reviewer-avatar">F</div>
+        <div>
+          <div class="reviewer-name">Sahal Omar</div>
+          <div class="reviewer-loc">📍 Q.Ali</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avis 2 — style inversé (fond dégradé rouge, texte blanc)
+         Appliqué directement en style inline pour ce cas unique -->
+    <div class="review-card" style="background: linear-gradient(135deg, var(--red-dark), var(--orange)); color: white;">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Le pass mensuel vaut vraiment le prix. Je commande plusieurs fois par semaine et je fais des économies. Je recommande à tout le monde !"</p>
+      <div class="reviewer">
+        <!-- Avatar jaune pour contraste sur fond rouge -->
+        <div class="reviewer-avatar" style="background: var(--yellow); color: var(--red-dark);">A</div>
+        <div>
+          <div class="reviewer-name" style="color: var(--yellow);">Ahmed Ali</div>
+          <div class="reviewer-loc" style="color: rgba(255,255,255,0.7);">📍 Centre ville</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avis 3 — style normal -->
+    <div class="review-card">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-text">"Le livreur était très professionnel. La commande était correcte et la nourriture encore chaude. Bara+ c'est vraiment pratique pour toute la famille."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">H</div>
+        <div>
+          <div class="reviewer-name">Hodan Ismail</div>
+          <div class="reviewer-loc">📍 Chateau d'Eau</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION CTA — Appel à l'action final
+     Fond dégradé rouge → orange
+     ::before → motif SVG décoratif en arrière-plan
+     Contenu centré sur 700px max
+     ═══════════════════════════════════════════ -->
+<section class="cta" id="commander">
+  <div class="cta-content">
+    <h2>Prêt à commander<br>avec <span>Bara+</span> ?</h2>
+    <p>Envoyez simplement "Bonjour" sur notre WhatsApp et on s'occupe de tout. Votre repas arrive en 30 minutes.</p>
+
+    <!-- Numéro de téléphone mis en avant -->
+    <div class="cta-number">📱 +253 77 78 43 12</div>
+
+    <!-- Bouton WhatsApp vert — icône SVG incluse directement -->
+    <div class="cta-btns">
+      <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B%20je%20veux%20commander" 
+         class="btn-whatsapp" target="_blank">
+        <!-- SVG WhatsApp inline (pas besoin d'image externe) -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Commander sur WhatsApp
+      </a>
+    </div>
+
+    <!-- 3 informations rapides en ligne -->
+    <div class="cta-info">
+      <div class="cta-info-item">🕐 <strong>09h – 22h</strong> · 7 jours sur 7</div>
+      <div class="cta-info-item">💳 <strong>Waffi</strong> · D-Money · CacPay</div>
+      <div class="cta-info-item">⚡ Réponse en <strong>moins de 2 min</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER — Pied de page
+     footer-grid → 4 colonnes : marque + 3 colonnes de liens
+     Sur mobile → 2 colonnes (CSS media query)
+     ═══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+
+    <!-- Colonne 1 : Logo + description + réseaux sociaux -->
+    <div class="footer-brand">
+      <!-- Logo texte (pas d'image ici) -->
+      <div style="font-family:'Poppins',sans-serif; font-weight:900; font-size:28px; color:#FFB300; margin-bottom:16px;">BARA<span style="color:#fff">+</span></div>
+      <p>Le premier service de livraison à domicile d'Ali Sabieh. Rapide, fiable, abordable. Votre satisfaction est notre priorité.</p>
+
+      <!-- Boutons réseaux sociaux — icônes SVG inline, fond coloré de la marque -->
+      <div class="footer-socials">
+
+        <!-- Facebook — fond bleu #1877F2 -->
+        <a href="https://facebook.com/baraplusalisabieh" target="_blank" class="social-btn" 
+           style="background:#1877F2;color:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+
+        <!-- LinkedIn — fond bleu professionnel #0A66C2 -->
+        <a href="https://www.linkedin.com/company/baraplus/" target="_blank" class="social-btn"
+           style="background:#0A66C2;color:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+
+        <!-- WhatsApp — fond vert #25D366 -->
+        <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B" target="_blank" class="social-btn"
+           style="background:#25D366;color:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Colonne 2 : Liens Services -->
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Bara+ Food</a></li>
+        <li><a href="#pass">Nos Pass</a></li>
+        <li><a href="#zones">Zones de livraison</a></li>
+        <li><a href="#commander">Commander</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 3 : Liens Pass -->
+    <div class="footer-col">
+      <h4>Pass</h4>
+      <ul>
+        <li><a href="#pass">Pass Standard — 2 000 FDJ</a></li>
+        <li><a href="#pass">Pass Confort — 3 000 FDJ</a></li>
+        <li><a href="#pass">Pass Premium — 5 000 FDJ</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 4 : Contact -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://wa.me/25377784312">💬 WhatsApp</a></li>
+        <li>📍 Ali Sabieh, Djibouti</li>
+        <li>🕐 09h – 22h · 7j/7</li>
+        <li>📧 baraplus@gmail.com</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Barre de copyright en bas du footer -->
+  <div class="footer-bottom">
+    <span>© 2026 Bara+</span>
+    <span>Livraison à domicile · Ali Sabieh, Djibouti</span>
+    <span>Fait avec ❤️ pour les assajogs</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT — Tout le comportement dynamique
+     Placé en bas du body pour que le HTML soit
+     chargé avant que le JS y accède
+     ═══════════════════════════════════════════ -->
+<script>
+
+  // ── 1. BADGE OUVERT / FERMÉ ──────────────────
+  // S'exécute immédiatement au chargement
+  // Vérifie l'heure locale et affiche le statut
+  (function() {
+    var badge  = document.getElementById('statusBadge');
+    var now    = new Date();        // heure actuelle
+    var h      = now.getHours();   // ex: 14 pour 14h00
+    var isOpen = h >= 9 && h < 22; // ouvert entre 09h et 22h
+
+    if (isOpen) {
+      // Vert avec point clignotant
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Ouvert · Livraison disponible';
+      badge.style.background = 'rgba(76,175,80,0.18)';
+      badge.style.color      = '#A5D6A7';
+      badge.style.border     = '1px solid rgba(76,175,80,0.4)';
+    } else {
+      // Rouge sans animation
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Fermé · Rouvre à 09h';
+      badge.style.background = 'rgba(239,83,80,0.18)';
+      badge.style.color      = '#EF9A9A';
+      badge.style.border     = '1px solid rgba(239,83,80,0.35)';
+    }
+  })(); // () à la fin → s'exécute immédiatement (IIFE)
+
+
+  // ── 2. MENU HAMBURGER ────────────────────────
+  // Gère l'ouverture/fermeture du menu mobile
+  var _menuOpen = false; // état : true = ouvert, false = fermé
+
+  // Bascule entre ouvert et fermé
+  function toggleMenu() {
+    _menuOpen ? closeMenu() : openMenu();
+  }
+
+  // Ouvre le menu + anime les barres en ✕
+  function openMenu() {
+    _menuOpen = true;
+    document.getElementById('mobileMenu').style.display = 'flex';
+    // Barre 1 : descend + pivote 45°
+    document.getElementById('bar1').style.transform = 'translateY(7px) rotate(45deg)';
+    // Barre 2 : disparaît
+    document.getElementById('bar2').style.opacity  = '0';
+    // Barre 3 : monte + pivote -45°
+    document.getElementById('bar3').style.transform = 'translateY(-7px) rotate(-45deg)';
+  }
+
+  // Ferme le menu + remet les barres à leur position initiale
+  function closeMenu() {
+    _menuOpen = false;
+    document.getElementById('mobileMenu').style.display = 'none';
+    document.getElementById('bar1').style.transform = 'none';
+    document.getElementById('bar2').style.opacity  = '1';
+    document.getElementById('bar3').style.transform = 'none';
+  }
+
+  // Ferme le menu si l'utilisateur clique en dehors
+  document.addEventListener('click', function(e) {
+    if (!_menuOpen) return; // rien à faire si déjà fermé
+    var menu = document.getElementById('mobileMenu');
+    var btn  = document.getElementById('menuBtn');
+    // contains() → vérifie si le clic est DANS le menu ou le bouton
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+
+  // ── 3. SMOOTH SCROLL ─────────────────────────
+  // Tous les liens commençant par "#" scrollent en douceur
+  // au lieu de sauter directement à la section
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();                         // annule le saut brusque
+        target.scrollIntoView({ behavior: 'smooth' }); // scroll animé
+      }
+    });
+  });
+
+
+  // ── 4. HEADER EFFET SCROLL ───────────────────
+  // Quand on scrolle plus de 50px, le header devient
+  // semi-transparent avec flou (glassmorphism)
+  window.addEventListener('scroll', () => {
+    const h = document.getElementById('header');
+    if (window.scrollY > 50) {
+      // Après 50px de scroll : fond semi-transparent + flou
+      h.style.background      = 'rgba(139,0,0,0.97)';
+      h.style.backdropFilter  = 'blur(10px)';
+    } else {
+      // En haut de page : fond plein original
+      h.style.background      = 'var(--red-dark)';
+      h.style.backdropFilter  = 'none';
+    }
+  });
+
+
+  // ── 5. ANIMATIONS AU SCROLL ──────────────────
+  // IntersectionObserver : détecte quand un élément
+  // entre dans le champ de vision de l'utilisateur
+  // → déclenche l'animation d'apparition
+  // ── 5. ANIMATIONS AU SCROLL ──────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+// Applique l'état initial aux éléments qui doivent apparaître
+document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-card, .sc, .fi').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+</script>
+</body>
+</html>
