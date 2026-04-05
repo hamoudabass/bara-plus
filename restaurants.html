@@ -44,13 +44,14 @@
     <input type="text" id="searchInput" placeholder="Rechercher restaurant ou plat...">
   </div>
   <div class="filter-pills">
-    <div class="fp on" onclick="filter(this,'all')">🍽️ Tous</div>
-    <div class="fp" onclick="filter(this,'shawarma')">🥙 Shawarma</div>
-    <div class="fp" onclick="filter(this,'riz')">🍚 Riz</div>
-    <div class="fp" onclick="filter(this,'grillades')">🍗 Grillades</div>
-    <div class="fp" onclick="filter(this,'boissons')">🥤 Boissons</div>
-    <div class="fp" onclick="filter(this,'fastfood')">🍔 Fast Food</div>
-  </div>
+  <div class="fp on" onclick="filter(this,'all')">🍽️ Tous</div>
+  <div class="fp" onclick="filter(this,'traditionnel')">🥘 Tradition</div>
+  <div class="fp" onclick="filter(this,'fastfood')">🍔 Fast Food</div>
+  <div class="fp" onclick="filter(this,'shawarma')">🥙 Shawarma</div>
+  <div class="fp" onclick="filter(this,'grillades')">🍗 Grillades</div>
+  <div class="fp" onclick="filter(this,'jus')">🍹 Jus & Boissons</div>
+  <div class="fp" onclick="filter(this,'cafe')">☕ Café & Thé</div>
+</div>
 </div>
 
 <!-- MAIN -->
@@ -58,10 +59,10 @@
 
   <!-- LEFT: RESTAURANT CARDS -->
   <div>
-    <div class="resto-count"><strong id="restoCount">6</strong> restaurants disponibles</div>
+    <div class="resto-count"><strong id="restoCount">4</strong> restaurants disponibles</div>
     <div class="resto-grid" id="restoGrid">
 
-      <div class="rc fi" data-cat="shawarma" data-name="lados" data-note="4.8" data-id="lados" onclick="openModal('lados')">
+      <div class="rc fi" data-cat="traditionnel" data-name="lados" data-note="4.8" data-id="lados" onclick="openModal('lados')">
         <div class="rc-img c1">🍴<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div></div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Restaurants Lados</div><span class="rc-zone">Centre</span></div>
@@ -74,7 +75,7 @@
         </div>
       </div>
 
-      <div class="rc fi" data-cat="riz" data-name="soho café" data-note="4.6" data-id="soho">
+      <div class="rc fi" data-cat="cafe" data-name="soho café" data-note="4.6" data-id="soho">
         <div class="rc-img c2">☕<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div></div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Soho Café</div><span class="rc-zone">GARANOUC</span></div>
@@ -87,7 +88,7 @@
         </div>
       </div>
 
-      <div class="rc fi" data-cat="riz" data-name="restaurant kulmiye" data-note="4.7" data-id="kulmiye">
+      <!--  <div class="rc fi" data-cat="riz" data-name="restaurant kulmiye" data-note="4.7" data-id="kulmiye">
         <div class="rc-img c3">🍴<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div></div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Restaurant Kulmiye</div><span class="rc-zone">Chateau d'eau</span></div>
@@ -98,9 +99,10 @@
             <button class="rc-btn" onclick="openModal('kulmiye')">Voir le menu</button>
           </div>
         </div>
-      </div>
+      </div>-->
+      
 
-      <div class="rc fi" data-cat="grillades" data-name="restaurant iftin" data-note="4.5" data-id="iftin">
+      <div class="rc fi" data-cat="traditionnel" data-name="restaurant iftin" data-note="4.5" data-id="iftin">
         <div class="rc-img c4">🍴<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div></div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Restaurant Iftin</div><span class="rc-zone">Centre</span></div>
@@ -113,7 +115,7 @@
         </div>
       </div>
 
-      <div class="rc fi" data-cat="fastfood" data-name="royale café" data-note="4.4" data-id="royale">
+      <!-- <div class="rc fi" data-cat="fastfood" data-name="royale café" data-note="4.4" data-id="royale">
         <div class="rc-img c5">☕<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div></div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Royale Café</div><span class="rc-zone">Cheikh-Moussa</span></div>
@@ -124,9 +126,9 @@
             <button class="rc-btn" onclick="openModal('royale')">Voir le menu</button>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="rc fi" data-cat="boissons" data-name="aska tacos" data-note="4.9" data-id="aska-tacos">
+      <div class="rc fi" data-cat="fastfood" data-name="aska tacos" data-note="4.9" data-id="aska-tacos">
         <div class="rc-img c6">🍴<div class="rc-open" id="rc-open"><div class="rc-status-badge"></div>  </div><div class="rc-fav">🤍</div></div>
         <div class="rc-body">
           <div class="rc-head"><div class="rc-name">Aska Tacos</div><span class="rc-zone">Centre</span></div>

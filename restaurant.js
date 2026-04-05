@@ -67,7 +67,7 @@ const RESTAURANTS = {
     name:'Lados', emoji:'🍴', color:'c1',
     hours: { open: 7, close: 23.9 },
     note:'4.8', temps:'20-25 min', zone:'Centre ville',
-    desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais, cuisine maison.",
+    desc:"Restaurant familial spécialisé dans le shawarma et les grillades. Ingrédients frais.",
     menu:[
       {cat:'Shawarma', items:[
         {id:'ld1',emoji:'🥙',name:'Shawarma Poulet',desc:'Pain pita, poulet grillé, légumes',price:700},
@@ -148,70 +148,61 @@ const RESTAURANTS = {
     name:'SOHO CAFÉ', emoji:'🍗', color:'c2',
     hours: { open: 9, close: 23.9 },
     note:'4.6', temps:'25-30 min', zone:'Soubane',
-    desc:"Cuisine maison traditionnelle. Fatima cuisine avec passion depuis 15 ans. Plats généreux et saveurs authentiques.",
+    desc:"L'espace détente par excellence. Venez pour l'air frais et le café, restez pour nos tacos et burgers gourmands. Le mix parfait entre break et plaisir.",
     menu:[
-      {cat:'🍗 Plats Principaux', items:[
-        {id:'fa1',emoji:'🍗',name:'Poulet Rôti',desc:'½ poulet avec riz et salade',price:1000},
-        {id:'fa2',emoji:'🍚',name:'Riz au Poulet',desc:'Riz basmati, poulet mijoté',price:700},
-        {id:'fa3',emoji:'🥘',name:'Riz à la Viande',desc:'Riz basmati, bœuf épicé',price:800},
-        {id:'fa4',emoji:'🫕',name:'Ragoût Légumes',desc:'Avec riz blanc',price:600},
+      {cat:'Burgers & Tacos', items:[
+        {id:'sh1', emoji:'🍔', name:'Burger Soho', desc:'Steak boeuf, fromage, sauce maison', price:800},
+        {id:'sh2', emoji:'🌮', name:'Tacos Poulet', desc:'Poulet mariné, frites, sauce fromagère', price:900},
+        {id:'sh3', emoji:'🌮', name:'Tacos Mixte', desc:'Viande hachée et poulet croustillant', price:1200},
+        {id:'sh4', emoji:'🌯', name:'Sandwich Club', desc:'Pain de mie grillé, œuf, poulet, crudités', price:600},
       ]},
-      {cat:'🥗 Accompagnements', items:[
-        {id:'fa5',emoji:'🥗',name:'Salade Fraîche',desc:'Tomates, concombre, herbes',price:200},
-        {id:'fa6',emoji:'🍞',name:'Pain Maison',desc:'Pain artisanal frais',price:100},
-      ]}
-    ]
-  },
-  'kulmiye': {
-    name:'Restaurant Kulmiye', emoji:'🍴', color:'c3',
-    hours: { open: 17, close: 22.5 },
-    note:'4.7', temps:'20-28 min', zone:'Centre',
-    desc:"Spécialiste du riz et des plats mijotés. Recettes transmises de génération en génération.",
-    menu:[
-      {cat:'🍚 Plats de Riz', items:[
-        {id:'ba1',emoji:'🍚',name:'Riz Viande',desc:'Grand bol, viande tendre',price:800},
-        {id:'ba2',emoji:'🥘',name:'Riz Poisson',desc:'Poisson grillé sur riz épicé',price:900},
-        {id:'ba3',emoji:'🍛',name:'Riz Mixte',desc:'Viande + légumes + épices',price:1000},
-        {id:'ba4',emoji:'🫕',name:'Soupe de Viande',desc:'Soupe épaisse traditionnelle',price:500},
+      {cat:'Cafétéria & Boissons Chaudes', items:[
+        {id:'sh5', emoji:'☕', name:'Café Noir', desc:'Café fraîchement moulu', price:150},
+        {id:'sh6', emoji:'🥛', name:'Café au Lait', desc:'Onctueux et réconfortant', price:250},
+        {id:'sh7', emoji:'🍵', name:'Thé à la Menthe', desc:'Thé traditionnel infusé', price:150},
+        {id:'sh8', emoji:'🍫', name:'Chocolat Chaud', desc:'Pour les moments de douceur', price:400},
+      ]},
+      {cat:'Rafraîchissements', items:[
+        {id:'sh9', emoji:'🥤', name:'Jus de Fruits Frais', desc:'Orange, Mangue ou Papaye (selon saison)', price:400},
+        {id:'sh10', emoji:'🥤', name:'Milkshake Vanille/Choco', desc:'Frais et gourmand', price:600},
+        {id:'sh11', emoji:'💧', name:'Eau Minérale', desc:'Bouteille 500ml', price:100},
+        {id:'sh12', emoji:'🍹', name:'Soda (Coca/Fanta)', desc:'Canette fraîche', price:200},
       ]}
     ]
   },
   'iftin': {
     name:'Restaurant Iftin', emoji:'🍴', color:'c4',
     hours: { open: 8, close: 23 },
-    note:'4.5', temps:'25-35 min', zone:'Hayableh',
-    desc:"Le temple des grillades à Ali Sabieh. Viandes sélectionnées, marinades maison, cuisson au feu de bois.",
+    note:'4.5', temps:'25-35 min', zone:'Centre-ville',
+    desc:"Une institution historique au cœur d'Ali Sabieh. Une cuisine authentique et généreuse, aimée et validée par des générations d'Assajogs.",
     menu:[
-      {cat:'🔥 Grillades', items:[
-        {id:'gr1',emoji:'🥩',name:'Côtelettes Grillées',desc:'3 pièces + pain + salade',price:1200},
-        {id:'gr2',emoji:'🍗',name:'Poulet Entier BBQ',desc:'Mariné aux herbes, frites',price:1500},
-        {id:'gr3',emoji:'🫙',name:'Brochettes Mix',desc:'5 brochettes viande + poulet',price:900},
-        {id:'gr4',emoji:'🥓',name:'Assiette BBQ',desc:'Assortiment, riz ou frites',price:1300},
-      ]}
-    ]
-  },
-  'royale': {
-    name:'Royale Café', emoji:'🍔', color:'c5',
-    hours: { open: 9, close: 23 },
-    note:'4.4', temps:'15-20 min', zone:'Soubane',
-    desc:"Le snack du quartier Soubane. Rapide, savoureux, accessible. Idéal pour un repas express.",
-    menu:[
-      {cat:'🍔 Sandwichs & Burgers', items:[
-        {id:'sn1',emoji:'🍔',name:'Burger Poulet',desc:'Pain brioche, poulet croustillant',price:450},
-        {id:'sn2',emoji:'🌭',name:'Hot-Dog',desc:'Pain, saucisse, moutarde',price:350},
-        {id:'sn3',emoji:'🥪',name:'Sandwich Thon',desc:'Pain toast, thon, légumes',price:300},
+      {cat:'Plats Traditionnels', items:[
+        {id:'if1', emoji:'🥘', name:'Haricot Simple', desc:'Portion de haricots classiques', price:100},
+        {id:'if2', emoji:'🔥', name:'Haricot Dawa', desc:'Haricots façon Dawa épicés', price:150},
+        {id:'if3', emoji:'🍳', name:'Haricot Nalo (Oeuf)', desc:'Haricots accompagnés d’un œuf', price:200},
+        {id:'if4', emoji:'🍲', name:'Petit Pois & Nalo', desc:'Petits pois savoureux avec œuf', price:250},
+        {id:'if5', emoji:'🥚', name:'Nalo Simple', desc:'Plat d’œufs préparés à la locale', price:250},
+        {id:'if6', emoji:'🫓', name:'3 Guessod', desc:'Trois galettes traditionnelles', price:350},
       ]},
-      {cat:'🍟 Accompagnements', items:[
-        {id:'sn4',emoji:'🍟',name:'Frites Maison',desc:'Croustillantes, sel',price:200},
-        {id:'sn5',emoji:'🥤',name:'Soda',desc:'Coca, Fanta, Sprite',price:150},
+      {cat:'Viandes & Grillades', items:[
+        {id:'if7', emoji:'🥩', name:'Viande Hachée', desc:'Viande hachée cuisinée aux épices', price:300},
+        {id:'if8', emoji:'🥘', name:'Souqaar', desc:'Petits morceaux de viande sautés', price:300},
+        {id:'if9', emoji:'🍗', name:'Hafteen Poulet', desc:'Spécialité Iftin au poulet', price:500},
+        {id:'if10', emoji:'🍖', name:'Hafteen Viande', desc:'Spécialité Iftin à la viande', price:400},
+        {id:'if11', emoji:'🍛', name:'Iskulab', desc:'Mélange traditionnel riche', price:400},
+      ]},
+      {cat:'Boissons', items:[
+        {id:'if12', emoji:'💧', name:'Eau Minérale (Petite)', desc:'Eau fraîche 500ml', price:100},
+        {id:'if13', emoji:'🥤', name:'Coca-Cola / Fanta', desc:'Canette 33cl au choix', price:150},
+        {id:'if14', emoji:'🧃', name:'Jus local', desc:'Jus de fruits frais du jour', price:200},
       ]}
-    ]
+  ]
   },
   'aska-tacos': {
     name:'Aska Tacos', emoji:'🍴', color:'c6',
     hours: { open: 9, close: 23 },
     note:'4.9', temps:'15-20 min', zone:'Centre',
-    desc:"Spécialiste des jus frais pressés. Fruits de saison, sans conservateurs, 100% naturel.",
+    desc:"La nouvelle référence street-food qui fait vibrer Ali Sabieh. Des tacos ultra-généreux et des jus frais pressés qui ont déjà conquis le cœur (et l'estomac) des Assajogs.",
     menu:[
       {cat:'🥭 Jus Frais', items:[
         {id:'ju1',emoji:'🥭',name:'Jus Mangue',desc:'Mangue fraîche pressée',price:200},
@@ -506,10 +497,24 @@ function changeCartQty(id, delta) {
 }
 
 function clearCart() {
-  cart = [];
-  currentResto = null;
-  updateCart();
-  showToast('🗑️ Panier vidé');
+    // 1. Vider le tableau en mémoire
+    cart = [];
+    deliveryFee = 150; // On remet le tarif de base
+
+    // 2. Supprimer la sauvegarde ou la mettre à jour à vide
+    // On garde le nom du client mais on vide le panier
+    const emptyData = {
+        cart: [],
+        deliveryFee: 150,
+        customerName: document.getElementById('customerName')?.value || '',
+        selectedZoneValue: document.getElementById('zoneSelect')?.value || '150'
+    };
+    localStorage.setItem('baraPlus_session', JSON.stringify(emptyData));
+
+    // 3. Mettre à jour l'interface (UI)
+    updateCart();
+    
+    console.log("🧹 Panier nettoyé en mémoire et sur le disque.");
 }
 
 // ─── PANIER — AFFICHAGE ───
@@ -726,6 +731,14 @@ function sendOrder() {
 }
 
   window.open('https://wa.me/25377784312?text=' + encodeURIComponent(msg), '_blank');
+
+  // 🔥 ACTION CRITIQUE : Vider le panier après l'envoi
+    setTimeout(() => {
+        clearCart();
+        // Optionnel : Rediriger ou fermer le panier mobile
+        if(typeof toggleCartMobile === 'function') toggleCartMobile(); 
+        alert("Commande envoyée ! Votre panier a été réinitialisé.");
+    }, 1000);
 }
 
 // ─── GÉOLOCALISATION ───
