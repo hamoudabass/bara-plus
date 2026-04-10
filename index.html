@@ -652,11 +652,11 @@ document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service
   observer.observe(el);
 });
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-    .then(() => console.log("Bara+ PWA prête !"))
-    .catch((err) => console.log("Erreur PWA", err));
-}
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log("Bara+ PWA prête !"))
+      .catch((err) => console.log("Erreur PWA", err));
+  }
 
 </script>
 </body>
