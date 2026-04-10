@@ -658,6 +658,34 @@ document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service
       .catch((err) => console.log("Erreur PWA", err));
   }
 
+  let deferredPrompt;
+const installBtn = document.createElement('button');
+installBtn.innerHTML = "📲 Installer l'application Bara+";
+installBtn.style.cssText = "position:fixed; bottom:20px; right:20px; z-index:9999; padding:15px; background:var(--red); color:white; border:none; border-radius:50px; display:none; cursor:pointer; font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.2);";
+document.body.appendChild(installBtn);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Empêche Chrome d'afficher la petite barre grise par défaut
+  e.preventDefault();
+  // On garde l'événement de côté
+  deferredPrompt = e;
+  // On affiche NOTRE bouton personnalisé
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', (e) => {
+  // Cache le bouton
+  installBtn.style.display = 'none';
+  // Affiche la demande d'installation officielle
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      console.log('L\'utilisateur a installé Bara+');
+    }
+    deferredPrompt = null;
+  });
+});
+
 </script>
 </body>
 </html>
