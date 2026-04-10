@@ -29,7 +29,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Titre qui apparaît dans l'onglet du navigateur -->
-  <title>Bara+ — Livraison à domicile Ali Sabieh</title>
+  <!-- SEO pivot marketplace -->
+  <title>Bara+ — Marketplace Ali Sabieh · Commandez en direct</title>
+  <meta name="description" content="Bara+ connecte les habitants d'Ali Sabieh à leurs commerces préférés. 
+  Commandez directement chez Lados, Aska Food, Iftin, Pharmacie Al Shifa — sans intermédiaire.">
 
   <!-- Polices Google Fonts :
        Poppins → titres, boutons, nombres (gras et impact)
@@ -37,10 +40,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Feuille de style principale → tout le design vient de là -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/superapp.css">
 
   <!-- Icône dans l'onglet du navigateur (favicon) -->
-  <link rel="shortcut icon" href="assets/images/3.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/images/3.png" type="image/x-icon">
 
 </head>
 <body>
@@ -53,7 +56,7 @@
 <header id="header">
 
   <!-- Logo Bara+ (image PNG) — hauteur 90px dans le CSS -->
-  <img src="assets/images/2.png" class="logo-img">
+  <img src="../assets/images/2.png" class="logo-img">
 
   <!-- Fallback texte si l'image logo ne charge pas -->
   <div style="display:none; font-family:'Poppins',sans-serif; font-weight:900; font-size:24px; color:#FFB300; letter-spacing:1px;">BARA<span style="color:#fff">+</span></div>
@@ -69,10 +72,8 @@
 
   <!-- Navigation desktop — cachée sur mobile via CSS (display:none à 900px) -->
   <nav>
-    <a href="pages/restaurants.html">Restaurants</a>
-    <a href="#services">Services</a>    <!-- #services → ancre vers la section -->
-    <a href="#pass">Nos Pass</a>
-    <a href="#zones">Zones</a>
+    <a href="../pages/restaurants.html">Restaurants</a>
+    <a href="#services">Services</a>  
     <a href="#avis">Avis</a>
     <!-- btn-nav → bouton jaune arrondi, style différent des autres liens -->
     <a href="#commander" class="btn-nav">📱 Commander</a>
@@ -111,10 +112,8 @@
   border-top:1px solid rgba(255,255,255,0.1);
 ">
   <!-- onclick="closeMenu()" → ferme le menu quand on clique un lien -->
-  <a href="restaurants.html" onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Restaurants</a>
+  <a href="../pages/restaurants.html" onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Restaurants</a>
   <a href="#services"  onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Services</a>
-  <a href="#pass"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Nos Pass</a>
-  <a href="#zones"     onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Zones</a>
   <a href="#avis"      onclick="closeMenu()" style="color:#FFD54F;padding:14px 0;font-size:16px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1)">Avis</a>
   <!-- Bouton Commander — style différent, fond jaune -->
   <a href="#commander" onclick="closeMenu()" style="
@@ -131,63 +130,48 @@
      Dégradé rouge → orange en arrière-plan
      Divisée en 2 colonnes : texte (55%) + image (45%)
      ═══════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════
+     HERO — version super app avec image et badges
+     ═══════════════════════════════════════════ -->
 <section class="hero" id="accueil">
 
-  <!-- Colonne gauche : texte + boutons + statistiques -->
+  <!-- Colonne gauche : texte + statistiques + boutons -->
   <div class="hero-content">
-
-    <!-- Badge animé "Nouveau à Ali Sabieh"
-         animation pulse-badge définie dans le CSS -->
     <div class="hero-badge">🔥 Nouveau à Ali Sabieh</div>
+    <h1>Bara+ <br> La 1ère Marketplace <span>Assajog</span></h1>
+    <p>Commandez repas, médicaments, produits et services — directment chez vos commerçants préférés !</p>
 
-    <!-- Titre principal — clamp(36px, 5vw, 62px) = responsive -->
-    <h1>Vos repas<br>livrés en <span>30 min</span><br>à domicile</h1>
-    <!-- <span> → "30 min" s'affiche en jaune grâce au CSS -->
-
-    <!-- Sous-titre descriptif -->
-    <p>Bara+ révolutionne la livraison à Ali Sabieh. Commandez depuis chez vous, on s'occupe du reste. Rapide, fiable, abordable.</p>
-
-    <!-- Boutons d'action
-         btn-primary → jaune, animé (bounce-btn)
-         btn-secondary → transparent avec bordure -->
-    <div class="hero-btns">
-      <!-- Lien WhatsApp avec message pré-rempli encodé -->
-      <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B%20je%20veux%20commander" target="_blank" class="btn-primary">
-        🛒 Commander 
-      </a>
-      <!-- #pass → scroll doux vers la section pass (JS) -->
-      <a href="#pass" class="btn-secondary">
-        🎟️ Voir les Pass
-      </a>
-    </div>
-
-    <!-- Barre de statistiques : 3 chiffres clés -->
+    <!-- Statistiques revisitées pour la super app -->
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num">30<span style="font-size:18px">min</span></div>
-        <div class="stat-label">Livraison garantie</div>
+        <div class="stat-num">2<span style="font-size:18px">+</span></div>
+        <div class="stat-label">Partenaires actifs</div>
       </div>
       <div class="stat">
-        <div class="stat-num">150<span style="font-size:18px">FDJ</span></div>
-        <div class="stat-label">À partir de</div>
+        <div class="stat-num">20<span style="font-size:18px">+</span></div>
+        <div class="stat-label">Produits disponibles</div>
       </div>
       <div class="stat">
-        <div class="stat-num">7<span style="font-size:18px">j/7</span></div>
-        <div class="stat-label">Disponible</div>
+        <div class="stat-num">100<span style="font-size:18px">%</span></div>
+        <div class="stat-label">Local – Ali Sabieh</div>
       </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">🛍️ Découvrir les commerçants →</a>
+      <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B%20je%20veux%20commander" target="_blank" class="btn-secondary">📱 Commander sur WhatsApp</a>
     </div>
   </div>
 
-  <!-- Colonne droite : photo de nourriture animée + badges flottants -->
+  <!-- Colonne droite : image animée + badges flottants -->
   <div class="hero-visual">
     <div class="hero-img-wrap">
-      <!-- Photo depuis Unsplash — object-fit:cover remplit le cercle -->
-      <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" alt="Plats livrés par Bara+" class="hero-food-img">
-
-      <!-- Badges flottants animés (animation float-b dans CSS)
-           b1 → coin haut gauche / b2 → coin bas droite -->
-      <div class="badge-float b1">⏱️ 30 min chrono !</div>
-      <div class="badge-float b2">💰 Dès 150 FDJ</div>
+      <!-- Image plus moderne : mix de plats et de produits (Unsplash) -->
+      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=600&q=80" alt="Bara+ Super App" class="hero-food-img">
+      <div class="badge-float b1">💊 Pharmacie dispo</div>
+      <div class="badge-float b2">🍔 Restaurants bientôt</div>
+      <div class="badge-float b3">✨ + de services à venir</div>
     </div>
   </div>
 </section>
@@ -202,7 +186,8 @@
   <div class="section-tag">Simple et rapide</div>
   <!-- section-title → grand titre, <span> en rouge -->
   <h2 class="section-title">Comment ça <span>marche</span> ?</h2>
-  <p class="section-sub">En 3 étapes simples, votre repas arrive à votre porte. Pas besoin de se déplacer, pas besoin d'attendre.</p>
+  <p class="section-sub">En 3 étapes, Bara+ transmet votre commande au commerçant, qui la prépare puis vous la livre ou vous la récupérer sur place.
+</p>
 
   <!-- Grille de 3 cartes étapes -->
   <div class="steps">
@@ -210,25 +195,27 @@
     <!-- Étape 1 — step-num en position absolue au-dessus de la carte -->
     <div class="step">
       <div class="step-num">1</div>  <!-- Cercle rouge avec le chiffre -->
-      <div class="step-icon">📱</div>
-      <h3>Vous commandez</h3>
-      <p>Parcourez nos restaurants, choisissez vos plats et ajoutez-les au panier. Votre commande est envoyée directement sur WhatsApp en 1 clic et vous payez en Waffi, Dmoney ou CacPay</p>
+      <div class="step-icon">🏪</div>
+      <h3>Choisissez votre commerce</h3>
+      <p>Parcourez nos partenaires : restaurants ou pharmacie. 
+        Ajoutez vos articles au panier en quelques secondes, depuis votre téléphone ou ordinateur.</p>
     </div>
 
     <!-- Étape 2 -->
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-icon">🏪</div>
-      <h3>On prépare</h3>
-      <p>Dès réception de votre commande, notre équipe se charge d'aller chercher vos plats au restaurant. Vous n'avez rien à faire — on s'occupe de tout, de la commande jusqu'à votre porte.</p>
+      <div class="step-icon">🛒</div>
+      <h3>Validez votre panier</h3>
+      <p>Vérifiez votre commande, indiquez votre nom ainsi votre quartier et choisissez entre livraison à domicile
+         ou récupérer sur place vous-même. </p>
     </div>
 
     <!-- Étape 3 -->
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-icon">🛵</div>
+      <div class="step-icon">📲</div>
       <h3>Livré chez vous</h3>
-      <p>Votre commande arrive chaude et en parfait état directement à votre porte. Notre livreur Bajaj vous livre en moins de 30 minutes, garanti. Vous n'avez qu'à ouvrir la porte.</p>
+      <p>Votre commande est envoyée directement sur le WhatsApp du commerçant. Il confirme, prépare et vous livre — ou vous passez récupérer sur place.</p>
     </div>
 
   </div>
@@ -240,224 +227,146 @@
      Sur mobile → 1 colonne (CSS media query)
      ═══════════════════════════════════════════ -->
 <section class="services" id="services">
-  <!-- En-tête centré -->
-  <div style="text-align:center; margin-bottom:60px;">
-    <div class="section-tag">Ce qu'on fait</div>
-    <h2 class="section-title">Bara+ <span>Food</span></h2>
-    <p class="section-sub" style="margin:0 auto;">Le meilleur des restaurants d'Ali Sabieh, livré directement à votre porte.</p>
+
+     <div class="section">
+  <div class="section-header">
+    <div class="pill">🏪 Nos Services</div>
+    <h2>Que voulez-vous <span>recevoir</span> ?</h2>
+    <p>Choisissez votre service et commandez en quelques secondes.</p>
   </div>
 
-  <!-- Grille de services (1 seule carte pour l'instant) -->
   <div class="services-grid">
-    <div class="service-card">
 
-      <!-- Partie gauche : informations textuelles -->
-      <div class="service-info">
-        <div class="service-tag">🍔 Service principal</div>
-        <h2><span>Bara+</span> Food</h2>
-        <p>Commandez depuis vos restaurants préférés à Ali Sabieh. Shawarma, riz, jus, tout ce que vous voulez — livré chaud et rapide.</p>
-
-        <!-- Liste avec coches ✓ générées par CSS (::before) -->
-        <ul class="service-features">
-          <li>Tous les restaurants de la ville</li>
-          <li>Livraison en 25-30 minutes</li>
-          <li>Paiement Waffi, D-Money ou CacPay</li>
-          <li>Disponible 7j/7 de 09h à 22h</li>
-          <li>Livreurs vérifiés et fiables</li>
-        </ul>
-
-        <!-- Prix avec 3 parties : "À partir de" + montant + unité -->
-        <div class="service-price">
-          <span class="price-from">À partir de</span>
-          <span class="price-amount">150 FDJ</span>
-          <span class="price-unit">/ livraison</span>
+    <!-- ✅ CARTE 1 : PHARMACIE (ACTIVE) -->
+    <div class="sc active fi" onclick="window.location.href='index.html'">
+      <div class="sc-img bg-pharmacy">
+        <div class="sc-icon-wrap">💊</div>
+        <div class="sc-badge-active">✅ Disponible</div>
+        <div class="sc-badge-new">NOUVEAU</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Pharmacie</div>
+        <div class="sc-desc">Médicaments, hygiène, parapharmacie — Pharmacie Al Shifa à votre service.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">💊 Médicaments</span>
+          <span class="sc-tag">🧴 Hygiène</span>
+          <span class="sc-tag">👶 Bébé</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>ou</strong> recupérer soi-même</div>
+          <a href="index.html" class="sc-btn">Commander →</a>
         </div>
       </div>
-
-      <!-- Partie droite : fond dégradé rouge avec emoji géant -->
-      <div class="service-visual">
-        <!-- emoji-big → animation float dans CSS -->
-        <div class="emoji-big">🍔</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     SECTION PASS — Les 3 abonnements mensuels
-     pass-grid → auto-fit minmax(260px,1fr)
-                 = s'adapte automatiquement au nombre de cartes
-     La carte .featured est mise en avant (fond dégradé rouge)
-     ═══════════════════════════════════════════ -->
-<section class="pass-section" id="pass">
-  <div class="pass-header">
-    <div class="section-tag">Économisez plus</div>
-    <h2 class="section-title">Nos <span>Pass</span> Mensuels</h2>
-    <p class="section-sub" style="margin:0 auto; text-align:center;">Abonnez-vous et économisez chaque mois. Plus vous commandez, plus vous économisez.</p>
-  </div>
-
-  <div class="pass-grid">
-
-    <!-- ── PASS STANDARD ── -->
-    <div class="pass-card">
-      <div class="pass-icon">🏠</div>
-      <div class="pass-name">Pass Standard</div>
-      <!-- Bloc prix : grand chiffre + sous-titre -->
-      <div class="pass-price-box">
-        <div class="pass-price">2 000</div>
-        <div class="pass-period">FDJ / mois</div>
-      </div>
-      <!-- Séparateur horizontal (1px, légèrement transparent) -->
-      <div class="pass-divider"></div>
-      <!-- Liste des avantages — perk-check = cercle rouge ✓ -->
-      <ul class="pass-perks">
-        <li><span class="perk-check">✓</span> 15 livraisons à domicile</li>
-        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
-        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
-        <!-- perk-bonus → style différent, emoji cadeau -->
-        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 1 profil streaming offert</span></li>
-      </ul>
-      <!-- window.open() → ouvre WhatsApp dans nouvel onglet -->
-      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Standard%202000FDJ','_blank')">
-        S'abonner maintenant →
-      </button>
     </div>
 
-    <!-- ── PASS CONFORT — FEATURED (mis en avant) ──
-         .featured → dégradé rouge, texte blanc
-         .featured::before → badge "⭐ POPULAIRE" auto-généré par CSS -->
-    <div class="pass-card featured">
-      <div class="pass-icon">⭐</div>
-      <div class="pass-name">Pass Confort</div>
-      <div class="pass-price-box">
-        <div class="pass-price">3 000</div>
-        <div class="pass-period">FDJ / mois</div>
+    <!-- 🔒 CARTE 2 : RESTAURANTS -->
+    <div class="sc active fi" onclick="window.location.href='/pages/restaurants.html'">
+      <div class="sc-img bg-restaurant">
+        <div class="sc-icon-wrap">🍔</div>
+        <div class="sc-badge-active">✅ Disponible</div>
+        <div class="sc-badge-new">NOUVEAU</div>
       </div>
-      <div class="pass-divider"></div>
-      <ul class="pass-perks">
-        <li><span class="perk-check">✓</span> 20 livraisons à domicile</li>
-        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
-        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
-        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 2 profils streaming offerts</span></li>
-      </ul>
-      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Confort%203000FDJ','_blank')">
-        Choisir ce pass →
-      </button>
-    </div>
-
-    <!-- ── PASS PREMIUM ── -->
-    <div class="pass-card">
-      <div class="pass-icon">💎</div>
-      <div class="pass-name">Pass Premium</div>
-      <div class="pass-price-box">
-        <div class="pass-price">5 000</div>
-        <div class="pass-period">FDJ / mois</div>
-      </div>
-      <div class="pass-divider"></div>
-      <ul class="pass-perks">
-        <li><span class="perk-check">✓</span> 30 livraisons à domicile</li>
-        <li><span class="perk-check">✓</span> Priorité sur les non-abonnés</li>
-        <li><span class="perk-check">✓</span> Support WhatsApp dédié</li>
-        <li><span class="perk-check">✓</span> 1 service domicile / mois</li>
-        <li><span class="perk-check perk-bonus">🎁</span> <span><strong>Bonus :</strong> 3 profils streaming offerts</span></li>
-        <li><span class="perk-check">✓</span> Priorité ABSOLUE</li>
-      </ul>
-      <button class="pass-btn" onclick="window.open('https://wa.me/25377784312?text=Je%20veux%20le%20Pass%20Premium%205000FDJ','_blank')">
-        S'abonner maintenant →
-      </button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     SECTION ZONES — Zones de livraison + tarifs
-     zones-inner → grille 2 colonnes :
-       gauche : liste des zones avec prix
-       droite : encart carte visuelle
-     ═══════════════════════════════════════════ -->
-<section class="zones" id="zones">
-  <div class="zones-inner">
-
-    <!-- Colonne gauche : texte + liste des zones -->
-    <div>
-      <div class="section-tag">Là où on livre</div>
-      <h2 class="section-title">Nos <span>zones</span><br>de livraison</h2>
-      <p class="section-sub">Nous couvrons toute Ali Sabieh. Le prix dépend de votre quartier — toujours transparent, jamais de surprise.</p>
-
-      <!-- Liste des zones — chaque zone-item est une ligne avec :
-           - zone-dot (point de couleur)
-           - nom + description
-           - prix à droite -->
-      <div class="zone-list">
-
-        <!-- Zone Normale — point rouge, 150 FDJ -->
-        <div class="zone-item">
-          <div class="zone-item-left">
-            <!-- zone-dot.normal → fond rouge (CSS) -->
-            <div class="zone-dot normal"></div>
-            <div>
-              <div class="zone-name">Zone Normale</div>
-              <div class="zone-desc">Château d'eau, Shell, Q.Ali, Place...</div>
-            </div>
-          </div>
-          <div class="zone-price">150 FDJ</div>
+      <div class="sc-body">
+        <div class="sc-name">Restaurants</div>
+        <div class="sc-desc">Shawarma, grillades, jus frais — Lados, Soho Café, Iftin et plus.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">🥙 Shawarma</span>
+          <span class="sc-tag">🍗 Grillades</span>
+          <span class="sc-tag">🥤 Jus</span>
         </div>
-
-        <!-- Zone Éloignée — point orange, 250 FDJ -->
-        <div class="zone-item">
-          <div class="zone-item-left">
-            <!-- zone-dot.far → fond orange (CSS) -->
-            <div class="zone-dot far"></div>
-            <div>
-              <div class="zone-name">Zone Éloignée / Piste</div>
-              <div class="zone-desc">Gohara, Arta, Cité, Barwaqo...</div>
-            </div>
-          </div>
-          <div class="zone-price">250 FDJ</div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>ou</strong> recupérer soi-même</div>
+          <a href="/pages/restaurants.html" class="sc-btn">Commander →</a>
         </div>
-
-        <!-- Livraison gratuite — point jaune, condition : +5000 FDJ -->
-        <div class="zone-item" style="background: linear-gradient(135deg, rgba(198,40,40,0.05), rgba(230,81,0,0.05));">
-          <div class="zone-item-left">
-            <div class="zone-dot" style="background: var(--yellow);"></div>
-            <div>
-              <div class="zone-name">Commande +5 000 FDJ</div>
-              <div class="zone-desc">Zone normale uniquement</div>
-            </div>
-          </div>
-          <!-- Couleur orange pour "GRATUIT" -->
-          <div class="zone-price" style="color: var(--orange);">GRATUIT</div>
-        </div>
-
       </div>
     </div>
 
-    <!-- Colonne droite : encart visuel carte avec CTA WhatsApp -->
-    <div class="zone-map">
-      <div class="zone-map-text">
-        <div class="zone-map-icon">🗺️</div>
-        <h3>Ali Sabieh</h3>
-        <p>Djibouti</p>
-        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
-          <!-- Info -->
-          <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 20px; color: white; font-size: 14px; font-weight: 600;">
-            📍 Vous êtes dans une autre zone ?
-          </div>
-          <!-- Bouton WhatsApp pour vérifier la zone -->
-          <a href="https://wa.me/25377784312?text=Bonjour%20je%20veux%20vérifier%20si%20vous%20livrez%20dans%20mon%20quartier" 
-             target="_blank"
-             style="background: var(--yellow); color: var(--red-dark); border-radius: 12px; padding: 12px 20px; font-size: 14px; font-weight: 700; text-decoration: none; font-family: 'Poppins', sans-serif;">
-            💬 Vérifier sur WhatsApp →
-          </a>
+    <!-- 🔒 CARTE 3 : QUINCAILLERIE -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-hardware">
+        <div class="sc-icon-wrap">🔧</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Quincaillerie</div>
+        <div class="sc-desc">Outils, visserie, matériaux de construction livrés sur chantier ou à domicile.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">🔨 Outils</span>
+          <span class="sc-tag">🏗️ Matériaux</span>
+          <span class="sc-tag">💡 Électricité</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 4 : BOUTIQUES MODE -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-fashion">
+        <div class="sc-icon-wrap">👗</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Boutiques & Mode</div>
+        <div class="sc-desc">Vêtements, accessoires, chaussures — les boutiques d'Ali Sabieh à portée de main.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">👔 Vêtements</span>
+          <span class="sc-tag">👟 Chaussures</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 5 : TRANSPORT BAJAJ -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-transport">
+        <div class="sc-icon-wrap">🛺</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Transport Bajaj</div>
+        <div class="sc-desc">Réservez un Bajaj en 1 clic — courses rapides partout dans Ali Sabieh.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">📍 Sur place</span>
+          <span class="sc-tag">⚡ Rapide</span>
+          <span class="sc-tag">💵 Cash</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Tarifs <strong> en négociation</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 6 : CAFÉTÉRIA -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-cafe">
+        <div class="sc-icon-wrap">☕</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Cafétéria & Thé</div>
+        <div class="sc-desc">Café djiboutien, thé à la menthe, goûters — une pause bien méritée livrée chez vous.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">☕ Café</span>
+          <span class="sc-tag">🍵 Thé</span>
+          <span class="sc-tag">🥐 Pâtisserie</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
         </div>
       </div>
     </div>
 
   </div>
-</section>
-
+</div>
+ </section>
 <!-- ═══════════════════════════════════════════
      SECTION TESTIMONIALS — Avis clients
      3 cartes en grille (repeat(3,1fr))
@@ -475,10 +384,11 @@
     <!-- Avis 1 — style normal (fond gris clair) -->
     <div class="review-card">
       <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-text">"Bara+ m'a sauvé la vie ! Plus besoin de sortir sous la chaleur pour aller chercher mon déjeuner. La livraison était parfaite et rapide."</p>
+      <p class="review-text">"Bara+ me simplifie la vie ! Je commande chez Al Shifa en 2 clics,
+         la commande part directement sur leur WhatsApp et je suis livré en moins d’une heure. Parfait."</p>
       <div class="reviewer">
         <!-- Avatar : cercle avec initiale (pas de photo) -->
-        <div class="reviewer-avatar">F</div>
+        <div class="reviewer-avatar">SO</div>
         <div>
           <div class="reviewer-name">Sahal Omar</div>
           <div class="reviewer-loc">📍 Q.Ali</div>
@@ -490,26 +400,13 @@
          Appliqué directement en style inline pour ce cas unique -->
     <div class="review-card" style="background: linear-gradient(135deg, var(--red-dark), var(--orange)); color: white;">
       <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Le pass mensuel vaut vraiment le prix. Je commande plusieurs fois par semaine et je fais des économies. Je recommande à tout le monde !"</p>
+      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Ce que j’aime avec Bara+, c’est le contact direct avec Lados. Le commerçant connaît mon quartier, confirme le prix et livre. Simple et honnête."</p>
       <div class="reviewer">
         <!-- Avatar jaune pour contraste sur fond rouge -->
-        <div class="reviewer-avatar" style="background: var(--yellow); color: var(--red-dark);">A</div>
+        <div class="reviewer-avatar" style="background: var(--yellow); color: var(--red-dark);">AA</div>
         <div>
           <div class="reviewer-name" style="color: var(--yellow);">Ahmed Ali</div>
           <div class="reviewer-loc" style="color: rgba(255,255,255,0.7);">📍 Centre ville</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Avis 3 — style normal -->
-    <div class="review-card">
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-text">"Le livreur était très professionnel. La commande était correcte et la nourriture encore chaude. Bara+ c'est vraiment pratique pour toute la famille."</p>
-      <div class="reviewer">
-        <div class="reviewer-avatar">H</div>
-        <div>
-          <div class="reviewer-name">Hodan Ismail</div>
-          <div class="reviewer-loc">📍 Chateau d'Eau</div>
         </div>
       </div>
     </div>
@@ -526,7 +423,7 @@
 <section class="cta" id="commander">
   <div class="cta-content">
     <h2>Prêt à commander<br>avec <span>Bara+</span> ?</h2>
-    <p>Envoyez simplement "Bonjour" sur notre WhatsApp et on s'occupe de tout. Votre repas arrive en 30 minutes.</p>
+    <p>Choisissez votre magasin ou restaurants, validez votre panier et votre commande part directement sur le WhatsApp du commerçant. Simple, rapide, sans intermédiaire.</p>
 
     <!-- Numéro de téléphone mis en avant -->
     <div class="cta-number">📱 +253 77 78 43 12</div>
@@ -562,7 +459,7 @@
     <div class="footer-brand">
       <!-- Logo texte (pas d'image ici) -->
       <div style="font-family:'Poppins',sans-serif; font-weight:900; font-size:28px; color:#FFB300; margin-bottom:16px;">BARA<span style="color:#fff">+</span></div>
-      <p>Le premier service de livraison à domicile d'Ali Sabieh. Rapide, fiable, abordable. Votre satisfaction est notre priorité.</p>
+      <p>La 1ère marketplace d'Ali Sabieh. Bara+ connecte les habitants assajogs aux commerces locaux — restaurants, pharmacies et plus. Commandez en direct, sans intermédiaire.</p>
 
       <!-- Boutons réseaux sociaux — icônes SVG inline, fond coloré de la marque -->
       <div class="footer-socials">
@@ -597,20 +494,10 @@
     <div class="footer-col">
       <h4>Services</h4>
       <ul>
-        <li><a href="#services">Bara+ Food</a></li>
-        <li><a href="#pass">Nos Pass</a></li>
-        <li><a href="#zones">Zones de livraison</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#">Pharmacies</a></li>
+        <li><a href="/pages/restaurants.html">Restaurants</a></li>
         <li><a href="#commander">Commander</a></li>
-      </ul>
-    </div>
-
-    <!-- Colonne 3 : Liens Pass -->
-    <div class="footer-col">
-      <h4>Pass</h4>
-      <ul>
-        <li><a href="#pass">Pass Standard — 2 000 FDJ</a></li>
-        <li><a href="#pass">Pass Confort — 3 000 FDJ</a></li>
-        <li><a href="#pass">Pass Premium — 5 000 FDJ</a></li>
       </ul>
     </div>
 
@@ -620,7 +507,7 @@
       <ul>
         <li><a href="https://wa.me/25377784312">💬 WhatsApp</a></li>
         <li>📍 Ali Sabieh, Djibouti</li>
-        <li>🕐 09h – 22h · 7j/7</li>
+        <li>🕐 08h – 22h · 7j/7</li>
         <li>📧 baraplus@gmail.com</li>
       </ul>
     </div>
@@ -744,24 +631,23 @@
   // IntersectionObserver : détecte quand un élément
   // entre dans le champ de vision de l'utilisateur
   // → déclenche l'animation d'apparition
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        // Élément visible → opacity:1 + retour à position normale
-        e.target.style.opacity   = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 }); // 0.1 = déclenche quand 10% est visible
-
-  // Applique l'état initial (invisible + décalé vers le bas)
-  // sur toutes ces classes, puis les observe
-  document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-card').forEach(el => {
-    el.style.opacity   = '0';           // invisible au départ
-    el.style.transform = 'translateY(30px)'; // décalé de 30px vers le bas
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; // animation
-    observer.observe(el); // commence à surveiller cet élément
+  // ── 5. ANIMATIONS AU SCROLL ──────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
   });
+}, { threshold: 0.1 });
+
+// Applique l'état initial aux éléments qui doivent apparaître
+document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service-card, .sc, .fi').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
 
 </script>
 </body>
