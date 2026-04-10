@@ -1,11 +1,11 @@
 const CACHE_NAME = 'baraplus-v2';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/assets/css/superapp.css',
-  '/assets/images/2.png',
-  '/assets/images/3.png',
-  '/pages/restaurants.html'
+  '/bara-plus/',
+  '/bara-plus/index.html',
+  '/bara-plus/assets/css/superapp.css',
+  '/bara-plus/assets/images/2.png',
+  '/bara-plus/assets/images/3.png',
+  '/bara-plus/pages/restaurants.html'
 ];
 
 // Installation : cache des ressources critiques
