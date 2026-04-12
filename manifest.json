@@ -8,12 +8,12 @@
   "theme_color": "#8B0000",
   "icons": [
     {
-      "src": "/bara-plus/assets/images/2.png",
+      "src": "/bara-plus/assets/images/3.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/bara-plus/assets/images/3.png",
+      "src": "/bara-plus/assets/images/2.png",
       "sizes": "512x512",
       "type": "image/png"
     }
