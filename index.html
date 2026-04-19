@@ -46,7 +46,7 @@
   <link rel="shortcut icon" href="assets/images/3.png" type="image/x-icon">
 
   <!-- Bara+ en PWA (Progressive Web App) -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#8B0000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -659,52 +659,188 @@ document.querySelectorAll('.step, .pass-card, .review-card, .zone-item, .service
 
 
 // PWA BARA +
-  // Attendre le chargement du DOM
+  // Attendre que tout le HTML soit chargé avant d'exécuter le script
 document.addEventListener('DOMContentLoaded', () => {
+
+  // Variable pour stocker l'événement d'installation PWA
   let deferredPrompt;
+
+  // Création dynamique d'un bouton "Installer l'application"
   const installBtn = document.createElement('button');
+
+  // Texte du bouton
   installBtn.innerHTML = "📲 Installer l'application Bara+";
-  installBtn.style.cssText = "position:fixed; bottom:20px; right:20px; z-index:9999; padding:15px 20px; background:#8B0000; color:white; border:none; border-radius:50px; display:none; cursor:pointer; font-weight:bold; box-shadow:0 10px 20px rgba(0,0,0,0.2);";
+
+  // Style inline (⚠️ pratique rapide mais pas propre en prod → mieux via CSS)
+  installBtn.style.cssText = `
+    position:fixed; 
+    bottom:20px; 
+    right:20px; 
+    z-index:9999; 
+    padding:15px 20px; 
+    background:#8B0000; 
+    color:white; 
+    border:none; 
+    border-radius:50px; 
+    display:none; 
+    cursor:pointer; 
+    font-weight:bold; 
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  `;
+
+  // Ajouter le bouton au body
   document.body.appendChild(installBtn);
 
-  // Détection iOS (pas de beforeinstallprompt)
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  // 🔥 Vérifier si déjà installé (TOUS les cas)
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true) {
+    installBtn.style.display = 'none';
+    return;
+  }
+
+  // Détection des appareils iOS
+  // ⚠️ iOS ne supporte pas "beforeinstallprompt"
+  const isIOS = 
+        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
   if (isIOS) {
+    // Modifier le texte du bouton pour iOS
     installBtn.innerHTML = "📲 Ajouter à l'écran d'accueil (iOS)";
+
+    // Afficher le bouton directement
     installBtn.style.display = 'block';
+
+    // Action au clic → afficher une instruction manuelle
     installBtn.onclick = () => {
       alert("Sur iOS, appuyez sur 'Partager' puis 'Ajouter à l'écran d'accueil'.");
     };
+
   } else {
+
+    // Écoute de l'événement qui permet l'installation PWA (Chrome, Edge, etc.)
     window.addEventListener('beforeinstallprompt', (e) => {
+
+      // Empêche le popup automatique du navigateur
       e.preventDefault();
+
+      // Sauvegarde de l'événement pour l'utiliser plus tard
       deferredPrompt = e;
-      installBtn.style.display = 'block';
+
+      // Afficher le bouton d'installation
+      setTimeout(() => {
+          installBtn.style.display = 'block';
+      }, 3000);
+
+      installBtn.setAttribute('aria-label', "Installer l'application Bara+");
     });
 
+    // Quand l'utilisateur clique sur le bouton
     installBtn.addEventListener('click', () => {
-      installBtn.style.display = 'none';
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') console.log('Installation acceptée');
-          deferredPrompt = null;
-        });
+
+      if (!deferredPrompt) {
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:8px;z-index:9999;font-size:14px;';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+           }
+        showToast("Installation non disponible pour le moment.");
+        return;
       }
+
+      // Cacher le bouton
+      installBtn.style.display = 'none';
+
+      
+
+      // Vérifier si l'événement est disponible
+      
+
+      // Déclencher le popup d'installation
+      deferredPrompt.prompt();
+
+      // Attendre la réponse utilisateur (accepté ou refusé)
+      deferredPrompt.userChoice.then((choiceResult) => {
+
+        // Si accepté → log (⚠️ inutile en prod)
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Installation acceptée');
+        } else {
+              console.log('Installation refusée');
+              trackEvent('pwa_install_dismissed'); 
+        }
+
+        // Réinitialiser pour éviter bugs
+        deferredPrompt = null;
+      });
+      
     });
   }
 
-  // Optionnel : cacher le bouton si déjà installé
+  // Quand l'application est installée
   window.addEventListener('appinstalled', () => {
+    function showToast(msg) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:8px;z-index:9999;font-size:14px;';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+           }
+
+    // Cacher définitivement le bouton
     installBtn.style.display = 'none';
+
+    // ⬆️  AMÉLIO — Ajouter un feedback utilisateur :
+    showToast("✅ Bara+ a été installée avec succès !");
+    console.log('[PWA] Application installée');
   });
 });
 
+
+window.addEventListener('load',() => {
+
+  // Vérifier si le navigateur supporte les Service Workers
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/bara-plus/sw.js')
-    .then(reg => console.log('SW enregistré, scope:', reg.scope))
-    .catch(err => console.error('Erreur SW:', err));
-}
+
+  // Enregistrement du Service Worker
+  navigator.serviceWorker.register('/bara-plus/sw.js', { scope: '/bara-plus/' })
+
+    // Si succès
+    .then(reg => {
+      console.log('SW enregistré, scope:', reg.scope); 
+
+      // Détecter une mise à jour et notifier l'utilisateur :
+      
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            function showToast(msg) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:8px;z-index:9999;font-size:14px;';
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+           }
+            showToast("Nouvelle version disponible. Rechargez la page.", {
+              action: () => window.location.reload()
+            });
+          }
+        });
+      });
+    })
+
+    // Si erreur
+    .catch(err => {
+      console.error('Erreur SW:', err);
+      if (typeof Sentry !== 'undefined') {
+             Sentry.captureException(err);
+           }
+    });
+  }
+})
 
 </script>
 </body>
