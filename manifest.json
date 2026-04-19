@@ -4,7 +4,7 @@
   "start_url": "/bara-plus/index.html",
   "scope": "/bara-plus/",
   "display": "standalone",
-  "background_color": "#8B0000",
+  "background_color": "#ffffff",
   "theme_color": "#8B0000",
   "icons": [
     {
