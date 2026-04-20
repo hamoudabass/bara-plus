@@ -46,13 +46,10 @@
   <link rel="shortcut icon" href="assets/images/3.png" type="image/x-icon">
 
   <!-- Bara+ en PWA (Progressive Web App) -->
-<<<<<<< HEAD
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#8B0000">
-=======
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#FFF5F7">
->>>>>>> e3f827b35a25ec237f04b61753d7cc756fc46c2e
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Bara+">
@@ -71,7 +68,13 @@
   <img src="assets/images/2.png" class="logo-img">
 
   <!-- Fallback texte si l'image logo ne charge pas -->
-  <div style="display:none; font-family:'Poppins',sans-serif; font-weight:900; font-size:24px; color:#FFB300; letter-spacing:1px;">BARA<span style="color:#fff">+</span></div>
+  <div style="
+        display:none;
+        font-family:'Poppins',sans-serif; 
+        font-weight:900; 
+        font-size:24px; 
+        color:#FFB300; 
+        letter-spacing:1px;">KULMIYEH<span style="color:#fff">+</span></div>
 
   <!-- Badge Ouvert/Fermé — rempli dynamiquement par JavaScript
        selon l'heure actuelle (09h-22h = ouvert) -->
@@ -150,13 +153,13 @@
   <!-- Colonne gauche : texte + statistiques + boutons -->
   <div class="hero-content">
     <div class="hero-badge">🔥 Nouveau à Ali Sabieh</div>
-    <h1>Bara+ <br> La 1ère Marketplace <span>Assajog</span></h1>
+    <h1>KULMIYEH <br> La 1ère Marketplace <span>Assajog</span></h1>
     <p>Commandez repas, médicaments, produits et services — directment chez vos commerçants préférés !</p>
 
     <!-- Statistiques revisitées pour la super app -->
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num">2<span style="font-size:18px">+</span></div>
+        <div class="stat-num">5<span style="font-size:18px">+</span></div>
         <div class="stat-label">Partenaires actifs</div>
       </div>
       <div class="stat">
@@ -198,8 +201,9 @@
   <div class="section-tag">Simple et rapide</div>
   <!-- section-title → grand titre, <span> en rouge -->
   <h2 class="section-title">Comment ça <span>marche</span> ?</h2>
-  <p class="section-sub">En 3 étapes, Bara+ transmet votre commande au commerçant, qui la prépare puis vous la livre ou vous la récupérer sur place.
-</p>
+  <p class="section-sub">En 3 étapes, KULMIYEH transmet votre commande au commerçant, 
+    qui la prépare puis vous la livre ou vous la récupérer sur place.
+  </p>
 
   <!-- Grille de 3 cartes étapes -->
   <div class="steps">
@@ -227,7 +231,9 @@
       <div class="step-num">3</div>
       <div class="step-icon">📲</div>
       <h3>Livré chez vous</h3>
-      <p>Votre commande est envoyée directement sur le WhatsApp du commerçant. Il confirme, prépare et vous livre — ou vous passez récupérer sur place.</p>
+      <p>Votre commande est envoyée directement sur le WhatsApp du commerçant. 
+        Il confirme, prépare et vous livre — ou vous passez récupérer sur place.
+      </p>
     </div>
 
   </div>
@@ -249,29 +255,7 @@
 
   <div class="services-grid">
 
-    <!-- ✅ CARTE 1 : PHARMACIE (ACTIVE) -->
-    <div class="sc active fi" onclick="window.location.href='index.html'">
-      <div class="sc-img bg-pharmacy">
-        <div class="sc-icon-wrap">💊</div>
-        <div class="sc-badge-active">✅ Disponible</div>
-        <div class="sc-badge-new">NOUVEAU</div>
-      </div>
-      <div class="sc-body">
-        <div class="sc-name">Pharmacie</div>
-        <div class="sc-desc">Médicaments, hygiène, parapharmacie — Pharmacie Al Shifa à votre service.</div>
-        <div class="sc-meta">
-          <span class="sc-tag">💊 Médicaments</span>
-          <span class="sc-tag">🧴 Hygiène</span>
-          <span class="sc-tag">👶 Bébé</span>
-        </div>
-        <div class="sc-footer">
-          <div class="sc-delivery">Livraison <strong>ou</strong> recupérer soi-même</div>
-          <a href="index.html" class="sc-btn">Commander →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 🔒 CARTE 2 : RESTAURANTS -->
+    <!-- 🔒 CARTE 1 : RESTAURANTS (ACTIVE) -->
     <div class="sc active fi" onclick="window.location.href='pages/restaurants.html'">
       <div class="sc-img bg-restaurant">
         <div class="sc-icon-wrap">🍔</div>
@@ -293,7 +277,49 @@
       </div>
     </div>
 
-    <!-- 🔒 CARTE 3 : QUINCAILLERIE -->
+    <!-- CARTE 2 : PHARMACIE  -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-pharmacy">
+        <div class="sc-icon-wrap">💊</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Pharmacie</div>
+        <div class="sc-desc">Médicaments, hygiène, parapharmacie — Tous à votre service.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">💊 Médicaments</span>
+          <span class="sc-tag">🧴 Hygiène</span>
+          <span class="sc-tag">👶 Bébé</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 3 : CAFÉTÉRIA -->
+    <div class="sc soon fi">
+      <div class="sc-img bg-cafe">
+        <div class="sc-icon-wrap">☕</div>
+        <div class="sc-badge-soon">Bientôt</div>
+      </div>
+      <div class="sc-body">
+        <div class="sc-name">Cafétéria & Thé</div>
+        <div class="sc-desc">Café djiboutien, thé à la menthe, goûters — une pause bien méritée livrée chez vous.</div>
+        <div class="sc-meta">
+          <span class="sc-tag">☕ Café</span>
+          <span class="sc-tag">🍵 Thé</span>
+          <span class="sc-tag">🥐 Pâtisserie</span>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
+          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 CARTE 4 : QUINCAILLERIE -->
     <div class="sc soon fi">
       <div class="sc-img bg-hardware">
         <div class="sc-icon-wrap">🔧</div>
@@ -314,7 +340,7 @@
       </div>
     </div>
 
-    <!-- 🔒 CARTE 4 : BOUTIQUES MODE -->
+    <!-- 🔒 CARTE 4 : BOUTIQUES MODE 
     <div class="sc soon fi">
       <div class="sc-img bg-fashion">
         <div class="sc-icon-wrap">👗</div>
@@ -332,9 +358,9 @@
           <button class="sc-btn soon-btn" disabled>Bientôt →</button>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- 🔒 CARTE 5 : TRANSPORT BAJAJ -->
+    <!-- 🔒 CARTE 5 : TRANSPORT BAJAJ 
     <div class="sc soon fi">
       <div class="sc-img bg-transport">
         <div class="sc-icon-wrap">🛺</div>
@@ -353,28 +379,9 @@
           <button class="sc-btn soon-btn" disabled>Bientôt →</button>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <!-- 🔒 CARTE 6 : CAFÉTÉRIA -->
-    <div class="sc soon fi">
-      <div class="sc-img bg-cafe">
-        <div class="sc-icon-wrap">☕</div>
-        <div class="sc-badge-soon">Bientôt</div>
-      </div>
-      <div class="sc-body">
-        <div class="sc-name">Cafétéria & Thé</div>
-        <div class="sc-desc">Café djiboutien, thé à la menthe, goûters — une pause bien méritée livrée chez vous.</div>
-        <div class="sc-meta">
-          <span class="sc-tag">☕ Café</span>
-          <span class="sc-tag">🍵 Thé</span>
-          <span class="sc-tag">🥐 Pâtisserie</span>
-        </div>
-        <div class="sc-footer">
-          <div class="sc-delivery">Livraison <strong>à confirmer</strong></div>
-          <button class="sc-btn soon-btn" disabled>Bientôt →</button>
-        </div>
-      </div>
-    </div>
+    
 
   </div>
 </div>
@@ -396,7 +403,7 @@
     <!-- Avis 1 — style normal (fond gris clair) -->
     <div class="review-card">
       <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-text">"Bara+ me simplifie la vie ! Je commande chez Al Shifa en 2 clics,
+      <p class="review-text">"KULMIYEH me simplifie la vie ! Je commande chez Iftin en 2 clics,
          la commande part directement sur leur WhatsApp et je suis livré en moins d’une heure. Parfait."</p>
       <div class="reviewer">
         <!-- Avatar : cercle avec initiale (pas de photo) -->
@@ -412,7 +419,7 @@
          Appliqué directement en style inline pour ce cas unique -->
     <div class="review-card" style="background: linear-gradient(135deg, var(--red-dark), var(--orange)); color: white;">
       <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Ce que j’aime avec Bara+, c’est le contact direct avec Lados. Le commerçant connaît mon quartier, confirme le prix et livre. Simple et honnête."</p>
+      <p class="review-text" style="color: rgba(255,255,255,0.9);">"Ce que j’aime avec KULMIYEH, c’est le contact direct avec Lados. Le commerçant connaît mon quartier, confirme le prix et livre. Simple et honnête."</p>
       <div class="reviewer">
         <!-- Avatar jaune pour contraste sur fond rouge -->
         <div class="reviewer-avatar" style="background: var(--yellow); color: var(--red-dark);">AA</div>
@@ -434,7 +441,7 @@
      ═══════════════════════════════════════════ -->
 <section class="cta" id="commander">
   <div class="cta-content">
-    <h2>Prêt à commander<br>avec <span>Bara+</span> ?</h2>
+    <h2>Prêt à commander<br>avec <span>KULMIYEH</span> ?</h2>
     <p>Choisissez votre magasin ou restaurants, validez votre panier et votre commande part directement sur le WhatsApp du commerçant. Simple, rapide, sans intermédiaire.</p>
 
     <!-- Numéro de téléphone mis en avant -->
@@ -452,9 +459,9 @@
 
     <!-- 3 informations rapides en ligne -->
     <div class="cta-info">
-      <div class="cta-info-item">🕐 <strong>09h – 22h</strong> · 7 jours sur 7</div>
+      <div class="cta-info-item">🕐 <strong>08h – 22h</strong> · 7 jours sur 7</div>
       <div class="cta-info-item">💳 <strong>Waffi</strong> · D-Money · CacPay</div>
-      <div class="cta-info-item">⚡ Réponse en <strong>moins de 2 min</strong></div>
+      <div class="cta-info-item">✔ Partenaires <strong>verifiés</strong></div>
     </div>
   </div>
 </section>
@@ -470,8 +477,8 @@
     <!-- Colonne 1 : Logo + description + réseaux sociaux -->
     <div class="footer-brand">
       <!-- Logo texte (pas d'image ici) -->
-      <div style="font-family:'Poppins',sans-serif; font-weight:900; font-size:28px; color:#FFB300; margin-bottom:16px;">BARA<span style="color:#fff">+</span></div>
-      <p>La 1ère marketplace d'Ali Sabieh. Bara+ connecte les habitants assajogs aux commerces locaux — restaurants, pharmacies et plus. Commandez en direct, sans intermédiaire.</p>
+      <div style="font-family:'Poppins',sans-serif; font-weight:900; font-size:28px; color:#FFB300; margin-bottom:16px;">KULMIYEH</div>
+      <p>La 1ère marketplace d'Ali Sabieh. KULMIYEH connecte les habitants assajogs aux commerces locaux — restaurants, pharmacies et plus. Commandez en direct, sans intermédiaire.</p>
 
       <!-- Boutons réseaux sociaux — icônes SVG inline, fond coloré de la marque -->
       <div class="footer-socials">
@@ -493,7 +500,7 @@
         </a>
 
         <!-- WhatsApp — fond vert #25D366 -->
-        <a href="https://wa.me/25377784312?text=Bonjour%20Bara%2B" target="_blank" class="social-btn"
+        <a href="https://wa.me/25377784312?text=Bonjour%20KULMIYEH%2B" target="_blank" class="social-btn"
            style="background:#25D366;color:#fff">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -520,7 +527,7 @@
         <li><a href="https://wa.me/25377784312">💬 WhatsApp</a></li>
         <li>📍 Ali Sabieh, Djibouti</li>
         <li>🕐 08h – 22h · 7j/7</li>
-        <li>📧 baraplus@gmail.com</li>
+        <li>📧 kulmiyeh@gmail.com</li>
       </ul>
     </div>
 
@@ -548,17 +555,17 @@
     var badge  = document.getElementById('statusBadge');
     var now    = new Date();        // heure actuelle
     var h      = now.getHours();   // ex: 14 pour 14h00
-    var isOpen = h >= 9 && h < 22; // ouvert entre 09h et 22h
+    var isOpen = h >= 7 && h < 23.9; // ouvert entre 09h et 22h
 
     if (isOpen) {
       // Vert avec point clignotant
-      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Ouvert · Livraison disponible';
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#4CAF50;display:inline-block;animation:blink 1.5s infinite;"></span> Service disponible';
       badge.style.background = 'rgba(76,175,80,0.18)';
       badge.style.color      = '#A5D6A7';
       badge.style.border     = '1px solid rgba(76,175,80,0.4)';
     } else {
       // Rouge sans animation
-      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Fermé · Rouvre à 09h';
+      badge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#EF5350;display:inline-block;"></span> Service Indisponible';
       badge.style.background = 'rgba(239,83,80,0.18)';
       badge.style.color      = '#EF9A9A';
       badge.style.border     = '1px solid rgba(239,83,80,0.35)';
