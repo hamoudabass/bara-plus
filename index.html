@@ -30,7 +30,7 @@
 
   <!-- Titre qui apparaît dans l'onglet du navigateur -->
   <!-- SEO pivot marketplace -->
-  <title>Bara+ — Marketplace Ali Sabieh · Commandez en direct</title>
+  <title>KULMIYEH — Marketplace Ali Sabieh · Commandez en direct</title>
   <meta name="description" content="Bara+ connecte les habitants d'Ali Sabieh à leurs commerces préférés. 
   Commandez directement chez Lados, Aska Food, Iftin, Pharmacie Al Shifa — sans intermédiaire.">
 
@@ -814,7 +814,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load',() => {
 
   // Vérifier si le navigateur supporte les Service Workers
-if ('serviceWorker' in navigator) {
+/*  if ('serviceWorker' in navigator) {
 
   // Enregistrement du Service Worker
   navigator.serviceWorker.register('/bara-plus/sw.js', { scope: '/bara-plus/' })
@@ -851,7 +851,13 @@ if ('serviceWorker' in navigator) {
              Sentry.captureException(err);
            }
     });
-  }
+  }*/
+  // SW désactivé temporairement
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((reg) => reg.unregister());
+  });
+}
 })
 
 </script>
