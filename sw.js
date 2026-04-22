@@ -1,4 +1,4 @@
-const CACHE_NAME = 'baraplus-v2';
+/*const CACHE_NAME = 'baraplus-v2';
 const STATIC_ASSETS = [
   '/bara-plus/',
   '/bara-plus/index.html',
@@ -48,5 +48,16 @@ self.addEventListener('fetch', (e) => {
         return new Response('Hors ligne – Bara+ revient bientôt', { status: 503 });
       });
     })
+  );
+});
+*/
+
+// Désactivation du Service Worker
+self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((key) => caches.delete(key)))
+    ).then(() => self.clients.claim())
   );
 });
